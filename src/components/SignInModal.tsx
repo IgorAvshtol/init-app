@@ -12,7 +12,9 @@ export function SignInModal({ setSignInModalOn }: ISignInModal) {
     formState: { errors },
   } = useForm();
   const handleRegistration = (data: any) => console.log(data);
-  const handleError = () => {};
+  const handleError = (data: any) => {
+    console.log(data);
+  };
 
   const registerOptions = {
     email: { required: 'Email is required' },
@@ -28,6 +30,7 @@ export function SignInModal({ setSignInModalOn }: ISignInModal) {
     e.stopPropagation();
     setSignInModalOn(false);
   };
+
   return (
     <div className="fixed w-full h-full flex justify-center items-center left-0 top-0 bg-slate-400">
       <div className="relative w-80 h-80">

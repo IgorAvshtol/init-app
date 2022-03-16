@@ -4,16 +4,17 @@
         "es2021": true
     },
     "extends": [
-        "plugin:prettier/recommended"
-//        "plugin:@typescript-eslint/recommended",
-//        "plugin:react-hooks/recommended",
-//        "plugin:react/recommended",
-//        "plugin:import/errors",
-//        "plugin:import/warnings",
-//        "plugin:import/typescript",
-//        "plugin:prettier/recommended",
-//        "prettier",
-//        "prettier/react"
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:react/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "plugin:prettier/recommended",
+        "google",
+//        "prettier/react",
+        "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -29,6 +30,13 @@
         "prettier"
     ],
     "rules": {
+        "padding-line-between-statements": [
+            "error",
+            { "blankLine": "always", "prev": "function", "next": "return" }
+        ],
+        "react/react-in-jsx-scope": "off",
+        "spaced-comment": "off",
+        "no-unused-vars": "off",
         "require-jsdoc": "off",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/ban-types": "off"

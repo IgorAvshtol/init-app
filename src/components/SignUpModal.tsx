@@ -31,6 +31,7 @@ export function SignUpModal({ setSignUpModalOn }: ISignUpModal) {
     e.stopPropagation();
     setSignUpModalOn(false);
   };
+
   return (
     <div className="fixed w-full h-full flex justify-center items-center left-0 top-0 bg-slate-400">
       <div className="relative w-80 h-80">
