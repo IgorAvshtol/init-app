@@ -1,8 +1,15 @@
-import { useForm } from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
+
+import { useForm } from 'react-hook-form';
 
 interface ISignUpModal {
   setSignUpModalOn: Dispatch<SetStateAction<boolean>>;
+}
+
+interface ISignUpData {
+  name: string;
+  email: string;
+  password: string;
 }
 
 export function SignUpModal({ setSignUpModalOn }: ISignUpModal) {
@@ -10,8 +17,8 @@ export function SignUpModal({ setSignUpModalOn }: ISignUpModal) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const handleRegistration = (data: any) => console.log(data);
+  } = useForm<ISignUpData>();
+  const handleRegistration = (data: ISignUpData) => console.log(data);
   const handleError = (data: any) => {
     console.log(data);
   };
@@ -27,7 +34,7 @@ export function SignUpModal({ setSignUpModalOn }: ISignUpModal) {
       },
     },
   };
-  const onClothClickHandler = (e: any) => {
+  const onClothClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setSignUpModalOn(false);
   };
