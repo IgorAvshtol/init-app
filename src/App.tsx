@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
+import { Cases } from './components/Cases/Cases';
 
 function App() {
   const [modalName, setModalName] = useState('');
@@ -14,6 +15,7 @@ function App() {
       <Header setSetTitleModal={setModalName} setIsOpen={setIsModalOpen} />
       <Modal modalName={modalName} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
       <Main />
+      <Cases />
       <Footer />
     </div>
   );
