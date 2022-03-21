@@ -1,6 +1,7 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useContext } from 'react';
 
 import logo from '../image/logo.png';
+import { userDataContext } from '../App';
 
 interface IHeader {
   setSignUpModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -9,6 +10,7 @@ interface IHeader {
 }
 
 export function Header({ setSignInModalOpen, setSignUpModalOpen, setIsOpen }: IHeader) {
+  const contextData = useContext(userDataContext);
   const onClickSignInHandler = () => {
     setSignUpModalOpen(false);
     setSignInModalOpen(true);
@@ -28,20 +30,29 @@ export function Header({ setSignInModalOpen, setSignUpModalOpen, setIsOpen }: IH
           <a href="/">
             <img width={80} src={logo} alt="main-logo" />
           </a>
-          <div className="w-36 flex justify-between">
+          {contextData ? (
             <div
               className="text-green-300 hover:text-green-700 cursor-pointer"
               onClick={onClickSignInHandler}
             >
-              Sign In
+              {contextData.email}
             </div>
-            <div
-              className="text-green-300 hover:text-green-700 cursor-pointer"
-              onClick={onClickSignUpHandler}
-            >
-              Sign Up
+          ) : (
+            <div className="w-36 flex justify-between">
+              <div
+                className="text-green-300 hover:text-green-700 cursor-pointer"
+                onClick={onClickSignInHandler}
+              >
+                Sign In
+              </div>
+              <div
+                className="text-green-300 hover:text-green-700 cursor-pointer"
+                onClick={onClickSignUpHandler}
+              >
+                Sign Up
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <hr className="pt-2" />

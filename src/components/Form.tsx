@@ -1,12 +1,14 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 
 import { Input } from './Input';
+import { userDataContext } from '../App';
 
 interface IForm {
   signUpModalOpen: boolean;
   signInModalOpen: boolean;
-  setAuthData: Dispatch<SetStateAction<ISignUpData | undefined>>;
+  setRegisterData: Dispatch<SetStateAction<ISignUpData | undefined>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface ISignUpData {
@@ -20,13 +22,18 @@ export interface IErrorData {
   password?: FieldError | undefined;
 }
 
-export function Form({ signUpModalOpen, signInModalOpen, setAuthData }: IForm) {
+export function Form({ signUpModalOpen, signInModalOpen, setRegisterData, setIsOpen }: IForm) {
+  const contextData = useContext(userDataContext);
+  if (contextData) setIsOpen(false);
+  const onSubmitButtonHandler = (data: ISignUpData) => {
+    setRegisterData(data);
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignUpData>();
-  const handleRegistration = (data: ISignUpData) => setAuthData(data);
+  const handleRegistration = (data: ISignUpData) => onSubmitButtonHandler(data);
   const handleError = (data: IErrorData) => {
     console.log(data);
   };
