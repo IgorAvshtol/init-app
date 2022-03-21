@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 
 import { Input } from './Input';
 
-interface ISignUpData {
+interface IForm {
+  signUpModalOpen: boolean;
+  signInModalOpen: boolean;
+}
+
+export interface ISignUpData {
   name: string;
   email: string;
   password: string;
@@ -14,7 +19,7 @@ export interface IErrorData {
   password?: FieldError | undefined;
 }
 
-export function SignUpForm() {
+export function Form({ signUpModalOpen, signInModalOpen }: IForm) {
   const {
     register,
     handleSubmit,
@@ -42,18 +47,20 @@ export function SignUpForm() {
       className="flex flex-col justify-between items-center"
       onSubmit={handleSubmit(handleRegistration, handleError)}
     >
+      {!signInModalOpen && signUpModalOpen && (
+        <div className="flex flex-col justify-center items-center">
+          <Input
+            register={register}
+            registeroptions={registerOptions}
+            errors={errors}
+            type={'name'}
+          />
+        </div>
+      )}
       <div className="flex flex-col justify-center items-center">
         <Input
           register={register}
-          registerOptions={registerOptions}
-          errors={errors}
-          type={'name'}
-        />
-      </div>
-      <div className="flex flex-col justify-center items-center">
-        <Input
-          register={register}
-          registerOptions={registerOptions}
+          registeroptions={registerOptions}
           errors={errors}
           type={'email'}
         />
@@ -61,7 +68,7 @@ export function SignUpForm() {
       <div className="flex flex-col justify-center items-center">
         <Input
           register={register}
-          registerOptions={registerOptions}
+          registeroptions={registerOptions}
           errors={errors}
           type={'password'}
         />

@@ -4,18 +4,24 @@ import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
-import { Cases } from './components/Cases/Cases';
+import { Form } from './components/Form';
 
 function App() {
-  const [modalName, setModalName] = useState('');
+  const [onSignInButtonClick, setOnSignInButtonClick] = useState(false);
+  const [onSignUpButtonClick, setOnSignUpButtonClick] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header setSetTitleModal={setModalName} setIsOpen={setIsModalOpen} />
-      <Modal modalName={modalName} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+      <Header
+        setOnSignInButtonClick={setOnSignInButtonClick}
+        setOnSignUpButtonClick={setOnSignUpButtonClick}
+        setIsOpen={setIsModalOpen}
+      />
+      <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+        <Form signUpModalOpen={onSignUpButtonClick} signInModalOpen={onSignInButtonClick} />
+      </Modal>
       <Main />
-      <Cases />
       <Footer />
     </div>
   );

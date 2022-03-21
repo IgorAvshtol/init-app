@@ -3,13 +3,21 @@ import React, { Dispatch, SetStateAction } from 'react';
 import logo from '../image/logo.png';
 
 interface IHeader {
-  setSetTitleModal: Dispatch<SetStateAction<string>>;
+  setOnSignInButtonClick: Dispatch<SetStateAction<boolean>>;
+  setOnSignUpButtonClick: Dispatch<SetStateAction<boolean>>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function Header({ setSetTitleModal, setIsOpen }: IHeader) {
-  const onClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setSetTitleModal(e.currentTarget.textContent!);
+export function Header({ setOnSignInButtonClick, setOnSignUpButtonClick, setIsOpen }: IHeader) {
+  const onClickSignInHandler = () => {
+    setOnSignUpButtonClick(false);
+    setOnSignInButtonClick(true);
+    setIsOpen(true);
+  };
+
+  const onClickSignUpHandler = () => {
+    setOnSignInButtonClick(false);
+    setOnSignUpButtonClick(true);
     setIsOpen(true);
   };
 
@@ -23,13 +31,13 @@ export function Header({ setSetTitleModal, setIsOpen }: IHeader) {
           <div className="w-36 flex justify-between">
             <div
               className="text-green-300 hover:text-green-700 cursor-pointer"
-              onClick={onClickHandler}
+              onClick={onClickSignInHandler}
             >
               Sign In
             </div>
             <div
               className="text-green-300 hover:text-green-700 cursor-pointer"
-              onClick={onClickHandler}
+              onClick={onClickSignUpHandler}
             >
               Sign Up
             </div>

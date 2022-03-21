@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 interface IInput {
   register: any;
-  registerOptions: IRegisterOptions;
+  registeroptions: IRegisterOptions;
   errors: any;
-  type: string;
+  type: 'name' | 'email' | 'password';
 }
 
 interface IRegisterOptions {
@@ -31,18 +31,21 @@ interface IMinLength {
   message: string;
 }
 
-export function Input({ register, registerOptions, errors, type }: IInput) {
+export const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
+  const { register, type, errors, registeroptions } = props;
+
   return (
     <div className="flex flex-col justify-center items-center">
       <label>{type}:</label>
       <input
         className="border-2 mt-1 pl-2"
+        ref={ref}
         type={type === 'name' ? 'text' : type}
-        {...register(type, type === 'name' && registerOptions['name'])}
-        {...register(type, type === 'email' && registerOptions['email'])}
-        {...register(type, type === 'password' && registerOptions['password'])}
+        {...register(type, registeroptions[`${type}`])}
       />
       <small className="text-danger">{errors?.[type] && errors[type].message}</small>
     </div>
   );
-}
+});
+
+Input.displayName = 'Input';
