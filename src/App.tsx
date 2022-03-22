@@ -1,25 +1,33 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
-import { Form } from './components/Form';
+
+import { SignInForm } from './components/SignInForm';
+import { SignUpForm } from './components/SignUpForm';
 
 function App() {
-  const [onSignInButtonClick, setOnSignInButtonClick] = useState(false);
-  const [onSignUpButtonClick, setOnSignUpButtonClick] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+
+  const toggleSignInModal = () => {
+    setIsSignInModalOpen((isOpen) => !isOpen);
+  };
+
+  const toggleSignUpModal = () => {
+    setIsSignUpModalOpen((isOpen) => !isOpen);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header
-        setOnSignInButtonClick={setOnSignInButtonClick}
-        setOnSignUpButtonClick={setOnSignUpButtonClick}
-        setIsOpen={setIsModalOpen}
-      />
-      <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-        <Form signUpModalOpen={onSignUpButtonClick} signInModalOpen={onSignInButtonClick} />
+      <Header onSignInBtnClick={toggleSignInModal} onSignUpBtnClick={toggleSignUpModal} />
+      <Modal isOpen={isSignInModalOpen} onClose={toggleSignInModal}>
+        <SignInForm />
+      </Modal>
+      <Modal isOpen={isSignUpModalOpen} onClose={toggleSignUpModal}>
+        <SignUpForm />
       </Modal>
       <Main />
       <Footer />
