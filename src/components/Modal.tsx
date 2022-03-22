@@ -1,27 +1,22 @@
-import React, { Dispatch, Fragment, SetStateAction, useRef } from 'react';
+import { Fragment, useRef } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
 interface IModal {
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  onClose: () => void;
   isOpen: boolean;
   children: JSX.Element;
 }
 
-export function Modal({ isOpen, setIsOpen, children }: IModal) {
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  const completeButtonRef = useRef(null);
-
+export function Modal({ isOpen, onClose, children }: IModal) {
+  const initRef = useRef(null);
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
-        initialFocus={completeButtonRef}
+        initialFocus={initRef}
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={closeModal}
+        onClose={onClose}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
@@ -33,13 +28,9 @@ export function Modal({ isOpen, setIsOpen, children }: IModal) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0" />
+            <Dialog.Overlay className="fixed inset-0 bg-slate-500 opacity-60" />
           </Transition.Child>
-          <span
-            ref={completeButtonRef}
-            className="inline-block h-screen align-middle"
-            aria-hidden="true"
-          >
+          <span ref={initRef} className="inline-block h-screen align-middle" aria-hidden="true">
             &#8209;
           </span>
           <Transition.Child

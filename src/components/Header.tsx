@@ -1,28 +1,13 @@
-import React, { Dispatch, SetStateAction, useContext } from 'react';
-
 import logo from '../image/logo.png';
-import { userDataContext } from '../App';
+import { useAuth } from '../hooks/useProvideAuth';
 
 interface IHeader {
-  setSignUpModalOpen: Dispatch<SetStateAction<boolean>>;
-  setSignInModalOpen: Dispatch<SetStateAction<boolean>>;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  onSignInBtnClick: () => void;
+  onSignUpBtnClick: () => void;
 }
 
-export function Header({ setSignInModalOpen, setSignUpModalOpen, setIsOpen }: IHeader) {
-  const contextData = useContext(userDataContext);
-  const onClickSignInHandler = () => {
-    setSignUpModalOpen(false);
-    setSignInModalOpen(true);
-    setIsOpen(true);
-  };
-
-  const onClickSignUpHandler = () => {
-    setSignInModalOpen(false);
-    setSignUpModalOpen(true);
-    setIsOpen(true);
-  };
-
+export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
+  const auth = useAuth();
   return (
     <header className="h-28 w-4/5 m-auto">
       <div className="h-full flex items-center">
@@ -30,24 +15,24 @@ export function Header({ setSignInModalOpen, setSignUpModalOpen, setIsOpen }: IH
           <a href="/">
             <img width={80} src={logo} alt="main-logo" />
           </a>
-          {contextData ? (
+          {auth.userData?.user ? (
             <div
               className="text-green-300 hover:text-green-700 cursor-pointer"
-              onClick={onClickSignInHandler}
+              onClick={onSignInBtnClick}
             >
-              {contextData.email}
+              {auth.userData.user.email}
             </div>
           ) : (
             <div className="w-36 flex justify-between">
               <div
                 className="text-green-300 hover:text-green-700 cursor-pointer"
-                onClick={onClickSignInHandler}
+                onClick={onSignInBtnClick}
               >
                 Sign In
               </div>
               <div
                 className="text-green-300 hover:text-green-700 cursor-pointer"
-                onClick={onClickSignUpHandler}
+                onClick={onSignUpBtnClick}
               >
                 Sign Up
               </div>

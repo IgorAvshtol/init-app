@@ -30,6 +30,7 @@
         "prettier"
     ],
     "rules": {
+        "prefer-promise-reject-errors": "off",
         "padding-line-between-statements": [
             "error",
             { "blankLine": "always", "prev": "function", "next": "return" }

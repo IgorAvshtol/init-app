@@ -1,41 +1,40 @@
-import React, { createContext, useState } from 'react';
+import { useState } from 'react';
 
+import { ProvideAuth } from './hooks/useProvideAuth';
+
+import { SignInForm } from './components/SignInForm';
+import { SignUpForm } from './components/SignUpForm';
 import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
-import { Form, ISignUpData } from './components/Form';
-import { IResponse, useAuth } from './hooks/useAuth';
-
-export const userDataContext = createContext<IResponse | null | undefined>(null);
 
 function App() {
-  const [signInModalOpen, setSignInModalOpen] = useState(false);
-  const [signUpModalOpen, setSignUpModalOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [registerData, setRegisterData] = useState<ISignUpData>();
-  const { userData, error } = useAuth(registerData);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+
+  const toggleSignInModal = () => {
+    setIsSignInModalOpen((isOpen) => !isOpen);
+  };
+
+  const toggleSignUpModal = () => {
+    setIsSignUpModalOpen((isOpen) => !isOpen);
+  };
 
   return (
-    <userDataContext.Provider value={userData?.user}>
+    <ProvideAuth>
       <div className="min-h-screen flex flex-col">
-        <Header
-          setSignInModalOpen={setSignInModalOpen}
-          setSignUpModalOpen={setSignUpModalOpen}
-          setIsOpen={setIsModalOpen}
-        />
-        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-          <Form
-            signUpModalOpen={signUpModalOpen}
-            signInModalOpen={signInModalOpen}
-            setRegisterData={setRegisterData}
-            setIsOpen={setIsModalOpen}
-          />
+        <Header onSignInBtnClick={toggleSignInModal} onSignUpBtnClick={toggleSignUpModal} />
+        <Modal isOpen={isSignInModalOpen} onClose={toggleSignInModal}>
+          <SignInForm onClose={toggleSignInModal} />
+        </Modal>
+        <Modal isOpen={isSignUpModalOpen} onClose={toggleSignUpModal}>
+          <SignUpForm onClose={toggleSignUpModal} />
         </Modal>
         <Main />
         <Footer />
       </div>
-    </userDataContext.Provider>
+    </ProvideAuth>
   );
 }
 

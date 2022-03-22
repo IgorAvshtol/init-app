@@ -1,24 +1,31 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
-const instance = axios.create({
-  withCredentials: false,
-  baseURL: 'https://api.realworld.io/api/',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import { instance } from '../api/api';
 
-interface IRegisterData {
+export interface IRegisterData {
   name?: string;
   email: string;
   password: string;
 }
 
-interface IRegisterStatus {
+export interface IRegisterStatus {
   error: string;
   loading: boolean;
   userData: IResponseData | null;
+}
+
+export interface IAuthData {
+  error: string;
+  loading: boolean;
+  userData: IResponseData | null;
+  setRegisterData: Dispatch<SetStateAction<IRegisterData | undefined>>;
 }
 
 export interface IResponseData {
@@ -32,7 +39,23 @@ export interface IResponse {
   token: string;
 }
 
-export const useAuth = (data: IRegisterData | undefined) => {
+export const AuthContext = createContext<IAuthData>(null!);
+
+interface IProviderAuth {
+  children: React.ReactNode;
+}
+
+export function ProvideAuth({ children }: IProviderAuth) {
+  const auth = useProvideAuth();
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+}
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
+
+export const useProvideAuth = () => {
+  const [registerData, setRegisterData] = useState<IRegisterData>();
   const [status, setStatus] = useState<IRegisterStatus>({
     error: '',
     userData: null,
@@ -69,12 +92,12 @@ export const useAuth = (data: IRegisterData | undefined) => {
   }
 
   useEffect(() => {
-    if (data?.name) {
-      register(data);
-    } else if (data) {
-      login(data);
+    if (registerData) {
+      register(registerData);
+    } else if (registerData) {
+      login(registerData);
     }
-  }, [data]);
+  }, [registerData]);
 
-  return { ...status };
+  return { ...status, setRegisterData };
 };
