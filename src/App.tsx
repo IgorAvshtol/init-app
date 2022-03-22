@@ -5,7 +5,7 @@ import { Main } from './components/Main';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
 import { Form, ISignUpData } from './components/Form';
-import { IResponse, useRegister } from './hooks/useRegister';
+import { IResponse, useAuth } from './hooks/useAuth';
 
 export const userDataContext = createContext<IResponse | null | undefined>(null);
 
@@ -14,7 +14,7 @@ function App() {
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [registerData, setRegisterData] = useState<ISignUpData>();
-  const { userData, error } = useRegister(registerData);
+  const { userData, error } = useAuth(registerData);
 
   return (
     <userDataContext.Provider value={userData?.user}>

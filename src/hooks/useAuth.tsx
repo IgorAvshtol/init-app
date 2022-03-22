@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const instance = axios.create({
@@ -10,7 +10,7 @@ const instance = axios.create({
 });
 
 interface IRegisterData {
-  name: string;
+  name?: string;
   email: string;
   password: string;
 }
@@ -32,7 +32,7 @@ export interface IResponse {
   token: string;
 }
 
-export const useRegister = (data: IRegisterData | undefined) => {
+export const useAuth = (data: IRegisterData | undefined) => {
   const [status, setStatus] = useState<IRegisterStatus>({
     error: '',
     userData: null,
@@ -54,11 +54,27 @@ export const useRegister = (data: IRegisterData | undefined) => {
       .catch((error) => setStatus({ error: error, userData: null, loading: false }));
   }
 
+  function login(loginData: IRegisterData) {
+    const user = JSON.stringify({
+      user: {
+        email: loginData.email,
+        password: loginData.password,
+      },
+    });
+    setStatus({ loading: true, userData: null, error: '' });
+    instance
+      .post(`users/login`, user)
+      .then((res) => setStatus({ userData: res.data, error: 'no error', loading: false }))
+      .catch((error) => setStatus({ error: error, userData: null, loading: false }));
+  }
+
   useEffect(() => {
-    if (data) {
+    if (data?.name) {
       register(data);
+    } else if (data) {
+      login(data);
     }
   }, [data]);
 
-  return { ...status, auth: register };
+  return { ...status };
 };
