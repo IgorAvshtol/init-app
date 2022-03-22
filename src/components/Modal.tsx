@@ -1,21 +1,17 @@
-import React, { Dispatch, Fragment, SetStateAction } from 'react';
+import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
 interface IModal {
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  onClose: () => void;
   isOpen: boolean;
   children: JSX.Element;
 }
 
-export function Modal({ isOpen, setIsOpen, children }: IModal) {
-  function closeModal() {
-    setIsOpen(false);
-  }
-
+export function Modal({ isOpen, onClose, children }: IModal) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={closeModal}>
+      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
             as={Fragment}
@@ -26,8 +22,9 @@ export function Modal({ isOpen, setIsOpen, children }: IModal) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0" />
+            <Dialog.Overlay className="fixed inset-0 bg-slate-500 opacity-60" />
           </Transition.Child>
+          {/* Why do we need this span here?  */}
           <span className="inline-block h-screen align-middle" aria-hidden="true">
             &#8209;
           </span>

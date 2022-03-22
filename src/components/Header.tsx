@@ -1,26 +1,11 @@
-import React, { Dispatch, SetStateAction } from 'react';
-
 import logo from '../image/logo.png';
 
 interface IHeader {
-  setOnSignInButtonClick: Dispatch<SetStateAction<boolean>>;
-  setOnSignUpButtonClick: Dispatch<SetStateAction<boolean>>;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  onSignInBtnClick: () => void;
+  onSignUpBtnClick: () => void;
 }
 
-export function Header({ setOnSignInButtonClick, setOnSignUpButtonClick, setIsOpen }: IHeader) {
-  const onClickSignInHandler = () => {
-    setOnSignUpButtonClick(false);
-    setOnSignInButtonClick(true);
-    setIsOpen(true);
-  };
-
-  const onClickSignUpHandler = () => {
-    setOnSignInButtonClick(false);
-    setOnSignUpButtonClick(true);
-    setIsOpen(true);
-  };
-
+export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
   return (
     <header className="h-28 w-4/5 m-auto">
       <div className="h-full flex items-center">
@@ -31,13 +16,13 @@ export function Header({ setOnSignInButtonClick, setOnSignUpButtonClick, setIsOp
           <div className="w-36 flex justify-between">
             <div
               className="text-green-300 hover:text-green-700 cursor-pointer"
-              onClick={onClickSignInHandler}
+              onClick={onSignInBtnClick}
             >
               Sign In
             </div>
             <div
               className="text-green-300 hover:text-green-700 cursor-pointer"
-              onClick={onClickSignUpHandler}
+              onClick={onSignUpBtnClick}
             >
               Sign Up
             </div>
