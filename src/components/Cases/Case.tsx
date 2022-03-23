@@ -1,4 +1,3 @@
-// @ts-ignore
 import classNames from 'classnames';
 
 interface ICase {
