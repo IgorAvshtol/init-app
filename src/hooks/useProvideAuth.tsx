@@ -92,7 +92,7 @@ export const useProvideAuth = () => {
   }
 
   useEffect(() => {
-    if (registerData) {
+    if (registerData?.name) {
       register(registerData);
     } else if (registerData) {
       login(registerData);
