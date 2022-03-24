@@ -14,18 +14,18 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
             <img width={80} src={logo} alt="main-logo" />
           </a>
           <div className="w-36 flex justify-between">
-            <div
+            <button
               className="text-green-300 hover:text-green-700 cursor-pointer"
               onClick={onSignInBtnClick}
             >
               Sign In
-            </div>
-            <div
+            </button>
+            <button
               className="text-green-300 hover:text-green-700 cursor-pointer"
               onClick={onSignUpBtnClick}
             >
               Sign Up
-            </div>
+            </button>
           </div>
         </div>
       </div>
