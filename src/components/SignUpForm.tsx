@@ -19,7 +19,7 @@ export const SignUpForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ISignUpData>();
+  } = useForm<ISignUpData>({ defaultValues: { name: '', email: '', password: '' } });
   const handleRegistration = (data: ISignUpData) => console.log(data);
   const handleError = (data: IErrorData) => {
     console.log(data);
