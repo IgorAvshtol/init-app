@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 
+import { useAuth } from './hooks/useProvideAuth';
+
 import { Input } from './Input';
+
+interface ISignInForm {
+  onClose: () => void;
+}
 
 export interface ISignInData {
   email: string;
@@ -13,13 +19,22 @@ export interface IErrorData {
   password?: FieldError | undefined;
 }
 
-export const SignInForm: React.FC = () => {
+export function SignInForm({ onClose }: ISignInForm) {
+  const auth = useAuth();
+  useEffect(() => {
+    if (auth.userData?.user) {
+      onClose();
+    }
+  }, [auth.loading]);
+  const onSubmitHandler = (data: ISignInData) => {
+    auth.setRegisterData(data);
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignInData>({ defaultValues: { email: '', password: '' } });
-  const handleRegistration = (data: ISignInData) => console.log('data', data);
+  const login = (data: ISignInData) => onSubmitHandler(data);
   const handleError = (data: IErrorData) => {
     console.log(data);
   };
@@ -27,7 +42,7 @@ export const SignInForm: React.FC = () => {
   return (
     <form
       className="flex flex-col justify-between items-center"
-      onSubmit={handleSubmit(handleRegistration)}
+      onSubmit={handleSubmit(login, handleError)}
     >
       <div className="flex flex-col justify-center items-center">
         <Input
@@ -53,4 +68,4 @@ export const SignInForm: React.FC = () => {
       </button>
     </form>
   );
-};
+}
