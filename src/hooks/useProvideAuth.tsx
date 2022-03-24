@@ -16,13 +16,13 @@ export interface IRegisterData {
 }
 
 export interface IRegisterStatus {
-  error: string;
+  error: string | null;
   loading: boolean;
   userData: IResponseData | null;
 }
 
 export interface IAuthData {
-  error: string;
+  error: string | null;
   loading: boolean;
   userData: IResponseData | null;
   setRegisterData: Dispatch<SetStateAction<IRegisterData | undefined>>;
@@ -57,37 +57,37 @@ export const useAuth = () => {
 export const useProvideAuth = () => {
   const [registerData, setRegisterData] = useState<IRegisterData>();
   const [status, setStatus] = useState<IRegisterStatus>({
-    error: '',
+    error: null,
     userData: null,
     loading: false,
   });
 
   function register(registerData: IRegisterData) {
-    const user = JSON.stringify({
+    const user = {
       user: {
         username: registerData.name,
         email: registerData.email,
         password: registerData.password,
       },
-    });
-    setStatus({ loading: true, userData: null, error: '' });
+    };
+    setStatus({ loading: true, userData: null, error: null });
     instance
       .post(`users/`, user)
-      .then((res) => setStatus({ userData: res.data, error: 'no error', loading: false }))
+      .then((res) => setStatus({ userData: res.data, error: null, loading: false }))
       .catch((error) => setStatus({ error: error, userData: null, loading: false }));
   }
 
   function login(loginData: IRegisterData) {
-    const user = JSON.stringify({
+    const user = {
       user: {
         email: loginData.email,
         password: loginData.password,
       },
-    });
-    setStatus({ loading: true, userData: null, error: '' });
+    };
+    setStatus({ loading: true, userData: null, error: null });
     instance
       .post(`users/login`, user)
-      .then((res) => setStatus({ userData: res.data, error: 'no error', loading: false }))
+      .then((res) => setStatus({ userData: res.data, error: null, loading: false }))
       .catch((error) => setStatus({ error: error, userData: null, loading: false }));
   }
 
