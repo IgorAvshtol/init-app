@@ -1,33 +1,35 @@
-import React, { Dispatch, SetStateAction } from 'react';
-// @ts-ignore
 import logo from '../image/logo.png';
 
 interface IHeader {
-  setSignInModalOn: Dispatch<SetStateAction<boolean>>;
-  setSignUpModalOn: Dispatch<SetStateAction<boolean>>;
+  onSignInBtnClick: () => void;
+  onSignUpBtnClick: () => void;
 }
 
-export function Header({ setSignInModalOn, setSignUpModalOn }: IHeader) {
-  const onClickSignInHandler = () => {
-    setSignInModalOn(true);
-  };
-  const onClickSignUpHandler = () => {
-    setSignUpModalOn(true);
-  };
+export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
   return (
-    <header className="h-26 w-4/5 m-auto">
-      <div className="flex justify-between items-center">
-        <img width={80} src={logo} alt="main-logo" />
-        <div className="w-36 flex justify-between">
-          <div className="text-green-300 hover:text-green-700" onClick={onClickSignInHandler}>
-            Sign In
-          </div>
-          <div className="text-green-300 hover:text-green-700" onClick={onClickSignUpHandler}>
-            Sign Up
+    <header className="h-28 w-4/5 m-auto">
+      <div className="h-full flex items-center">
+        <div className="w-full flex justify-between items-center">
+          <a href="/">
+            <img width={80} src={logo} alt="main-logo" />
+          </a>
+          <div className="w-36 flex justify-between">
+            <button
+              className="text-green-300 hover:text-green-700 cursor-pointer"
+              onClick={onSignInBtnClick}
+            >
+              Sign In
+            </button>
+            <button
+              className="text-green-300 hover:text-green-700 cursor-pointer"
+              onClick={onSignUpBtnClick}
+            >
+              Sign Up
+            </button>
           </div>
         </div>
       </div>
-      <hr className="mt-2" />
+      <hr className="pt-2" />
     </header>
   );
 }
