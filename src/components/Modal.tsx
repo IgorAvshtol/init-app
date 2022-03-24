@@ -1,14 +1,17 @@
-import { Fragment, useRef } from 'react';
+import { Dispatch, Fragment, SetStateAction, useRef } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
 interface IModal {
-  onClose: () => void;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   isOpen: boolean;
   children: JSX.Element;
 }
 
-export function Modal({ isOpen, onClose, children }: IModal) {
+export function Modal({ isOpen, setIsOpen, children }: IModal) {
+  const closeModal = () => {
+    setIsOpen(false);
+  };
   const initRef = useRef(null);
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -16,7 +19,7 @@ export function Modal({ isOpen, onClose, children }: IModal) {
         initialFocus={initRef}
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={onClose}
+        onClose={closeModal}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
