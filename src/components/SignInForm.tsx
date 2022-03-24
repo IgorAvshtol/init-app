@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldError, useForm, Controller } from 'react-hook-form';
+import { FieldError, useForm } from 'react-hook-form';
 
 import { Input } from './Input';
 
@@ -22,18 +22,6 @@ export const SignInForm: React.FC = () => {
   const handleRegistration = (data: ISignInData) => console.log('data', data);
   const handleError = (data: IErrorData) => {
     console.log(data);
-  };
-
-  const registerOptions = {
-    name: { required: 'Name is required' },
-    email: { required: 'Email is required' },
-    password: {
-      required: 'Password is required',
-      minLength: {
-        value: 8,
-        message: 'Password must have at least 8 characters',
-      },
-    },
   };
 
   return (
