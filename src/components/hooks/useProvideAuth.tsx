@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 import { instance } from '../api/api';
+import { AxiosError } from 'axios';
 
 export interface IRegisterData {
   name?: string;
@@ -69,7 +70,7 @@ export const useProvideAuth = () => {
     instance
       .post(`users/login`, user)
       .then((res) => setUser(res.data))
-      .catch((error) => setError(error));
+      .catch((errors: AxiosError) => setError(errors.message));
   }
 
   return { user, error, signin, signup };
