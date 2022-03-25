@@ -6,7 +6,7 @@ import { useAuth } from './hooks/useProvideAuth';
 import { Input } from './Input';
 
 interface ISignInForm {
-  onClose: () => void;
+  signInIsSuccess: () => void;
 }
 
 export interface ISignInData {
@@ -19,15 +19,15 @@ export interface IErrorData {
   password?: FieldError | undefined;
 }
 
-export function SignInForm({ onClose }: ISignInForm) {
-  const auth = useAuth();
+export function SignInForm({ signInIsSuccess }: ISignInForm) {
+  const { user, signin, error } = useAuth();
   useEffect(() => {
-    if (auth.userData?.user) {
-      onClose();
+    if (user) {
+      signInIsSuccess();
     }
-  }, [auth.loading]);
+  }, [user, error, signInIsSuccess]);
   const onSubmitHandler = (data: ISignInData) => {
-    auth.setRegisterData(data);
+    signin(data);
   };
   const {
     register,

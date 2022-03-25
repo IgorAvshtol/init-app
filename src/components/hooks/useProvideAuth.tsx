@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 import { instance } from '../api/api';
 
@@ -15,17 +8,11 @@ export interface IRegisterData {
   password: string;
 }
 
-export interface IRegisterStatus {
-  error: string | null;
-  loading: boolean;
-  userData: IResponseData | null;
-}
-
 export interface IAuthData {
   error: string | null;
-  loading: boolean;
-  userData: IResponseData | null;
-  setRegisterData: Dispatch<SetStateAction<IRegisterData | undefined>>;
+  user: IResponseData | null;
+  signin: (signInData: IRegisterData) => void;
+  signup: (signUpData: IRegisterData) => void;
 }
 
 export interface IResponseData {
@@ -55,49 +42,35 @@ export const useAuth = () => {
 };
 
 export const useProvideAuth = () => {
-  const [registerData, setRegisterData] = useState<IRegisterData>();
-  const [status, setStatus] = useState<IRegisterStatus>({
-    error: null,
-    userData: null,
-    loading: false,
-  });
+  const [user, setUser] = useState<IResponseData | null>(null);
+  const [error, setError] = useState<string>('');
 
-  function register(registerData: IRegisterData) {
+  function signup(signUpData: IRegisterData) {
     const user = {
       user: {
-        username: registerData.name,
-        email: registerData.email,
-        password: registerData.password,
+        username: signUpData.name,
+        email: signUpData.email,
+        password: signUpData.password,
       },
     };
-    setStatus({ loading: true, userData: null, error: null });
     instance
       .post(`users/`, user)
-      .then((res) => setStatus({ userData: res.data, error: null, loading: false }))
-      .catch((error) => setStatus({ error: error, userData: null, loading: false }));
+      .then((res) => setUser(res.data))
+      .catch((error) => setError(error));
   }
 
-  function login(loginData: IRegisterData) {
+  function signin(signInData: IRegisterData) {
     const user = {
       user: {
-        email: loginData.email,
-        password: loginData.password,
+        email: signInData.email,
+        password: signInData.password,
       },
     };
-    setStatus({ loading: true, userData: null, error: null });
     instance
       .post(`users/login`, user)
-      .then((res) => setStatus({ userData: res.data, error: null, loading: false }))
-      .catch((error) => setStatus({ error: error, userData: null, loading: false }));
+      .then((res) => setUser(res.data))
+      .catch((error) => setError(error));
   }
 
-  useEffect(() => {
-    if (registerData?.name) {
-      register(registerData);
-    } else if (registerData) {
-      login(registerData);
-    }
-  }, [registerData]);
-
-  return { ...status, setRegisterData };
+  return { user, error, signin, signup };
 };

@@ -8,7 +8,7 @@ interface IHeader {
 }
 
 export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
-  const auth = useAuth();
+  const { user } = useAuth();
   return (
     <header className="h-28 w-4/5 m-auto">
       <div className="h-full flex items-center">
@@ -16,12 +16,12 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
           <a href="/">
             <img width={80} src={logo} alt="main-logo" />
           </a>
-          {auth.userData?.user ? (
+          {user ? (
             <button
               className="text-green-300 hover:text-green-700 cursor-pointer"
               onClick={onSignInBtnClick}
             >
-              {auth.userData.user.email}
+              {user.user?.email}
             </button>
           ) : (
             <div className="w-36 flex justify-between">

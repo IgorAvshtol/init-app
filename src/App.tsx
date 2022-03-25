@@ -24,10 +24,10 @@ function App() {
       <div className="min-h-screen flex flex-col">
         <Header onSignInBtnClick={toggleSignInModal} onSignUpBtnClick={toggleSignUpModal} />
         <Modal isOpen={isSignInModalOpen} onClose={toggleSignInModal}>
-          <SignInForm onClose={toggleSignInModal} />
+          <SignInForm signInIsSuccess={toggleSignInModal} />
         </Modal>
         <Modal isOpen={isSignUpModalOpen} onClose={toggleSignUpModal}>
-          <SignUpForm onClose={toggleSignUpModal} />
+          <SignUpForm signUpIsSuccess={toggleSignUpModal} />
         </Modal>
         <Main />
         <Footer />
