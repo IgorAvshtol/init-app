@@ -25,7 +25,7 @@ export function SignInForm({ signInIsSuccess }: ISignInForm) {
     if (user) {
       signInIsSuccess();
     }
-  }, [user, error]);
+  }, [user, signInIsSuccess]);
   const onSubmitHandler = (data: ISignInData) => {
     if (error) console.log(error);
     signin(data);

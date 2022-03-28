@@ -26,7 +26,7 @@ export function SignUpForm({ signUpIsSuccess }: ISignUpForm) {
     if (user) {
       signUpIsSuccess();
     }
-  }, [user, error]);
+  }, [user, signUpIsSuccess]);
 
   const onSubmitHandler = (data: ISignUpData) => {
     if (error) console.log(error);
