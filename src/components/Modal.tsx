@@ -1,6 +1,7 @@
 import { Fragment, useRef } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { useAuth } from './hooks/useProvideAuth';
 
 interface IModal {
   onClose: () => void;
@@ -9,6 +10,7 @@ interface IModal {
 }
 
 export function Modal({ isOpen, onClose, children }: IModal) {
+  const { error } = useAuth();
   const initRef = useRef(null);
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -44,6 +46,7 @@ export function Modal({ isOpen, onClose, children }: IModal) {
           >
             <div className="inline-block max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-emerald-100 shadow-xl rounded-2xl">
               {children}
+              {error && <div className="pt-2 text-red-600">{error}</div>}
             </div>
           </Transition.Child>
         </div>

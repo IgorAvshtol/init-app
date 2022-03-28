@@ -57,7 +57,7 @@ export const useProvideAuth = () => {
     instance
       .post(`users/`, user)
       .then((res) => setUser(res.data))
-      .catch((error) => setError(error));
+      .catch((error: AxiosError) => setError(error.message));
   }
 
   function signin(signInData: IRegisterData) {
