@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
+import { AxiosError } from 'axios';
 
 import { instance } from '../api/api';
-import { AxiosError } from 'axios';
 
 export interface IRegisterData {
   name?: string;

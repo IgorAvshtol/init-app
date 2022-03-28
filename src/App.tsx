@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { SignInForm } from './components/SignInForm';
 import { SignUpForm } from './components/SignUpForm';
@@ -12,13 +12,12 @@ function App() {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
-  const toggleSignInModal = () => {
+  const toggleSignInModal = useCallback(() => {
     setIsSignInModalOpen((isOpen) => !isOpen);
-  };
-
-  const toggleSignUpModal = () => {
+  }, []);
+  const toggleSignUpModal = useCallback(() => {
     setIsSignUpModalOpen((isOpen) => !isOpen);
-  };
+  }, []);
   return (
     <ProvideAuth>
       <div className="min-h-screen flex flex-col">
