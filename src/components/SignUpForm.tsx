@@ -21,7 +21,7 @@ export interface IErrorData {
 }
 
 export function SignUpForm({ signUpIsSuccess }: ISignUpForm) {
-  const { user, signup, error } = useAuth();
+  const { user, signup } = useAuth();
   useEffect(() => {
     if (user) {
       signUpIsSuccess();
@@ -29,7 +29,6 @@ export function SignUpForm({ signUpIsSuccess }: ISignUpForm) {
   }, [user, signUpIsSuccess]);
 
   const onSubmitHandler = (data: ISignUpData) => {
-    if (error) console.log(error);
     signup(data);
   };
 

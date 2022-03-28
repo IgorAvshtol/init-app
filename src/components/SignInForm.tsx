@@ -20,14 +20,13 @@ export interface IErrorData {
 }
 
 export function SignInForm({ signInIsSuccess }: ISignInForm) {
-  const { user, signin, error } = useAuth();
+  const { user, signin } = useAuth();
   useEffect(() => {
     if (user) {
       signInIsSuccess();
     }
   }, [user, signInIsSuccess]);
   const onSubmitHandler = (data: ISignInData) => {
-    if (error) console.log(error);
     signin(data);
   };
   const {
