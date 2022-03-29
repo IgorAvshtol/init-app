@@ -12,7 +12,7 @@ export interface ISignUpData {
 }
 
 interface ISignUpForm {
-  signUpIsSuccess: () => void;
+  onSignUp: () => void;
 }
 
 export interface IErrorData {
@@ -20,13 +20,13 @@ export interface IErrorData {
   password?: FieldError | undefined;
 }
 
-export function SignUpForm({ signUpIsSuccess }: ISignUpForm) {
+export function SignUpForm({ onSignUp }: ISignUpForm) {
   const { user, signup } = useAuth();
   useEffect(() => {
     if (user) {
-      signUpIsSuccess();
+      onSignUp();
     }
-  }, [user, signUpIsSuccess]);
+  }, [user, onSignUp]);
 
   const onSubmitHandler = (data: ISignUpData) => {
     signup(data);
