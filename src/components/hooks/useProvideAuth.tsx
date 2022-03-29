@@ -46,6 +46,17 @@ export const useProvideAuth = () => {
   const [user, setUser] = useState<IResponseData | null>(null);
   const [error, setError] = useState<string>('');
 
+  function errorHandling(err: AxiosError) {
+    const responseErrorData = err.response?.data.errors;
+    const keys = Array.from(Object.keys(responseErrorData));
+    const values = Object.values(responseErrorData);
+    const res = [];
+    for (let i = 0; i < keys.length; i++) {
+      res.push(keys[i] + ' ' + String(values[i]));
+    }
+    setError(String(res));
+  }
+
   function signup(signUpData: IRegisterData) {
     const user = {
       user: {
@@ -57,7 +68,9 @@ export const useProvideAuth = () => {
     instance
       .post(`users/`, user)
       .then((res) => setUser(res.data))
-      .catch((error: AxiosError) => setError(error.message));
+      .catch((err) => {
+        errorHandling(err);
+      });
   }
 
   function signin(signInData: IRegisterData) {
@@ -70,7 +83,9 @@ export const useProvideAuth = () => {
     instance
       .post(`users/login`, user)
       .then((res) => setUser(res.data))
-      .catch((errors: AxiosError) => setError(errors.message));
+      .catch((err) => {
+        errorHandling(err);
+      });
   }
 
   return { user, error, signin, signup };
