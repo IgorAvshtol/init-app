@@ -46,7 +46,7 @@ export function Modal({ isOpen, onClose, children }: IModal) {
           >
             <div className="inline-block max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-emerald-100 shadow-xl rounded-2xl">
               {children}
-              {error && <div className="pt-2 text-red-600 text-center">{error}</div>}
+              {error && <div className="pt-2 w-64 text-red-600 text-center">{error}</div>}
             </div>
           </Transition.Child>
         </div>

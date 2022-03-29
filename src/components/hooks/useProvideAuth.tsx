@@ -49,9 +49,11 @@ export const useProvideAuth = () => {
 
   const errorHandling = (err: AxiosError) => {
     const responseErrorData = err.response?.data.errors;
+    const resArray = [];
     for (const [key, value] of Object.entries(responseErrorData)) {
-      setError(`${key}: ${value}`);
+      resArray.push(`${key} ${value}`);
     }
+    setError(String(resArray));
   };
 
   const responseDataHandling = (data: IResponseData) => {
