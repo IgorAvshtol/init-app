@@ -17,10 +17,7 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
             <img width={80} src={logo} alt="main-logo" />
           </a>
           {user ? (
-            <button
-              className="text-green-300 hover:text-green-700 cursor-pointer"
-              onClick={onSignInBtnClick}
-            >
+            <button className="text-green-300 hover:text-green-700 cursor-pointer">
               {user.user?.email}
             </button>
           ) : (

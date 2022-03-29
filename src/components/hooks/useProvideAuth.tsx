@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 
 import { instance } from '../api/api';
@@ -14,6 +14,7 @@ export interface IAuthData {
   user: IResponseData | null;
   signin: (signInData: IRegisterData) => void;
   signup: (signUpData: IRegisterData) => void;
+  logout: () => void;
 }
 
 export interface IResponseData {
@@ -45,17 +46,27 @@ export const useAuth = () => {
 export const useProvideAuth = () => {
   const [user, setUser] = useState<IResponseData | null>(null);
   const [error, setError] = useState<string>('');
+  console.log(error);
 
-  function errorHandling(err: AxiosError) {
+  const errorHandling = (err: AxiosError) => {
     const responseErrorData = err.response?.data.errors;
-    const keys = Array.from(Object.keys(responseErrorData));
-    const values = Object.values(responseErrorData);
-    const res = [];
-    for (let i = 0; i < keys.length; i++) {
-      res.push(keys[i] + ' ' + String(values[i]));
+    for (const [key, value] of Object.entries(responseErrorData)) {
+      setError(`${key}: ${value}`);
     }
-    setError(String(res));
-  }
+  };
+
+  const responseDataHandling = (data: IResponseData) => {
+    if (data.user) {
+      localStorage.setItem('userData', JSON.stringify(data));
+      setUser(data);
+    }
+  };
+
+  const currentUser = () => {
+    const data = localStorage.getItem('userData');
+    console.log(JSON.parse(data!));
+    if (data) setUser(JSON.parse(data!));
+  };
 
   function signup(signUpData: IRegisterData) {
     const user = {
@@ -67,7 +78,7 @@ export const useProvideAuth = () => {
     };
     instance
       .post(`users/`, user)
-      .then((res) => setUser(res.data))
+      .then((res) => responseDataHandling(res.data))
       .catch((err) => {
         errorHandling(err);
       });
@@ -82,11 +93,20 @@ export const useProvideAuth = () => {
     };
     instance
       .post(`users/login`, user)
-      .then((res) => setUser(res.data))
+      .then((res) => responseDataHandling(res.data))
       .catch((err) => {
         errorHandling(err);
       });
   }
 
-  return { user, error, signin, signup };
+  function logout() {
+    localStorage.clear();
+    setUser(null);
+  }
+
+  useEffect(() => {
+    currentUser();
+  }, []);
+
+  return { user, error, signin, signup, logout };
 };
