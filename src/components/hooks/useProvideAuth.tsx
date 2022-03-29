@@ -46,7 +46,6 @@ export const useAuth = () => {
 export const useProvideAuth = () => {
   const [user, setUser] = useState<IResponseData | null>(null);
   const [error, setError] = useState<string>('');
-  console.log(error);
 
   const errorHandling = (err: AxiosError) => {
     const responseErrorData = err.response?.data.errors;
@@ -64,7 +63,6 @@ export const useProvideAuth = () => {
 
   const currentUser = () => {
     const data = localStorage.getItem('userData');
-    console.log(JSON.parse(data!));
     if (data) setUser(JSON.parse(data!));
   };
 
