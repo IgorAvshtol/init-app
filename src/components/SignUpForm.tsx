@@ -4,6 +4,7 @@ import { FieldError, useForm } from 'react-hook-form';
 import { useAuth } from './hooks/useProvideAuth';
 
 import { Input } from './Input';
+import spinner from '../image/spinner.gif';
 
 export interface ISignUpData {
   name: string;
@@ -21,7 +22,7 @@ export interface IErrorData {
 }
 
 export function SignUpForm({ onSignUp }: ISignUpForm) {
-  const { user, signup } = useAuth();
+  const { user, signup, loading } = useAuth();
   useEffect(() => {
     if (user) {
       onSignUp();
@@ -74,9 +75,16 @@ export function SignUpForm({ onSignUp }: ISignUpForm) {
           errors={errors?.password?.message ?? null}
         />
       </div>
-      <button className="mt-5 bg-emerald-300 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-        Submit
-      </button>
+      {loading ? (
+        <img src={spinner} alt="spinner" />
+      ) : (
+        <button
+          disabled={loading}
+          className="mt-5 bg-emerald-300 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 }

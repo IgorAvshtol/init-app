@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
+import spinner from '../image/spinner.gif';
 
 import { useAuth } from './hooks/useProvideAuth';
 
@@ -20,7 +21,7 @@ export interface IErrorData {
 }
 
 export function SignInForm({ onSignIn }: ISignInForm) {
-  const { user, signin } = useAuth();
+  const { user, signin, loading } = useAuth();
   useEffect(() => {
     if (user) {
       onSignIn();
@@ -63,9 +64,16 @@ export function SignInForm({ onSignIn }: ISignInForm) {
           errors={errors?.password?.message ?? null}
         />
       </div>
-      <button className="mt-5 bg-emerald-300 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-        Submit
-      </button>
+      {loading ? (
+        <img src={spinner} alt="spinner" />
+      ) : (
+        <button
+          disabled={loading}
+          className="mt-5 bg-emerald-300 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 }

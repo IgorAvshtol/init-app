@@ -1,7 +1,19 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { AxiosError } from 'axios';
 
 import { instance } from '../api/api';
+import {
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+  setUserFromLocalStorage,
+} from '../../lib/localStorage';
 
 export interface IRegisterData {
   name?: string;
@@ -11,6 +23,8 @@ export interface IRegisterData {
 
 export interface IAuthData {
   error: string | null;
+  setError: Dispatch<SetStateAction<string>>;
+  loading: boolean;
   user: IResponseData | null;
   signin: (signInData: IRegisterData) => void;
   signup: (signUpData: IRegisterData) => void;
@@ -28,7 +42,7 @@ export interface IResponse {
   token: string;
 }
 
-export const AuthContext = createContext<IAuthData>(null!);
+export const AuthContext = createContext<IAuthData | undefined>(undefined);
 
 interface IProviderAuth {
   children: React.ReactNode;
@@ -40,12 +54,17 @@ export function ProvideAuth({ children }: IProviderAuth) {
 }
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within a ProvideAuth');
+  }
+  return context;
 };
 
 export const useProvideAuth = () => {
   const [user, setUser] = useState<IResponseData | null>(null);
   const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const errorHandling = (err: AxiosError) => {
     const responseErrorData = err.response?.data.errors;
@@ -58,17 +77,23 @@ export const useProvideAuth = () => {
 
   const responseDataHandling = (data: IResponseData) => {
     if (data.user) {
-      localStorage.setItem('userData', JSON.stringify(data));
+      setUserFromLocalStorage(data);
       setUser(data);
+      setLoading(false);
     }
   };
 
   const currentUser = () => {
-    const data = localStorage.getItem('userData');
-    if (data) setUser(JSON.parse(data!));
+    const data = getUserFromLocalStorage();
+    if (data)
+      try {
+        setUser(JSON.parse(data));
+      } catch (e) {
+        console.log('JSON is not valid');
+      }
   };
 
-  function signup(signUpData: IRegisterData) {
+  const signup = (signUpData: IRegisterData) => {
     const user = {
       user: {
         username: signUpData.name,
@@ -76,37 +101,39 @@ export const useProvideAuth = () => {
         password: signUpData.password,
       },
     };
+    setLoading(true);
     instance
       .post(`users/`, user)
       .then((res) => responseDataHandling(res.data))
       .catch((err) => {
         errorHandling(err);
       });
-  }
+  };
 
-  function signin(signInData: IRegisterData) {
+  const signin = (signInData: IRegisterData) => {
     const user = {
       user: {
         email: signInData.email,
         password: signInData.password,
       },
     };
+    setLoading(true);
     instance
       .post(`users/login`, user)
       .then((res) => responseDataHandling(res.data))
       .catch((err) => {
         errorHandling(err);
       });
-  }
+  };
 
-  function logout() {
-    localStorage.clear();
+  const logout = () => {
+    removeUserFromLocalStorage();
     setUser(null);
-  }
+  };
 
   useEffect(() => {
     currentUser();
   }, []);
 
-  return { user, error, signin, signup, logout };
+  return { user, error, loading, setError, signin, signup, logout };
 };
