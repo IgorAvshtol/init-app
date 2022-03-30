@@ -10,11 +10,12 @@ interface IModal {
 }
 
 export function Modal({ isOpen, onClose, children }: IModal) {
-  const { error, setError } = useAuth();
+  const { error, setError, setLoading } = useAuth();
   const initRef = useRef(null);
   const onCloseModal = () => {
     onClose();
     setError('');
+    setLoading(false);
   };
   return (
     <Transition appear show={isOpen} as={Fragment}>

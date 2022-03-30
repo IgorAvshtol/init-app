@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
 import { AxiosError } from 'axios';
 
 import { instance } from '../api/api';
@@ -25,6 +18,7 @@ export interface IAuthData {
   error: string | null;
   setError: Dispatch<SetStateAction<string>>;
   loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   user: IResponseData | null;
   signin: (signInData: IRegisterData) => void;
   signup: (signUpData: IRegisterData) => void;
@@ -32,7 +26,7 @@ export interface IAuthData {
 }
 
 export interface IResponseData {
-  user: IResponse | null;
+  user: IResponse;
 }
 
 export interface IResponse {
@@ -62,7 +56,17 @@ export const useAuth = () => {
 };
 
 export const useProvideAuth = () => {
-  const [user, setUser] = useState<IResponseData | null>(null);
+  const [user, setUser] = useState<IResponseData | null>(() => {
+    const data = getUserFromLocalStorage();
+    if (data) {
+      try {
+        return JSON.parse(data);
+      } catch (e) {
+        console.log('JSON is not valid');
+      }
+    }
+    return null;
+  });
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -81,16 +85,6 @@ export const useProvideAuth = () => {
       setUser(data);
       setLoading(false);
     }
-  };
-
-  const currentUser = () => {
-    const data = getUserFromLocalStorage();
-    if (data)
-      try {
-        setUser(JSON.parse(data));
-      } catch (e) {
-        console.log('JSON is not valid');
-      }
   };
 
   const signup = (signUpData: IRegisterData) => {
@@ -131,9 +125,5 @@ export const useProvideAuth = () => {
     setUser(null);
   };
 
-  useEffect(() => {
-    currentUser();
-  }, []);
-
-  return { user, error, loading, setError, signin, signup, logout };
+  return { user, error, loading, setLoading, setError, signin, signup, logout };
 };
