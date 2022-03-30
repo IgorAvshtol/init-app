@@ -18,7 +18,6 @@ export interface IAuthData {
   error: string | null;
   setError: Dispatch<SetStateAction<string>>;
   loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
   user: IResponseData | null;
   signin: (signInData: IRegisterData) => void;
   signup: (signUpData: IRegisterData) => void;
@@ -77,6 +76,7 @@ export const useProvideAuth = () => {
       resArray.push(`${key} ${value}`);
     }
     setError(String(resArray));
+    setLoading(false);
   };
 
   const responseDataHandling = (data: IResponseData) => {
@@ -125,5 +125,5 @@ export const useProvideAuth = () => {
     setUser(null);
   };
 
-  return { user, error, loading, setLoading, setError, signin, signup, logout };
+  return { user, error, loading, setError, signin, signup, logout };
 };
