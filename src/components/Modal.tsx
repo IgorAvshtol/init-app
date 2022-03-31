@@ -1,6 +1,7 @@
 import { Fragment, useRef } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { useAuth } from './hooks/useProvideAuth';
 
 interface IModal {
   onClose: () => void;
@@ -9,14 +10,19 @@ interface IModal {
 }
 
 export function Modal({ isOpen, onClose, children }: IModal) {
+  const { error, setError } = useAuth();
   const initRef = useRef(null);
+  const onCloseModal = () => {
+    onClose();
+    setError('');
+  };
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         initialFocus={initRef}
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={onClose}
+        onClose={onCloseModal}
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
@@ -44,6 +50,7 @@ export function Modal({ isOpen, onClose, children }: IModal) {
           >
             <div className="inline-block max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-emerald-100 shadow-xl rounded-2xl">
               {children}
+              {error && <div className="pt-2 w-64 text-red-600 text-center">{error}</div>}
             </div>
           </Transition.Child>
         </div>
