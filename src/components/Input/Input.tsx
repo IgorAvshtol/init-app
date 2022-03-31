@@ -11,7 +11,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref)
   return (
     <div className="flex flex-col justify-center items-center">
       <label htmlFor={name}>{label}:</label>
-      <input type={name} ref={ref} name={name} {...inputProps} className="border-2 mt-1 pl-2" />
+      <input
+        id={name}
+        type={name}
+        ref={ref}
+        name={name}
+        {...inputProps}
+        className="border-2 mt-1 pl-2"
+      />
       {errors && <small className="text-danger">{errors}</small>}
     </div>
   );

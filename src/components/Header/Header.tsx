@@ -1,8 +1,8 @@
-import logo from '../image/logo.png';
+import logo from '../../image/logo.png';
 
-import { useAuth } from './hooks/useProvideAuth';
+import { useAuth } from '../hooks/useProvideAuth';
 
-import { DropdownMenu } from './Menu';
+import { DropdownMenu } from '../Menu/Menu';
 
 interface IHeader {
   onSignInBtnClick: () => void;
