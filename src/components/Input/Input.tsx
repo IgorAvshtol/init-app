@@ -1,26 +1,23 @@
-import { ComponentProps, forwardRef } from 'react';
+import React from 'react';
 
-interface InputProps extends ComponentProps<'input'> {
+interface InputProps extends React.ComponentProps<'input'> {
   name: string;
   label: string;
-  border?: string;
-  width?: string;
-  errors?: string | null;
+  errors: string | null;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { name, label, errors, ...inputProps } = props;
-
   return (
-    <div className="flex flex-col justify-center items-center ">
-      <label htmlFor={name}>{label ? label + ':' : null}</label>
+    <div className="flex flex-col justify-center items-center">
+      <label htmlFor={name}>{label}:</label>
       <input
         id={name}
         type={name}
         ref={ref}
         name={name}
         {...inputProps}
-        className="border-2 mt-1 p-2 w-full border-none focus:outline-none"
+        className="border-2 mt-1 pl-2"
       />
       {errors && <small className="text-danger">{errors}</small>}
     </div>
