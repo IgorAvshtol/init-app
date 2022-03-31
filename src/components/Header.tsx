@@ -10,9 +10,7 @@ interface IHeader {
 }
 
 export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
-  const { user, logout } = useAuth();
-  const image = 'https://api.realworld.io/images/smiley-cyrus.jpeg';
-  const auth = true;
+  const { user } = useAuth();
 
   return (
     <header className="h-28 w-4/5 m-auto">
@@ -22,8 +20,8 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
             <img width={80} src={logo} alt="main-logo" />
           </a>
           <div className="h-28 w-36 flex justify-between">
-            {auth ? (
-              <DropdownMenu image={image} />
+            {user ? (
+              <DropdownMenu />
             ) : (
               <div className="w-full flex justify-between">
                 <button
