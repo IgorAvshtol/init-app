@@ -39,6 +39,7 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
               </div>
             )}
           </div>
+        </div>
       </div>
       <hr className="pt-2" />
     </header>
