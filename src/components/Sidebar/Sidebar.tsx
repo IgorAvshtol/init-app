@@ -26,15 +26,15 @@ const links = [
 
 export function Sidebar() {
   return (
-    <div className="w-1/3 flex flex-col">
+    <div className="w-1/3 h-72 flex flex-col">
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
-      <div className="h-24 pt-2 pl-2 flex flex-wrap justify-start">
+      <div className="h-24 pt-4 pl-2 flex flex-wrap justify-start">
         {tags.map((tag) => (
           <Tags key={tag.id} tag={tag.name} />
         ))}
       </div>
-      <hr className="mt-10" />
-      <div className="pt-4 flex flex-wrap justify-start">
+      <hr className="mt-12 ml-2" />
+      <div className="mt-4 flex flex-wrap justify-start">
         {links.map((link) => (
           <Links key={link.id} link={link.name} />
         ))}
