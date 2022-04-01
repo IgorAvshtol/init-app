@@ -13,8 +13,8 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
   const { user } = useAuth();
 
   return (
-    <header className="h-28 w-4/5 m-auto">
-      <div className="h-full flex items-center">
+    <header className="h-28 w-full fixed flex flex-col items-center justify-center bg-emerald-100">
+      <div className="h-full w-4/5 flex justify-center items-center">
         <div className="w-full flex justify-between items-center relative">
           <a href="/">
             <img width={80} src={logo} alt="main-logo" />
@@ -41,7 +41,7 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
           </div>
         </div>
       </div>
-      <hr className="pt-2" />
+      <hr className="h-0.5 w-full bg-black" />
     </header>
   );
 }
