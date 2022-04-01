@@ -7,6 +7,7 @@ import { Main } from './components/Main';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
 import { ProvideAuth } from './components/hooks/useProvideAuth';
+import { Cases } from './components/Cases/Cases';
 
 function App() {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -29,6 +30,7 @@ function App() {
           <SignUpForm onSignUp={toggleSignUpModal} />
         </Modal>
         <Main />
+        <Cases />
         <Footer />
       </div>
     </ProvideAuth>
