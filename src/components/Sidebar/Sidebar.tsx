@@ -1,13 +1,18 @@
-import { nanoid } from 'nanoid';
+import { Tags } from './Tags';
+import { Links } from './Links';
 
-import spinner from '../../image/spinner.gif';
+const tags = [
+  { id: 1, name: 'Programming' },
+  { id: 2, name: 'Politics' },
+  { id: 3, name: 'Health' },
+  { id: 4, name: 'Javascript' },
+  { id: 5, name: 'Belarus' },
+  { id: 6, name: 'Itransitions' },
+  { id: 7, name: 'Gym' },
+  { id: 8, name: 'Hardcore' },
+];
 
-import { Tag } from './Tag';
-import { Link } from './Link';
-import { useFetch } from '../../hooks/useFetch';
-import { ITags, TypeLoadingStatus } from '../../interfaces/interfaces';
-
-export const links = [
+const links = [
   { id: 1, name: 'Help' },
   { id: 2, name: 'Status' },
   { id: 3, name: 'Writers' },
@@ -20,30 +25,19 @@ export const links = [
 ];
 
 export function Sidebar() {
-  const { data, loading, error } = useFetch<ITags>('/tags');
-  const tags = data?.tags;
   return (
-    <div className="xl:right-[10%] lg:right-[5%] xl:w-1/4 lg:w-1/4 lg:fixed md:w-full md:static sm:w-full sm:static w-full flex flex-col">
+    <div className="w-1/3 flex flex-col">
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
-      <div className="h-24 w-full pt-4 pl-2 flex flex-wrap justify-start">
-        {error && loading === TypeLoadingStatus.IS_REJECTED ? (
-          <div className="w-full flex justify-center items-center">
-            <p className="text-sm">Sorry, tag field is not available now!</p>
-          </div>
-        ) : loading === TypeLoadingStatus.IS_PENDING ? (
-          <div className="w-full h-full flex justify-center items-center">
-            <img src={spinner} width={20} height={20} alt="spinner" />
-          </div>
-        ) : (
-          loading === TypeLoadingStatus.IS_RESOLVED &&
-          tags?.map((tag) => <Tag key={nanoid()} tag={tag} />)
-        )}
-        <hr className="w-full mt-2 mb-2" />
-        <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
-          {links.map((link) => (
-            <Link key={link.id} link={link.name} />
-          ))}
-        </div>
+      <div className="h-24 pt-2 pl-2 flex flex-wrap justify-start">
+        {tags.map((tag) => (
+          <Tags key={tag.id} tag={tag.name} />
+        ))}
+      </div>
+      <hr className="mt-10" />
+      <div className="pt-4 flex flex-wrap justify-start">
+        {links.map((link) => (
+          <Links key={link.id} link={link.name} />
+        ))}
       </div>
     </div>
   );

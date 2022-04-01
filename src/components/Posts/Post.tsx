@@ -1,76 +1,38 @@
-import { nanoid } from 'nanoid';
-import { NavLink } from 'react-router-dom';
-import { format } from 'date-fns';
-
+import avatar from '../../image/avatar.png';
 import add from '../../image/add.svg';
 import lens from '../../image/lens.webp';
-import like from '../../image/like.png';
 
-export interface IPost {
-  avatar: string;
-  title: string;
-  slug: string;
-  description: string;
-  author: string;
-  createdAt: string;
-  favoritesCount: number;
-  tagList: string[];
-}
-
-export function Post(props: IPost) {
-  const { author, avatar, description, title, createdAt, tagList, favoritesCount, slug } = props;
-  const correctDate = format(new Date(createdAt), 'MMMd');
+export function Post() {
   return (
-    <div className="w-full pt-6 flex justify-between">
+    <div className="w-full pt-2 flex justify-around">
       <div className="w-2/3 flex flex-col">
-        <div className="flex justify-between w-44 xl:w-full lg:w-full md:w-full sm:w-full">
-          <a href="/" className="flex w-24">
-            <img src={avatar} width={25} height={20} className="rounded-full" alt="avatar" />
-            <p className="ml-2">{author}</p>
-          </a>
-          <a
-            href="/"
-            className="flex w-[65px] justify-between items-center px-1 bg-emerald-100 text-center rounded-full border-black"
-          >
-            <img className="h-4" src={like} alt="favourite" />
-            <p className="text-xs xl:text-base lg:text-base md:text-base sm:text-base">
-              {favoritesCount}
-            </p>
-          </a>
-        </div>
-        <NavLink to={`/${slug}`}>
-          <h2 className="text-base font-bold pt-2 xl:text-xl lg:text-xl md:text-xl sm:text-base">
-            {title}
-          </h2>
-        </NavLink>
-        <h3 className="text-sm font-normal text-zinc-400 xl:text-base lg:text-base md:text-base sm:text-xs">
-          {description}
+        <a href="/" className="flex">
+          <img src={avatar} width={25} height={20} alt="avatar" />
+          <p className="ml-2">Name</p>
+        </a>
+        <a href="/">
+          <h2 className="text-xl font-bold pt-2">In Defense Of The M-Dash</h2>
+        </a>
+        <h3 className="text-base font-normal text-zinc-400">
+          Writers worry they overuse it. They shouldn’ - it’s awesome
         </h3>
-        <div className="pt-2 flex justify-between items-start text-xs text-zinc-400">
-          <div className="w-full flex">
-            <span>{correctDate}</span>
-            <span className="pl-1">·</span>
-            <div className="w-full flex flex-wrap">
-              {tagList.map((tag) => {
-                return (
-                  <a
-                    href="/"
-                    key={nanoid()}
-                    className="mb-1 ml-1 px-2 bg-zinc-200 text-center rounded-full border-black flex justify-center"
-                  >
-                    {tag}
-                  </a>
-                );
-              })}
-            </div>
+        <div className="flex justify-between items-center text-sm text-zinc-400">
+          <div className="w-52 flex justify-between">
+            <span>Apr1</span>
+            <span>·</span>
+            <span>3 min read</span>
+            <span>·</span>
+            <a href="/" className="w-16 bg-zinc-200 text-center rounded-full border-black">
+              <span>Writing</span>
+            </a>
           </div>
           <a href="/">
-            <img src={add} className="fill-white w-5 xl:w-6 lg:w-6 md:w-6 sm:w-6" alt="favourite" />
+            <img src={add} height={25} width={25} className="fill-white" alt="favourite" />
           </a>
         </div>
       </div>
       <a href="/">
-        <img src={lens} alt="post-cover" className="w-24 xl:w-44 lg:w-44 md:w-44 sm:w-40" />
+        <img src={lens} width={200} height={134} alt="post-cover" />
       </a>
     </div>
   );
