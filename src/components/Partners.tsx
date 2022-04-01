@@ -5,7 +5,7 @@ import sap from '../image/sap.png';
 
 export function Partners() {
   return (
-    <div className="w-4/5 m-auto">
+    <div className="w-4/5 pt-10 m-auto">
       <h4 className="text-center text-2xl">Partners:</h4>
       <div className="w-full flex flex-col items-center justify-center md:flex md:flex-row md:justify-between md:flex-wrap md:mt-8">
         <img className="m-1" src={microsoft} width={220} alt="microsoft-logo" />
