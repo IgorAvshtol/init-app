@@ -13,11 +13,11 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
   const { user } = useAuth();
 
   return (
-    <header className="h-28 w-full fixed flex flex-col items-center justify-center bg-emerald-100">
+    <header className="h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-50">
       <div className="h-full w-4/5 flex justify-center items-center">
         <div className="w-full flex justify-between items-center relative">
           <a href="/">
-            <img width={80} src={logo} alt="main-logo" />
+            <img width={30} src={logo} alt="main-logo" />
           </a>
           <div className="h-28 w-36 flex justify-between">
             {user ? (

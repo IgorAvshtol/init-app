@@ -12,9 +12,9 @@ export function DropdownMenu() {
     <Menu as="div">
       <div className="absolute right-0 h-full flex items-center">
         <Menu.Button>
-          <div className="w-28 flex items-center justify-between">
+          <div className="w-20 flex items-center justify-between">
             <img src={menuLogo} className="h-6 w-6" alt="menu" />
-            <img src={user?.user.image || avatar} className="h-12" alt="avatar" />
+            <img src={user?.user.image || avatar} className="h-8" alt="avatar" />
           </div>
         </Menu.Button>
       </div>

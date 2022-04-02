@@ -5,7 +5,7 @@ import { Post } from './Post';
 import { useFetch } from '../hooks/useFetch';
 
 export function Posts() {
-  const { data, loading, error } = useFetch();
+  const { articles, loading, error } = useFetch();
   return (
     <div className="w-1/2 flex flex-col justify-items-start">
       {error ? (
@@ -17,15 +17,16 @@ export function Posts() {
           <img src={spinner} width={100} height={100} alt="spinner" />
         </div>
       ) : (
-        data?.map((post) => {
+        articles?.map((post) => {
           return (
             <Post
               key={post.updatedAt}
               title={post.title}
               avatar={post.author.image}
-              body={post.body}
+              description={post.description}
               author={post.author.username}
               createdAt={post.createdAt}
+              tagList={post.tagList}
             />
           );
         })

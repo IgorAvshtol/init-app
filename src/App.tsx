@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { SignInForm } from './components/SignInForm';
 import { SignUpForm } from './components/SignUpForm';
 import { Header } from './components/Header';
-import { Main } from './components/Main';
+import { Main } from './components/Main/Main';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
 import { ProvideAuth } from './components/hooks/useProvideAuth';
