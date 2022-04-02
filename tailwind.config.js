@@ -6,6 +6,9 @@ module.exports = {
         mountains: "url('/src/image/mountains.jpg')",
         apartments: "url('/src/image/apartments.webp')",
       },
+      inset: {
+        '12%': '12%',
+      },
     },
   },
   plugins: [],
