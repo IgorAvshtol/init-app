@@ -5,7 +5,7 @@ interface ILinks {
 export function Links({ link }: ILinks) {
   return (
     <a href="/">
-      <p className="text-sm px-2 font-normal text-zinc-400">{link}</p>
+      <p className="text-sm pr-6 font-normal text-zinc-400">{link}</p>
     </a>
   );
 }
