@@ -9,6 +9,7 @@ interface IArticles {
   tagList: string[];
   createdAt: string;
   updatedAt: string;
+  favoritesCount: number;
   author: IAuthor;
 }
 

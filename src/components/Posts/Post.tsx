@@ -1,5 +1,6 @@
 import add from '../../image/add.svg';
 import lens from '../../image/lens.webp';
+import like from '../../image/like.png';
 
 interface IPost {
   avatar: string;
@@ -7,17 +8,28 @@ interface IPost {
   description: string;
   author: string;
   createdAt: string;
+  favoritesCount: number;
   tagList: string[];
 }
 
-export function Post({ author, avatar, description, title, createdAt, tagList }: IPost) {
+export function Post(props: IPost) {
+  const { author, avatar, description, title, createdAt, tagList, favoritesCount } = props;
   return (
     <div className="w-full pt-6 flex justify-around">
       <div className="w-2/3 flex flex-col">
-        <a href="/" className="flex">
-          <img src={avatar} width={25} height={20} className="rounded-full" alt="avatar" />
-          <p className="ml-2">{author}</p>
-        </a>
+        <div className="flex justify-between">
+          <a href="/" className="flex w-48">
+            <img src={avatar} width={25} height={20} className="rounded-full" alt="avatar" />
+            <p className="ml-2">{author}</p>
+          </a>
+          <a
+            href="/"
+            className="flex w-20 justify-between items-center px-2 bg-emerald-100 text-center rounded-full border-black"
+          >
+            <img className="h-4" src={like} alt="favourite" />
+            <p>{favoritesCount}</p>
+          </a>
+        </div>
         <a href="/">
           <h2 className="text-xl font-bold pt-2">{title}</h2>
         </a>

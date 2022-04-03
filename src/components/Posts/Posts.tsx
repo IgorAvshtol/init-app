@@ -27,6 +27,7 @@ export function Posts() {
               author={post.author.username}
               createdAt={post.createdAt}
               tagList={post.tagList}
+              favoritesCount={post.favoritesCount}
             />
           );
         })
