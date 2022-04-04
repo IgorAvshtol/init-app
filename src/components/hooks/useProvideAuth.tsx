@@ -1,12 +1,12 @@
 import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
 import { AxiosError } from 'axios';
 
-import { instance } from '../api/api';
+import { instance } from '../../api/api';
 import {
   getUserFromLocalStorage,
   removeUserFromLocalStorage,
   setUserFromLocalStorage,
-} from '../../lib/localStorage';
+} from '../../services/localStorage/localStorage';
 
 export interface IRegisterData {
   name?: string;

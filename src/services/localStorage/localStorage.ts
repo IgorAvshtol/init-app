@@ -1,4 +1,4 @@
-import { IResponseData } from '../components/hooks/useProvideAuth';
+import { IResponseData } from '../../components/hooks/useProvideAuth';
 
 export const getUserFromLocalStorage = () => {
   return localStorage.getItem(`${process.env.REACT_APP_LOCALSTORAGE_KEY}`);

@@ -1,7 +1,7 @@
 import spinner from '../../image/spinner.gif';
 
 import { Tag } from './Tag';
-import { Links } from './Links';
+import { Link } from './Link';
 import { useFetch } from '../hooks/useFetch';
 
 const links = [
@@ -17,7 +17,7 @@ const links = [
 ];
 
 export function Sidebar() {
-  const { tags, loading } = useFetch();
+  const { data, loading } = useFetch<string[]>('/tags');
   return (
     <div className="xl:right-[10%] lg:right-[5%] xl:w-1/4 lg:w-1/4 lg:fixed md:w-full md:static sm:w-full sm:static w-full flex flex-col">
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
@@ -27,12 +27,12 @@ export function Sidebar() {
             <img src={spinner} width={20} height={20} alt="spinner" />
           </div>
         ) : (
-          tags?.map((tag, index) => <Tag key={index} tag={tag} />)
+          data?.map((tag, index) => <Tag key={index} tag={tag} />)
         )}
         <hr className="w-full mt-2 mb-2" />
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
           {links.map((link) => (
-            <Links key={link.id} link={link.name} />
+            <Link key={link.id} link={link.name} />
           ))}
         </div>
       </div>
