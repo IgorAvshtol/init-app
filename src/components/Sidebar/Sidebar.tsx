@@ -1,8 +1,10 @@
+import { nanoid } from 'nanoid';
+
 import spinner from '../../image/spinner.gif';
 
 import { Tag } from './Tag';
 import { Link } from './Link';
-import { useFetch } from '../hooks/useFetch';
+import { useFetch } from '../../hooks/useFetch';
 import { TypeLoadingStatus } from '../../interfaces/interfaces';
 
 const links = [
@@ -33,7 +35,7 @@ export function Sidebar() {
           </div>
         ) : (
           loading === TypeLoadingStatus.IS_RESOLVE &&
-          data?.map((tag, index) => <Tag key={index} tag={tag} />)
+          data?.map((tag) => <Tag key={nanoid()} tag={tag} />)
         )}
         <hr className="w-full mt-2 mb-2" />
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
