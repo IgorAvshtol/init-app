@@ -1,6 +1,9 @@
+import { nanoid } from 'nanoid';
+
 import add from '../../image/add.svg';
 import lens from '../../image/lens.webp';
 import like from '../../image/like.png';
+
 import { dateUtils } from '../../utils/dateUtils';
 
 interface IPost {
@@ -50,7 +53,7 @@ export function Post(props: IPost) {
                 return (
                   <a
                     href="/"
-                    key={Math.random()}
+                    key={nanoid()}
                     className="mb-1 ml-1 px-2 bg-zinc-200 text-center rounded-full border-black flex justify-center"
                   >
                     {tag}
