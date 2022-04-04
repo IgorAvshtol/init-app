@@ -1,6 +1,7 @@
 import add from '../../image/add.svg';
 import lens from '../../image/lens.webp';
 import like from '../../image/like.png';
+import { dateUtils } from '../../utils/dateUtils';
 
 interface IPost {
   avatar: string;
@@ -42,20 +43,21 @@ export function Post(props: IPost) {
         </h3>
         <div className="pt-2 flex justify-between items-start text-xs text-zinc-400">
           <div className="w-full flex">
-            <span>{createdAt}</span>
+            <span>{dateUtils(createdAt)}</span>
             <span className="pl-1">·</span>
-            <a href="/" className="w-full flex flex-wrap">
-              {tagList.map((tag, index) => {
+            <div className="w-full flex flex-wrap">
+              {tagList.map((tag) => {
                 return (
-                  <span
-                    key={index}
+                  <a
+                    href="/"
+                    key={Math.random()}
                     className="mb-1 ml-1 px-2 bg-zinc-200 text-center rounded-full border-black flex justify-center"
                   >
                     {tag}
-                  </span>
+                  </a>
                 );
               })}
-            </a>
+            </div>
           </div>
           <a href="/">
             <img src={add} className="fill-white w-5 xl:w-6 lg:w-6 md:w-6 sm:w-6" alt="favourite" />
