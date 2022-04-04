@@ -11,7 +11,6 @@ interface IHeader {
 
 export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
   const { user } = useAuth();
-
   return (
     <header className="h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-50">
       <div className="h-full w-4/5 flex justify-center items-center">

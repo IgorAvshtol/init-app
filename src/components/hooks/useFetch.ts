@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import { instance } from '../api/api';
+import { fetchDataService } from '../../services/getResponseDataService';
 
-interface IArticles {
+export interface IArticles {
+  slug: string;
   title: string;
   description: string;
   body: string;
@@ -19,38 +20,17 @@ interface IAuthor {
   following: boolean;
 }
 
-export function useFetch() {
-  const [articles, setArticles] = useState<IArticles[] | null>(null);
-  const [tags, setTags] = useState<string[] | null>(null);
+export const useFetch = <T>(url: string) => {
+  const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const getArticles = () => {
-    instance
-      .get(`/articles`)
+  const getResponseData = (url: string) => {
+    setLoading(true);
+    fetchDataService(url)
       .then((res) => {
         setLoading(false);
-        const correctData = res.data.articles.map((article: IArticles) => {
-          const parseDate = new Date(Date.parse(article.createdAt)).toDateString().split(' ');
-          return {
-            ...article,
-            createdAt: parseDate[1] + parseDate[2],
-          };
-        });
-        setArticles(correctData);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-        setError(true);
-      });
-  };
-
-  const getTags = () => {
-    instance
-      .get(`/tags`)
-      .then((res) => {
-        setLoading(false);
-        setTags(res.data.tags);
+        const urlKey = url.split('').splice(1, url.length).join('');
+        setData(res.data[urlKey]);
       })
       .catch((err) => {
         console.log(err);
@@ -60,9 +40,8 @@ export function useFetch() {
   };
 
   useEffect(() => {
-    getArticles();
-    getTags();
-  }, []);
+    getResponseData(url);
+  }, [url]);
 
-  return { articles, tags, loading, error };
-}
+  return { data, loading, error };
+};
