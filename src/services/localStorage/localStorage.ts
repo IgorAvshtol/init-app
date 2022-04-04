@@ -1,5 +1,3 @@
-
-
 import { IResponseData } from 'hooks/useProvideAuth';
 
 const REACT_APP_LOCALSTORAGE_KEY = 'userData';
