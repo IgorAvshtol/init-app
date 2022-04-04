@@ -18,7 +18,7 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
           <a href="/">
             <img width={30} src={logo} alt="main-logo" />
           </a>
-          <div className="h-28 w-36 flex justify-between">
+          <div className="h-12 w-36 flex justify-between">
             {user ? (
               <DropdownMenu />
             ) : (
