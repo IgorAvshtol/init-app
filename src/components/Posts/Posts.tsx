@@ -2,7 +2,7 @@ import spinner from '../../image/spinner.gif';
 import notFound from '../../image/404-not-found.png';
 
 import { Post } from './Post';
-import { useFetch } from '../hooks/useFetch';
+import { useFetch } from '../../hooks/useFetch';
 import { IArticle, TypeLoadingStatus } from '../../interfaces/interfaces';
 
 export function Posts() {
@@ -29,6 +29,7 @@ export function Posts() {
               author={post.author.username}
               createdAt={post.createdAt}
               tagList={post.tagList}
+              slug={post.slug}
               favoritesCount={post.favoritesCount}
             />
           );

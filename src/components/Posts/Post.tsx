@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { NavLink } from 'react-router-dom';
 
 import add from '../../image/add.svg';
 import lens from '../../image/lens.webp';
@@ -6,9 +7,10 @@ import like from '../../image/like.png';
 
 import { dateUtils } from '../../utils/dateUtils';
 
-interface IPost {
+export interface IPost {
   avatar: string;
   title: string;
+  slug: string;
   description: string;
   author: string;
   createdAt: string;
@@ -17,7 +19,7 @@ interface IPost {
 }
 
 export function Post(props: IPost) {
-  const { author, avatar, description, title, createdAt, tagList, favoritesCount } = props;
+  const { author, avatar, description, title, createdAt, tagList, favoritesCount, slug } = props;
   return (
     <div className="w-full pt-6 flex justify-between">
       <div className="w-2/3 flex flex-col">
@@ -36,11 +38,11 @@ export function Post(props: IPost) {
             </p>
           </a>
         </div>
-        <a href="/">
+        <NavLink to={`/${slug}`}>
           <h2 className="text-base font-bold pt-2 xl:text-xl lg:text-xl md:text-xl sm:text-base">
             {title}
           </h2>
-        </a>
+        </NavLink>
         <h3 className="text-sm font-normal text-zinc-400 xl:text-base lg:text-base md:text-base sm:text-xs">
           {description}
         </h3>
