@@ -1,14 +1,14 @@
 import { useCallback, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { SignInForm } from './components/SignInForm/SignInForm';
-import { SignUpForm } from './components/SignUpForm/SignUpForm';
+import { SignInForm } from './components/SignInForm';
+import { SignUpForm } from './components/SignUpForm';
 import { Header } from './components/Header';
 import { Main } from './components/Main/Main';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
 import { ProvideAuth } from './hooks/useProvideAuth';
-import { Page } from './components/Article/Page';
+import { ArticlePage } from './components/ArticlePage/ArticlePage';
 
 function App() {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -32,7 +32,7 @@ function App() {
         </Modal>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/:slug" element={<Page />} />
+          <Route path="/:slug" element={<ArticlePage />} />
         </Routes>
         <Footer />
       </div>
