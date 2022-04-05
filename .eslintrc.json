@@ -35,6 +35,8 @@
             { "blankLine": "always", "prev": "function", "next": "return" }
         ],
         "react/react-in-jsx-scope": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
         "spaced-comment": "off",
         "no-unused-vars": "off",
         "require-jsdoc": "off",

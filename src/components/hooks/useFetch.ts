@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { fetchDataService } from '../../services/getResponseDataService';
 import { TypeLoadingStatus } from '../../interfaces/interfaces';
@@ -7,7 +7,7 @@ export const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<TypeLoadingStatus>(TypeLoadingStatus.IS_RESOLVE);
   const [error, setError] = useState(false);
-  const getResponseData = (url: string) => {
+  const getResponseData = useCallback(() => {
     setLoading(TypeLoadingStatus.IS_PENDING);
     fetchDataService(url)
       .then((res) => {
@@ -20,11 +20,11 @@ export const useFetch = <T>(url: string) => {
         setLoading(TypeLoadingStatus.IS_REJECTED);
         setError(true);
       });
-  };
+  }, [url]);
 
   useEffect(() => {
-    getResponseData(url);
-  }, [url]);
+    getResponseData();
+  }, [getResponseData]);
 
   return { data, loading, error };
 };
