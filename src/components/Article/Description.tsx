@@ -1,4 +1,4 @@
-import { Image } from './Image';
+import lens from '../../image/lens.webp';
 
 interface IArticleDescription {
   title: string;
@@ -9,9 +9,9 @@ interface IArticleDescription {
 export function Description({ title, description, body }: IArticleDescription) {
   return (
     <div className="mt-4 w-full flex-col">
-      <p className="text-2xl xl:text-4xl lg:text-4xl md:text-3xl">{title}</p>
-      <p className="text-lg xl:text-xl lg:text-xl md:text-xl">{description}</p>
-      <Image />
+      <p className="text-4xl">{title}</p>
+      <p className="text-xl">{description}</p>
+      <img src={lens} className="w-full pt-10" alt="image" />
       <p className="text-lg pt-10">{body}</p>
     </div>
   );

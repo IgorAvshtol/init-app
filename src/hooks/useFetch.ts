@@ -1,52 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-<<<<<<<< HEAD:src/hooks/useFetch.ts
 import { fetchDataService } from '../services/getResponseDataService';
 import { TypeLoadingStatus } from '../interfaces/interfaces';
-========
-import { fetchDataService } from '../../services/getResponseDataService';
-
-export interface IArticles {
-  slug: string;
-  title: string;
-  description: string;
-  body: string;
-  tagList: string[];
-  createdAt: string;
-  updatedAt: string;
-  author: IAuthor;
-}
-
-interface IAuthor {
-  username: string;
-  bio: string;
-  image: string;
-  following: boolean;
-}
->>>>>>>> add: ArticlePage;:src/components/hooks/useFetch.ts
 
 export const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<TypeLoadingStatus>(TypeLoadingStatus.IS_RESOLVE);
   const [error, setError] = useState(false);
-  const getResponseData = (url: string) => {
-    setLoading(true);
+  const getResponseData = useCallback(() => {
+    setLoading(TypeLoadingStatus.IS_PENDING);
     fetchDataService(url)
       .then((res) => {
-        setLoading(false);
+        setLoading(TypeLoadingStatus.IS_RESOLVE);
         const urlKey = url.split('').splice(1, url.length).join('');
         setData(res.data[urlKey]);
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false);
+        setLoading(TypeLoadingStatus.IS_REJECTED);
         setError(true);
       });
-  };
+  }, [url]);
 
   useEffect(() => {
-    getResponseData(url);
-  }, [url]);
+    getResponseData();
+  }, [getResponseData]);
 
   return { data, loading, error };
 };
