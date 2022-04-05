@@ -17,7 +17,7 @@ export function Header({ avatar, author, createdAt, tagList, favoritesCount }: I
   return (
     <div className="w-full flex justify-between items-center">
       <div className="w-2/3 flex">
-        <img src={avatar} className="rounded-full w-20" alt="avatar" />
+        <img src={avatar} className="rounded-full w-1/6 h-1/6" alt="avatar" />
         <div className="ml-8 w-full flex-col">
           <p className="font-medium text-lg">{author}</p>
           <div className="w-full pt-2 flex">
@@ -40,7 +40,7 @@ export function Header({ avatar, author, createdAt, tagList, favoritesCount }: I
         </div>
       </div>
       <div className="w-24 flex justify-between">
-        <button className="flex w-[65px] bg-emerald-100 justify-between items-center px-1 text-center rounded-full border-black relative hover:after:content-['Like'] after:absolute after:top-8 after:left-4 after:rounded-lg after:px-1 after:bg-emerald-100">
+        <button className="flex w-[65px] bg-emerald-100 justify-between items-center px-1 text-center rounded-full border-black">
           <img className="h-4" src={like} alt="favourite" />
           <p className="text-xs xl:text-base lg:text-base md:text-base sm:text-base">
             {favoritesCount}
