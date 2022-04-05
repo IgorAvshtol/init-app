@@ -6,7 +6,7 @@ interface IArticleDescription {
   body: string;
 }
 
-export function ArticleDescription({ title, description, body }: IArticleDescription) {
+export function Description({ title, description, body }: IArticleDescription) {
   return (
     <div className="mt-4 w-full flex-col">
       <p className="text-4xl">{title}</p>

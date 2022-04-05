@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import { IArticle } from '../../interfaces/interfaces';
 import { filterArticles } from '../../utils/filterArticles';
-import { ArticleHeader } from './ArticleHeader';
-import { ArticleDescription } from './ArticleDescription';
-import { ArticleSidebar } from './ArticleSidebar';
-import { ArticleNavbar } from './ArticleNavbar';
+import { Header } from './Header';
+import { Description } from './Description';
+import { Sidebar } from './Sidebar';
+import { Navbar } from './Navbar';
 
-export function ArticlePage() {
+export function Page() {
   const { data } = useFetch<IArticle[]>('/articles');
   const { slug } = useParams<string>();
 
@@ -16,21 +16,21 @@ export function ArticlePage() {
     <article className="flex flex-1">
       <div className="w-3/4 m-auto flex">
         <div>
-          <ArticleNavbar />
+          <Navbar />
         </div>
         <div className="w-4/5 border-x-2">
           {filterArticles(data, slug)?.map((article) => {
             return (
               <div key={article.slug} className="mt-24">
                 <div className="w-3/4 m-auto flex-col">
-                  <ArticleHeader
+                  <Header
                     author={article.author.username}
                     avatar={article.author.image}
                     createdAt={article.createdAt}
                     tagList={article.tagList}
                     favoritesCount={article.favoritesCount}
                   />
-                  <ArticleDescription
+                  <Description
                     title={article.title}
                     description={article.description}
                     body={article.body}
@@ -43,7 +43,7 @@ export function ArticlePage() {
         <div className="w-1/6 mt-24">
           {filterArticles(data, slug)?.map((article) => {
             return (
-              <ArticleSidebar
+              <Sidebar
                 key={article.slug}
                 author={article.author.username}
                 avatar={article.author.image}

@@ -13,13 +13,7 @@ interface IArticleHeader {
   favoritesCount: number;
 }
 
-export function ArticleHeader({
-  avatar,
-  author,
-  createdAt,
-  tagList,
-  favoritesCount,
-}: IArticleHeader) {
+export function Header({ avatar, author, createdAt, tagList, favoritesCount }: IArticleHeader) {
   return (
     <div className="w-full flex justify-between items-center">
       <div className="w-2/3 flex">

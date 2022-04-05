@@ -5,7 +5,7 @@ interface IArticleSidebar {
   author: string;
 }
 
-export function ArticleSidebar({ avatar, author }: IArticleSidebar) {
+export function Sidebar({ avatar, author }: IArticleSidebar) {
   return (
     <div className="sticky top-24 ml-2 flex-col">
       <img src={avatar} className="w-24 rounded-full" alt="avatar" />

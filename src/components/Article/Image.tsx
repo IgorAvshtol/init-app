@@ -6,24 +6,26 @@ import lens from '../../image/lens.webp';
 export function Image() {
   const initRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-
-  const closeModal = () => {
+  const zoomOut = () => {
     setIsOpen(false);
   };
-
-  const openModal = () => {
+  const zoomIn = () => {
     setIsOpen(true);
   };
-
   return (
     <>
       <div className="inset-0 mt-4 flex items-center justify-center">
-        <button type="button" onClick={openModal} className="cursor-zoom-in">
+        <button type="button" onClick={zoomIn} className="cursor-zoom-in">
           <img src={lens} className="w-full" alt="image" />
         </button>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 z-10" initialFocus={initRef} onClose={closeModal}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 bg-emerald-50"
+          initialFocus={initRef}
+          onClose={zoomOut}
+        >
           <div className="text-center">
             <Transition.Child
               as={Fragment}
