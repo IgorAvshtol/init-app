@@ -40,7 +40,7 @@ export function Page() {
             );
           })}
         </div>
-        <div className="w-1/6 mt-24">
+        <div className="w-1/5 mt-24">
           {filterArticles(data, slug)?.map((article) => {
             return (
               <Sidebar

@@ -7,7 +7,7 @@ import { Link } from './Link';
 import { useFetch } from '../../hooks/useFetch';
 import { TypeLoadingStatus } from '../../interfaces/interfaces';
 
-const links = [
+export const links = [
   { id: 1, name: 'Help' },
   { id: 2, name: 'Status' },
   { id: 3, name: 'Writers' },
