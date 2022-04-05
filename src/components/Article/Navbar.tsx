@@ -1,7 +1,7 @@
 import home from '../../image/home.png';
 import notification from '../../image/notification.png';
 
-export function ArticleNavbar() {
+export function Navbar() {
   return (
     <div className="mt-96 w-full sticky flex-col top-24">
       <a href="/">

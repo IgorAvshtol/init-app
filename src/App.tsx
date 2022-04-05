@@ -8,7 +8,7 @@ import { Main } from './components/Main/Main';
 import { Footer } from './components/Footer';
 import { Modal } from './components/Modal';
 import { ProvideAuth } from './hooks/useProvideAuth';
-import { ArticlePage } from './components/ArticlePage/ArticlePage';
+import { Page } from './components/Article/Page';
 
 function App() {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -32,7 +32,7 @@ function App() {
         </Modal>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/:slug" element={<ArticlePage />} />
+          <Route path="/:slug" element={<Page />} />
         </Routes>
         <Footer />
       </div>
