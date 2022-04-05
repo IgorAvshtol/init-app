@@ -11,10 +11,10 @@ export function Sidebar({ avatar, author }: IArticleSidebar) {
       <img src={avatar} className="w-24 rounded-full" alt="avatar" />
       <p className="pt-2 font-bold text-lg">{author}</p>
       <div className="pt-1 w-full flex">
-        <button className="text-black bg-blue-500 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <button className="text-black bg-blue-500 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2 mr-2 mb-2">
           Follow
         </button>
-        <button className="text-white bg-blue-500 hover:bg-blue-800 font-medium rounded-full text-sm px-4 py-2 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <button className="text-white bg-blue-500 hover:bg-blue-800 font-medium rounded-full text-sm px-4 py-2 mr-2 mb-2 relative hover:after:content-['Send__message'] after:absolute after:top-11 after:left-0 after:rounded-lg after:px-1 after:text-black after:bg-emerald-100">
           <img className="w-5" src={message} alt="send-message" />
         </button>
       </div>
