@@ -17,6 +17,10 @@ interface IAuthor {
   following: boolean;
 }
 
+export interface ICurrentArticle {
+  article: IArticle;
+}
+
 export enum TypeLoadingStatus {
   IS_PENDING = 'IS_PENDING',
   IS_RESOLVE = 'IS_RESOLVE',
