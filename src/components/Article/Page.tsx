@@ -9,17 +9,17 @@ import { Sidebar } from './Sidebar';
 
 export function Page() {
   const { slug } = useParams<string>();
-  const { data } = useFetch<ICurrentArticle>('/articles', `${slug}`);
+  const { data } = useFetch<ICurrentArticle>(`/articles/${slug}`);
   const article = data?.article;
 
   return (
     <article className="flex flex-1">
-      <div className="w-3/4 m-auto flex">
+      <div className="w-full m-auto flex xl:w-3/4 lg:4/5 md:w-full sm:w-full">
         <div>
           <Navbar />
         </div>
-        <div className="w-4/5 border-x-2">
-          <div className="mt-24">
+        <div className="w-full border-0 xl:w-4/5 xl:border-x-2 lg:w-4/5 lg:border-x-2">
+          <div className="mt-16 xl:mt-24 lg:mt-24 md:mt-16 sm:mt-16">
             {article && (
               <div className="w-3/4 m-auto flex-col">
                 <Header
@@ -38,14 +38,8 @@ export function Page() {
             )}
           </div>
         </div>
-        <div className="w-1/5 mt-24">
-          {article && (
-            <Sidebar
-              key={article.slug}
-              author={article.author.username}
-              avatar={article.author.image}
-            />
-          )}
+        <div className="hidden mt-24 xl:w-1/5 xl:block lg:w-1/5 lg:block">
+          {article && <Sidebar author={article.author.username} avatar={article.author.image} />}
         </div>
       </div>
     </article>

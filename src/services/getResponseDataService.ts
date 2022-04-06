@@ -1,5 +1,5 @@
 import { instance } from '../api/api';
 
-export const fetchDataService = (url: string, options?: string) => {
-  return instance.get(options ? `${url}/${options}` : url);
+export const fetchDataService = (url: string) => {
+  return instance.get(url);
 };
