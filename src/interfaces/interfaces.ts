@@ -17,8 +17,16 @@ interface IAuthor {
   following: boolean;
 }
 
+export interface IArticles {
+  articles: IArticle[];
+}
+
 export interface ICurrentArticle {
   article: IArticle;
+}
+
+export interface ITags {
+  tags: string[];
 }
 
 export enum TypeLoadingStatus {

@@ -5,7 +5,7 @@ import spinner from '../../image/spinner.gif';
 import { Tag } from './Tag';
 import { Link } from './Link';
 import { useFetch } from '../../hooks/useFetch';
-import { TypeLoadingStatus } from '../../interfaces/interfaces';
+import { ITags, TypeLoadingStatus } from '../../interfaces/interfaces';
 
 export const links = [
   { id: 1, name: 'Help' },
@@ -20,7 +20,8 @@ export const links = [
 ];
 
 export function Sidebar() {
-  const { data, loading, error } = useFetch<string[]>('/tags');
+  const { data, loading, error } = useFetch<ITags>('/tags');
+  const tags = data?.tags;
   return (
     <div className="xl:right-[10%] lg:right-[5%] xl:w-1/4 lg:w-1/4 lg:fixed md:w-full md:static sm:w-full sm:static w-full flex flex-col">
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
@@ -35,7 +36,7 @@ export function Sidebar() {
           </div>
         ) : (
           loading === TypeLoadingStatus.IS_RESOLVE &&
-          data?.map((tag) => <Tag key={nanoid()} tag={tag} />)
+          tags?.map((tag) => <Tag key={nanoid()} tag={tag} />)
         )}
         <hr className="w-full mt-2 mb-2" />
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
