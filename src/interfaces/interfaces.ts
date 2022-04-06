@@ -10,7 +10,7 @@ export interface IArticle {
   author: IAuthor;
 }
 
-interface IAuthor {
+export interface IAuthor {
   username: string;
   bio: string;
   image: string;
@@ -27,6 +27,18 @@ export interface ICurrentArticle {
 
 export interface ITags {
   tags: string[];
+}
+
+export interface IComments {
+  comments: IComment[];
+}
+
+interface IComment {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  body: string;
+  author: IAuthor;
 }
 
 export enum TypeLoadingStatus {
