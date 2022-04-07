@@ -41,6 +41,14 @@ interface IComment {
   author: IAuthor;
 }
 
+export interface ISendComments {
+  comment: IBody;
+}
+
+interface IBody {
+  body: string;
+}
+
 export enum TypeLoadingStatus {
   IS_PENDING = 'IS_PENDING',
   IS_RESOLVE = 'IS_RESOLVE',

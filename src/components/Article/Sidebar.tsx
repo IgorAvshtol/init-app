@@ -13,7 +13,7 @@ export function Sidebar({ avatar, author }: IArticleSidebar) {
       <img src={avatar} className="w-1/3 h-1/3 rounded-full" alt="avatar" />
       <p className="pt-2 font-bold text-lg">{author}</p>
       <div className="pt-1 w-full flex">
-        <button className="w-1/2 h-8 text-black bg-emerald-600 hover:bg-blue-800 font-medium rounded-full text-sm mr-2 mb-2">
+        <button className="w-20 h-8 text-black bg-emerald-600 hover:bg-blue-800 font-medium rounded-full text-sm mr-2 mb-2">
           Follow
         </button>
         <button className="w-1/6 h-8 flex justify-center text-white bg-emerald-600 hover:bg-blue-800 font-medium rounded-full text-sm relative hover:after:content-['Send__message'] after:absolute after:top-11 after:left-0 after:rounded-lg after:px-1 after:text-black after:bg-emerald-100">
