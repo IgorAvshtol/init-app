@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SignInForm } from './SignInForm';
-import { ProvideAuth } from '../hooks/useProvideAuth';
+import { ProvideAuth } from '../../hooks/useProvideAuth';
 
 describe('SignInForm test', () => {
   const mock = jest.fn();
