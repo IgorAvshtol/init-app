@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { SignUpForm } from './SignUpForm';
 import { ProvideAuth } from '../../hooks/useProvideAuth';
+import { SignUpForm } from './SignUpForm';
 
 describe('SignInForm test', () => {
   const mock = jest.fn();
