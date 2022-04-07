@@ -1,12 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { fetchDataService } from '../services/getResponseDataService';
-import { TypeLoadingStatus } from '../interfaces/interfaces';
+import { ISendComments, TypeLoadingStatus } from '../interfaces/interfaces';
+import { sendDataService } from '../services/sendDataService';
+import { errorHandleService } from '../services/errorHandleService';
 
 export const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<TypeLoadingStatus>(TypeLoadingStatus.IS_RESOLVE);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string>('');
   const getResponseData = useCallback(() => {
     setLoading(TypeLoadingStatus.IS_PENDING);
     fetchDataService(url)
@@ -18,13 +20,29 @@ export const useFetch = <T>(url: string) => {
       .catch((err) => {
         console.log(err);
         setLoading(TypeLoadingStatus.IS_REJECTED);
-        setError(true);
+        setError('Server error');
       });
   }, [url]);
+
+  const sendData = useCallback(
+    (body: ISendComments) => {
+      sendDataService(url, body)
+        .then((res) => {
+          console.log(res);
+          getResponseData();
+          setError('');
+        })
+        .catch((error) => {
+          const handledError = errorHandleService(error);
+          setError(handledError);
+        });
+    },
+    [url, getResponseData]
+  );
 
   useEffect(() => {
     getResponseData();
   }, [getResponseData]);
 
-  return { data, loading, error };
+  return { data, sendData, loading, error };
 };

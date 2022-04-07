@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { ChangeEvent, useState } from 'react';
 
 import close from '../../image/close.png';
 
@@ -12,8 +13,16 @@ interface ICommentsProps {
 
 export function Comments({ setIsOpen }: ICommentsProps) {
   const { slug } = useParams<string>();
-  const { data } = useFetch<IComments>(`/articles/${slug}/comments`);
+  const { data, sendData, error } = useFetch<IComments>(`/articles/${slug}/comments`);
   const comments = data?.comments;
+  const [commentText, setCommentText] = useState<string>('');
+  const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setCommentText(e.currentTarget.value);
+  };
+  const onClickSendButton = async () => {
+    await sendData({ comment: { body: commentText } });
+    setCommentText('');
+  };
   const closeComments = () => {
     setIsOpen(false);
   };
@@ -34,9 +43,20 @@ export function Comments({ setIsOpen }: ICommentsProps) {
             </button>
           </div>
           <input
+            value={commentText}
+            onChange={onChangeInputHandler}
             placeholder="What are your thoughts?"
             className="my-2 py-3 px-4 w-full rounded shadow font-thin focus:outline-none focus:shadow-lg focus:shadow-slate-200 shadow-gray-100"
           />
+          {error && <p className="text-red-600 w-full text-center">{error}</p>}
+          <div className="w-full flex justify-center">
+            <button
+              onClick={onClickSendButton}
+              className="w-20 h-8 text-black bg-emerald-600 hover:bg-emerald-300 font-medium rounded-full text-sm mr-2 mb-2"
+            >
+              send
+            </button>
+          </div>
           {comments?.map((comment) => {
             return (
               <Comment

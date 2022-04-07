@@ -1,12 +1,12 @@
 import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
-import { AxiosError } from 'axios';
 
 import { instance } from '../api/api';
 import {
-  getUserFromLocalStorage,
   removeUserFromLocalStorage,
   setUserFromLocalStorage,
 } from '../services/localStorage/localStorage';
+import { dataFromStorageIsValid } from '../services/dataFromStorageIsValid';
+import { errorHandleService } from '../services/errorHandleService';
 
 export interface IRegisterData {
   name?: string;
@@ -55,29 +55,9 @@ export const useAuth = () => {
 };
 
 export const useProvideAuth = () => {
-  const [user, setUser] = useState<IResponseData | null>(() => {
-    const data = getUserFromLocalStorage();
-    if (data) {
-      try {
-        return JSON.parse(data);
-      } catch (e) {
-        console.log('JSON is not valid');
-      }
-    }
-    return null;
-  });
+  const [user, setUser] = useState<IResponseData | null>(dataFromStorageIsValid);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-
-  const errorHandling = (err: AxiosError) => {
-    const responseErrorData = err.response?.data.errors;
-    const resArray = [];
-    for (const [key, value] of Object.entries(responseErrorData)) {
-      resArray.push(`${key} ${value}`);
-    }
-    setError(String(resArray));
-    setLoading(false);
-  };
 
   const responseDataHandling = (data: IResponseData) => {
     if (data.user) {
@@ -100,7 +80,9 @@ export const useProvideAuth = () => {
       .post(`users/`, user)
       .then((res) => responseDataHandling(res.data))
       .catch((err) => {
-        errorHandling(err);
+        const handledError = errorHandleService(err);
+        setError(handledError);
+        setLoading(false);
       });
   };
 
@@ -116,7 +98,9 @@ export const useProvideAuth = () => {
       .post(`users/login`, user)
       .then((res) => responseDataHandling(res.data))
       .catch((err) => {
-        errorHandling(err);
+        const handledError = errorHandleService(err);
+        setError(handledError);
+        setLoading(false);
       });
   };
 
