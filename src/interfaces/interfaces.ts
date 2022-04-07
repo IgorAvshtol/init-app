@@ -43,6 +43,6 @@ interface IComment {
 
 export enum TypeLoadingStatus {
   IS_PENDING = 'IS_PENDING',
-  IS_RESOLVE = 'IS_RESOLVE',
+  IS_RESOLVED = 'IS_RESOLVED',
   IS_REJECTED = 'IS_REJECTED',
 }
