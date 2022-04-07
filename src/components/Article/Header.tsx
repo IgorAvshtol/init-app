@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
+import { format } from 'date-fns';
 
 import add from '../../image/add.svg';
 
-import { dateUtils } from '../../utils/dateUtils';
 import like from '../../image/like.png';
 
 interface IArticleHeader {
@@ -14,6 +14,7 @@ interface IArticleHeader {
 }
 
 export function Header({ avatar, author, createdAt, tagList, favoritesCount }: IArticleHeader) {
+  const correctDate = format(new Date(createdAt), 'MMMd');
   return (
     <div className="w-full flex justify-between items-start xl:items-end lg:items-end md:items-end">
       <div className="w-2/3 flex items-start">
@@ -21,9 +22,7 @@ export function Header({ avatar, author, createdAt, tagList, favoritesCount }: I
         <div className="ml-2 w-full flex-col xl:ml-8 lg:ml-8 md:ml-8">
           <p className="font-medium text-lg">{author}</p>
           <div className="w-full flex xl:pt-2 lg:pt-2 md:pt-2">
-            <span className="text-sm xl:text-base lg:text-base md:text-base">
-              {dateUtils(createdAt)}
-            </span>
+            <span className="text-sm xl:text-base lg:text-base md:text-base">{correctDate}</span>
             <span className="pl-1">·</span>
             <div className="w-full flex flex-wrap text-zinc-400">
               {tagList.map((tag) => {

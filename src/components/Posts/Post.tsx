@@ -1,11 +1,10 @@
 import { nanoid } from 'nanoid';
 import { NavLink } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import add from '../../image/add.svg';
 import lens from '../../image/lens.webp';
 import like from '../../image/like.png';
-
-import { dateUtils } from '../../utils/dateUtils';
 
 export interface IPost {
   avatar: string;
@@ -20,6 +19,7 @@ export interface IPost {
 
 export function Post(props: IPost) {
   const { author, avatar, description, title, createdAt, tagList, favoritesCount, slug } = props;
+  const correctDate = format(new Date(createdAt), 'MMMd');
   return (
     <div className="w-full pt-6 flex justify-between">
       <div className="w-2/3 flex flex-col">
@@ -48,7 +48,7 @@ export function Post(props: IPost) {
         </h3>
         <div className="pt-2 flex justify-between items-start text-xs text-zinc-400">
           <div className="w-full flex">
-            <span>{dateUtils(createdAt)}</span>
+            <span>{correctDate}</span>
             <span className="pl-1">·</span>
             <div className="w-full flex flex-wrap">
               {tagList.map((tag) => {
