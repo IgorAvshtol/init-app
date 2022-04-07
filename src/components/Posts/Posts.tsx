@@ -19,7 +19,7 @@ export function Posts() {
           <img src={spinner} width={100} alt="spinner" />
         </div>
       ) : (
-        loading === TypeLoadingStatus.IS_RESOLVE &&
+        loading === TypeLoadingStatus.IS_RESOLVED &&
         articles?.map((post) => {
           return (
             <Post

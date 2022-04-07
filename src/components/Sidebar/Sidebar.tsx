@@ -35,7 +35,7 @@ export function Sidebar() {
             <img src={spinner} width={20} height={20} alt="spinner" />
           </div>
         ) : (
-          loading === TypeLoadingStatus.IS_RESOLVE &&
+          loading === TypeLoadingStatus.IS_RESOLVED &&
           tags?.map((tag) => <Tag key={nanoid()} tag={tag} />)
         )}
         <hr className="w-full mt-2 mb-2" />
