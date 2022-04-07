@@ -27,8 +27,7 @@ export const useFetch = <T>(url: string) => {
   const sendData = useCallback(
     (body: ISendComments) => {
       sendDataService(url, body)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           getResponseData();
           setError('');
         })
