@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 
-import { useAuth } from '../hooks/useProvideAuth';
+import { useAuth } from '../../hooks/useProvideAuth';
 
 import { Input } from '../Input/Input';
 import spinner from '../../image/spinner.gif';
