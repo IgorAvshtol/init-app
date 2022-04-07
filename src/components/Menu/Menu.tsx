@@ -1,9 +1,9 @@
 import { Menu } from '@headlessui/react';
 
-import menuLogo from '../image/menulogo.png';
-import avatar from '../image/avatar.png';
+import menuLogo from '../../image/menulogo.png';
+import avatar from '../../image/avatar.png';
 
-import { useAuth } from './hooks/useProvideAuth';
+import { useAuth } from '../hooks/useProvideAuth';
 
 export function DropdownMenu() {
   const { user, logout } = useAuth();

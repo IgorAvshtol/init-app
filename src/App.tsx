@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 
-import { SignInForm } from './components/SignInForm';
-import { SignUpForm } from './components/SignUpForm';
-import { Header } from './components/Header';
-import { Main } from './components/Main';
-import { Footer } from './components/Footer';
-import { Modal } from './components/Modal';
+import { SignInForm } from './components/SignInForm/SignInForm';
+import { SignUpForm } from './components/SignUpForm/SignUpForm';
+import { Header } from './components/Header/Header';
+import { Main } from './components/Main/Main';
+import { Footer } from './components/Footer/Footer';
+import { Modal } from './components/Modal/Modal';
 import { ProvideAuth } from './components/hooks/useProvideAuth';
 
 function App() {
