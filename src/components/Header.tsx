@@ -1,8 +1,8 @@
-import logo from '../../image/logo.png';
+import logo from '../image/logo.png';
 
-import { useAuth } from '../hooks/useProvideAuth';
+import { useAuth } from './hooks/useProvideAuth';
 
-import { DropdownMenu } from '../Menu/Menu';
+import { DropdownMenu } from './Menu';
 
 interface IHeader {
   onSignInBtnClick: () => void;
@@ -39,7 +39,7 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
             )}
           </div>
         </div>
-      </div>
+      </div>{' '}
       <hr className="h-0.5 w-full bg-black" />
     </header>
   );
