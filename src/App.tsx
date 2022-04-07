@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { SignInForm } from './components/SignInForm';
-import { SignUpForm } from './components/SignUpForm';
+import { SignInForm } from './components/SignInForm/SignInForm';
+import { SignUpForm } from './components/SignUpForm/SignUpForm';
 import { Header } from './components/Header';
 import { Main } from './components/Main/Main';
 import { Footer } from './components/Footer';
