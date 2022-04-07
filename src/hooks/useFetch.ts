@@ -19,7 +19,6 @@ export const useFetch = <T>(url: string) => {
       .catch((err) => {
         console.log(err);
         setLoading(TypeLoadingStatus.IS_REJECTED);
-        setError('Server error');
       });
   }, [url]);
 
