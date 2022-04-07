@@ -5,13 +5,13 @@ import { TypeLoadingStatus } from '../interfaces/interfaces';
 
 export const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState<TypeLoadingStatus>(TypeLoadingStatus.IS_RESOLVE);
+  const [loading, setLoading] = useState<TypeLoadingStatus>(TypeLoadingStatus.IS_RESOLVED);
   const [error, setError] = useState(false);
   const getResponseData = useCallback(() => {
     setLoading(TypeLoadingStatus.IS_PENDING);
     fetchDataService(url)
       .then((res) => {
-        setLoading(TypeLoadingStatus.IS_RESOLVE);
+        setLoading(TypeLoadingStatus.IS_RESOLVED);
         setData(res.data);
       })
       .catch((err) => {
