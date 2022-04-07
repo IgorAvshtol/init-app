@@ -3,10 +3,11 @@ import notFound from '../../image/404-not-found.png';
 
 import { Post } from './Post';
 import { useFetch } from '../../hooks/useFetch';
-import { IArticle, TypeLoadingStatus } from '../../interfaces/interfaces';
+import { IArticles, TypeLoadingStatus } from '../../interfaces/interfaces';
 
 export function Posts() {
-  const { data, loading, error } = useFetch<IArticle[]>('/articles');
+  const { data, loading, error } = useFetch<IArticles>('/articles');
+  const articles = data?.articles;
   return (
     <div className="w-full pt-6 flex flex-col justify-items-start xl:w-2/3 lg:w-2/3 md:w-full sm:w-full sm:pt-2">
       {error && loading === TypeLoadingStatus.IS_REJECTED ? (
@@ -18,8 +19,8 @@ export function Posts() {
           <img src={spinner} width={100} alt="spinner" />
         </div>
       ) : (
-        loading === TypeLoadingStatus.IS_RESOLVE &&
-        data?.map((post) => {
+        loading === TypeLoadingStatus.IS_RESOLVED &&
+        articles?.map((post) => {
           return (
             <Post
               key={post.slug}
