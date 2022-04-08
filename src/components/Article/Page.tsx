@@ -18,9 +18,7 @@ export function Page() {
   return (
     <article className="flex flex-1">
       <div className="w-full m-auto flex xl:w-3/4 lg:4/5 md:w-full sm:w-full">
-        <div>
-          <Navbar setIsOpen={setIsOpen} />
-        </div>
+        <Navbar setIsOpen={setIsOpen} />
         <div className="w-full border-0 xl:w-4/5 xl:border-x-2 lg:w-4/5 lg:border-x-2">
           <div className="mt-16 xl:mt-24 lg:mt-24 md:mt-16 sm:mt-16">
             {article && (

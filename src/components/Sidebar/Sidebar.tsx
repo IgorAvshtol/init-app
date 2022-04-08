@@ -23,9 +23,9 @@ export function Sidebar() {
   const { data, loading, error } = useFetch<ITags>('/tags');
   const tags = data?.tags;
   return (
-    <div className="xl:right-[10%] lg:right-[5%] xl:w-1/4 lg:w-1/4 lg:fixed md:w-full md:static sm:w-full sm:static w-full flex flex-col">
+    <div className="xl:right-[10%] lg:right-[5%] xl:w-1/4 lg:w-1/4 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col">
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
-      <div className="h-24 w-full pt-4 pl-2 flex flex-wrap justify-start">
+      <div className="h-24 w-full pt-4 flex flex-wrap justify-start">
         {error && loading === TypeLoadingStatus.IS_REJECTED ? (
           <div className="w-full flex justify-center items-center">
             <p className="text-sm">Sorry, tag field is not available now!</p>

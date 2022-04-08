@@ -13,7 +13,7 @@ export function Comment({ author, createdAt, body }: ICommentProps) {
     addSuffix: true,
   });
   return (
-    <div className="flex-col relative">
+    <div className="mt-4 flex-col relative">
       <div className="flex">
         <img src={author.image} className="w-12 rounded-full" alt="avatar" />
         <div className="pl-2">
@@ -22,6 +22,7 @@ export function Comment({ author, createdAt, body }: ICommentProps) {
         </div>
       </div>
       <div className="my-2 text-sm">{body}</div>
+      <hr className="mt-9 w-full" />
     </div>
   );
 }

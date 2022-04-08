@@ -33,6 +33,7 @@ export interface IResponse {
   bio: string;
   image: string;
   token: string;
+  username: string;
 }
 
 export const AuthContext = createContext<IAuthData | undefined>(undefined);
