@@ -45,7 +45,7 @@ export interface ISendComments {
   comment: IBody;
 }
 
-interface IBody {
+export interface IBody {
   body: string;
 }
 
