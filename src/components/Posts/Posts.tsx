@@ -9,7 +9,7 @@ export function Posts() {
   const { data, loading, error } = useFetch<IArticles>('/articles');
   const articles = data?.articles;
   return (
-    <div className="w-full pt-6 flex flex-col justify-items-start xl:w-2/3 lg:w-2/3 md:w-full sm:w-full sm:pt-2">
+    <div className="w-full pt-14 flex flex-col justify-items-start xl:w-2/3 lg:w-2/3 md:w-full sm:w-full sm:pt-2">
       {error && loading === TypeLoadingStatus.IS_REJECTED ? (
         <div className="w-full h-full flex justify-center items-center">
           <img src={notFound} alt="not-found" />

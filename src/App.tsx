@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { SignInForm } from './components/SignInForm/SignInForm';
@@ -13,6 +13,7 @@ import { Page } from './components/Article/Page';
 function App() {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [purpose, setPurpose] = useState(false);
 
   const toggleSignInModal = useCallback(() => {
     setIsSignInModalOpen((isOpen) => !isOpen);
@@ -20,10 +21,26 @@ function App() {
   const toggleSignUpModal = useCallback(() => {
     setIsSignUpModalOpen((isOpen) => !isOpen);
   }, []);
+
+  const listenScrollEvent = () => {
+    if (window.scrollY > 222) {
+      setPurpose(true);
+    } else {
+      setPurpose(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent);
+    return () => window.removeEventListener('scroll', listenScrollEvent);
+  }, []);
   return (
     <ProvideAuth>
       <div className="min-h-screen flex flex-col">
-        <Header onSignInBtnClick={toggleSignInModal} onSignUpBtnClick={toggleSignUpModal} />
+        <Header
+          purpose={purpose}
+          onSignInBtnClick={toggleSignInModal}
+          onSignUpBtnClick={toggleSignUpModal}
+        />
         <Modal isOpen={isSignInModalOpen} onClose={toggleSignInModal}>
           <SignInForm onSignIn={toggleSignInModal} />
         </Modal>
