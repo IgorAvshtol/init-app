@@ -5,7 +5,7 @@ import spinner from '../../image/spinner.gif';
 import { Tag } from './Tag';
 import { Link } from './Link';
 import { useFetch } from '../../hooks/useFetch';
-import { ITags, TypeLoadingStatus } from '../../interfaces/interfaces';
+import { ITags, TypeLoadingStatus } from '../../interfaces';
 
 export const links = [
   { id: 1, name: 'Help' },
