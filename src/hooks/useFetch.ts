@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { fetchDataService } from '../services/getResponseDataService';
-import { ISendComments, TypeLoadingStatus } from '../interfaces/interfaces';
+import { TypeLoadingStatus } from '../interfaces/interfaces';
 import { sendDataService } from '../services/sendDataService';
 import { errorHandleService } from '../services/errorHandleService';
 
@@ -23,8 +23,8 @@ export const useFetch = <T>(url: string) => {
   }, [url]);
 
   const sendData = useCallback(
-    (body: ISendComments) => {
-      sendDataService(url, body)
+    <T>(body: T) => {
+      sendDataService<T>(url, body)
         .then(() => {
           getResponseData();
           setError('');

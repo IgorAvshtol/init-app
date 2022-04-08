@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from 'react';
 
 import close from '../../image/close.png';
 
-import { IComments } from '../../interfaces/interfaces';
+import { IComments, ISendComments } from '../../interfaces/interfaces';
 import { useFetch } from '../../hooks/useFetch';
 import { Comment } from './Comment';
 
@@ -20,7 +20,7 @@ export function Comments({ setIsOpen }: ICommentsProps) {
     setCommentText(e.currentTarget.value);
   };
   const onClickSendButton = async () => {
-    await sendData({ comment: { body: commentText } });
+    await sendData<ISendComments>({ comment: { body: commentText } });
     setCommentText('');
   };
   const closeComments = () => {

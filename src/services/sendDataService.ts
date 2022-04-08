@@ -1,6 +1,5 @@
 import { instance } from '../api/api';
-import { ISendComments } from '../interfaces/interfaces';
 
-export const sendDataService = (url: string, body: ISendComments) => {
+export const sendDataService = <T>(url: string, body: T) => {
   return instance.post(url, body);
 };
