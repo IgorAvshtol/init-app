@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { fetchDataService } from '../services/getResponseDataService';
-import { TypeLoadingStatus } from '../interfaces/interfaces';
+import { TypeLoadingStatus } from '../interfaces';
 import { sendDataService } from '../services/sendDataService';
-import { errorHandleService } from '../services/errorHandleService';
+import { errorHandleService } from '../utils/errorHandleService';
 
 export const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T | null>(null);

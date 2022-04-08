@@ -33,7 +33,7 @@ export interface IComments {
   comments: IComment[];
 }
 
-interface IComment {
+export interface IComment {
   id: number;
   createdAt: string;
   updatedAt: string;

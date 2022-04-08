@@ -1,6 +1,6 @@
 import { formatDistance } from 'date-fns';
 
-import { IAuthor } from '../../interfaces/interfaces';
+import { IAuthor } from '../../interfaces';
 
 interface ICommentProps {
   createdAt: string;

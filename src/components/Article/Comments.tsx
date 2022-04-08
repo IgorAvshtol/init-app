@@ -3,11 +3,13 @@ import { ChangeEvent, useState } from 'react';
 
 import close from '../../image/close.png';
 
-import { IComments, ISendComments } from '../../interfaces/interfaces';
-import { useFetch } from '../../hooks/useFetch';
+import { IComment, ISendComments } from '../../interfaces';
 import { Comment } from './Comment';
 import { TextField } from './TextField';
 import { useAuth } from '../../hooks/useProvideAuth';
+import { useComments } from '../../hooks/useComments';
+import { createComment } from '../../services/commentService';
+import useSWR from 'swr';
 
 interface ICommentsProps {
   setIsOpen: (value: boolean) => void;
@@ -16,14 +18,16 @@ interface ICommentsProps {
 export function Comments({ setIsOpen }: ICommentsProps) {
   const { user } = useAuth();
   const { slug } = useParams<string>();
-  const { data, sendData, error } = useFetch<IComments>(`/articles/${slug}/comments`);
-  const comments = data?.comments;
+  const { data, isError } = useComments<IComment[]>(`/articles/${slug}/comments`, 'comments');
+  // const { data, sendData, error } = useFetch<IComments>(`/articles/${slug}/comments`);
   const [commentText, setCommentText] = useState<string>('');
   const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentText(e.currentTarget.value);
   };
   const onClickSendButton = async () => {
-    await sendData<ISendComments>({ comment: { body: commentText } });
+    await createComment<ISendComments>(`/articles/${slug}/comments`, {
+      comment: { body: commentText },
+    });
     setCommentText('');
   };
   const closeComments = () => {
@@ -40,7 +44,7 @@ export function Comments({ setIsOpen }: ICommentsProps) {
       >
         <div className="mx-auto my-0 w-11/12 h-11/12 mt-2 flex-col">
           <div className="w-full flex justify-between items-center">
-            <p className="font-bold text-lg">Comments({comments?.length}):</p>
+            <p className="font-bold text-lg">Comments({data?.length}):</p>
             <button onClick={closeComments}>
               <img src={close} className="pr-2 w-6 m-3" alt="close" />
             </button>
@@ -48,14 +52,14 @@ export function Comments({ setIsOpen }: ICommentsProps) {
           {user && (
             <TextField
               onClickSendButton={onClickSendButton}
-              error={error}
+              error={isError}
               commentText={commentText}
               onChangeInputHandler={onChangeInputHandler}
               avatar={user.user.image}
               user={user.user.username}
             />
           )}
-          {comments?.map((comment) => {
+          {data?.map((comment) => {
             return (
               <Comment
                 key={comment.id}
