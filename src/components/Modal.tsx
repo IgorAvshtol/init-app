@@ -1,7 +1,7 @@
 import { Fragment, useRef } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { useAuth } from '../hooks/useProvideAuth';
+import { useAuth } from 'hooks/useProvideAuth';
 
 interface IModal {
   onClose: () => void;

@@ -1,11 +1,7 @@
 import useSWR from 'swr';
 
-import { getArticles } from 'services/articleService';
 import { TypeLoadingStatus } from 'interfaces';
-
-interface DataPayload<T> {
-  [key: string]: T;
-}
+import { getTags } from 'services/tagService';
 
 interface DataResponse<T> {
   data: T | undefined;
@@ -13,9 +9,8 @@ interface DataResponse<T> {
   isError: string;
 }
 
-export function useArticles<T>(url: string, key: string): DataResponse<T> {
-  const { data: payload, error } = useSWR<DataPayload<T>>(url, getArticles);
-  const data = payload ? payload[key] : undefined;
+export function useTags<T>(url: string): DataResponse<T> {
+  const { data, error } = useSWR<T>(url, getTags);
   return {
     data,
     isLoading: !data

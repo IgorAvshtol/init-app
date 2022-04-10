@@ -1,12 +1,13 @@
-import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { IArticle } from '../../interfaces';
+import { useParams } from 'react-router-dom';
+
+import { IArticle } from 'interfaces';
 import { Header } from './Header';
 import { Description } from './Description';
 import { Navbar } from './Navbar';
 import { Sidebar } from './Sidebar';
 import { Comments } from './Comments';
-import { useArticles } from '../../hooks/useArticles';
+import { useArticles } from 'hooks/useArticles';
 
 export function Page() {
   const { slug } = useParams<string>();

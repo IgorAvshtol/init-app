@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 import { NavLink } from 'react-router-dom';
 
-import add from '../../image/add.svg';
-import lens from '../../image/lens.webp';
-import like from '../../image/like.png';
+import add from 'image/add.svg';
+import lens from 'image/lens.webp';
+import like from 'image/like.png';
 
 import { dateUtils } from '../../utils/dateUtils';
 

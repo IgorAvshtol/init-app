@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useRef, useState } from 'react';
 
-import lens from '../../image/lens.webp';
+import lens from 'image/lens.webp';
 
 export function Image() {
   const initRef = useRef(null);

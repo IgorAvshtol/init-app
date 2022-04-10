@@ -1,31 +1,30 @@
+import { AxiosError, AxiosResponse } from 'axios';
+import { mutate } from 'swr';
+
 import { instance } from './httpService';
-import { errorHandleService } from '../utils/errorHandleService';
-import { useCallback } from 'react';
-import { sendDataService } from './sendDataService';
+import { errorHandleService } from 'utils/errorHandleService';
+import { ISendComment } from '../interfaces';
 
-// export const commentService = <T>(url: string, body: T) => {
-//   return instance
-//     .post(url, body)
-//     .then((res: AxiosResponse<T>) => res.data)
-//     .catch((error) => console.log(error));
-// };
-
-export const getComments = async (url: string): Promise<any> => {
+export const getComments = async (url: string) => {
   try {
-    console.log('getCommentService');
     const { data } = await instance.get(url);
     return data;
   } catch (e) {
-    return errorHandleService(e);
+    const error = e as AxiosError;
+    return errorHandleService(error);
   }
 };
 
-export const createComment = async <T>(url: string, body: T): Promise<any> => {
+export const sendComment = async <T>(
+  url: string,
+  body: T
+): Promise<AxiosResponse<ISendComment> | string> => {
   try {
-    const data = await instance.post(url, body);
-    await getComments(url);
-    return data;
+    const res = await instance.post(url, body);
+    await mutate(url);
+    return res;
   } catch (e) {
-    return errorHandleService(e);
+    const error = e as AxiosError;
+    return errorHandleService(error);
   }
 };
