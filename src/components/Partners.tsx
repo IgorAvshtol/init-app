@@ -1,7 +1,7 @@
-import microsoft from '../image/microsoft.jpg';
-import adobe from '../image/adobe.png';
-import saleforce from '../image/saleforce.png';
-import sap from '../image/sap.png';
+import microsoft from 'image/microsoft.jpg';
+import adobe from 'image/adobe.png';
+import saleforce from 'image/saleforce.png';
+import sap from 'image/sap.png';
 
 export function Partners() {
   return (

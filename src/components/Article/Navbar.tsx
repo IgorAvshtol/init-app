@@ -1,5 +1,5 @@
-import home from '../../image/home.png';
-import comments from '../../image/comments.png';
+import home from 'image/home.png';
+import comments from 'image/comments.png';
 
 interface INavbar {
   setIsOpen: (value: boolean) => void;

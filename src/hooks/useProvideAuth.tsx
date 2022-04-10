@@ -1,12 +1,12 @@
 import React, { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
 
-import { instance } from '../services/httpService';
+import { instance } from 'services/httpService';
 import {
   removeUserFromLocalStorage,
   setUserFromLocalStorage,
-} from '../services/localStorage/localStorage';
-import { dataFromStorageIsValid } from '../utils/dataFromStorageIsValid';
-import { errorHandleService } from '../utils/errorHandleService';
+} from 'services/localStorage/localStorage';
+import { dataFromStorageIsValid } from 'utils/dataFromStorageIsValid';
+import { errorHandleService } from 'utils/errorHandleService';
 
 export interface IRegisterData {
   name?: string;

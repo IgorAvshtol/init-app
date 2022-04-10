@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 import { format } from 'date-fns';
 
-import add from '../../image/add.svg';
+import add from 'image/add.svg';
 
-import like from '../../image/like.png';
+import like from 'image/like.png';
 
 interface IArticleHeader {
   avatar: string;

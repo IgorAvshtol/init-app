@@ -1,14 +1,14 @@
-import spinner from '../../image/spinner.gif';
-import notFound from '../../image/404-not-found.png';
+import spinner from 'image/spinner.gif';
+import notFound from 'image/404-not-found.png';
 
 import { Post } from './Post';
-import { IArticle, TypeLoadingStatus } from '../../interfaces';
-import { useArticles } from '../../hooks/useArticles';
+import { IArticle, TypeLoadingStatus } from 'interfaces';
+import { useArticles } from 'hooks/useArticles';
 
 export function Posts() {
   const { data, isLoading, isError } = useArticles<IArticle[]>('/articles', 'articles');
   return (
-    <div className="w-full pt-14 flex flex-col justify-items-start xl:w-2/3 lg:w-2/3 md:w-full sm:w-full sm:pt-2">
+    <div className="w-full flex flex-col xl:w-2/3 lg:w-2/3 md:w-full sm:w-full">
       {isError ? (
         <div className="w-full h-full flex justify-center items-center">
           <img src={notFound} alt="not-found" />

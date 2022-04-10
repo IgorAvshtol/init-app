@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 
-export const errorHandleService = (err: AxiosError | any) => {
+export const errorHandleService = (err: AxiosError) => {
   const responseErrorData = err.response?.data.errors;
   const resArray = [];
   for (const [key, value] of Object.entries(responseErrorData)) {

@@ -1,15 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
 
-import close from '../../image/close.png';
+import close from 'image/close.png';
 
-import { IComment, ISendComments } from '../../interfaces';
+import { IComment, ISendComment } from 'interfaces';
 import { Comment } from './Comment';
 import { TextField } from './TextField';
-import { useAuth } from '../../hooks/useProvideAuth';
-import { useComments } from '../../hooks/useComments';
-import { createComment } from '../../services/commentService';
-import useSWR from 'swr';
+import { useAuth } from 'hooks/useProvideAuth';
+import { useComments } from 'hooks/useComments';
 
 interface ICommentsProps {
   setIsOpen: (value: boolean) => void;
@@ -18,14 +16,16 @@ interface ICommentsProps {
 export function Comments({ setIsOpen }: ICommentsProps) {
   const { user } = useAuth();
   const { slug } = useParams<string>();
-  const { data, isError } = useComments<IComment[]>(`/articles/${slug}/comments`, 'comments');
-  // const { data, sendData, error } = useFetch<IComments>(`/articles/${slug}/comments`);
+  const { data, isError, sendComment } = useComments<IComment[]>(
+    `/articles/${slug}/comments`,
+    'comments'
+  );
   const [commentText, setCommentText] = useState<string>('');
   const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentText(e.currentTarget.value);
   };
   const onClickSendButton = async () => {
-    await createComment<ISendComments>(`/articles/${slug}/comments`, {
+    await sendComment<ISendComment>(`/articles/${slug}/comments`, {
       comment: { body: commentText },
     });
     setCommentText('');
