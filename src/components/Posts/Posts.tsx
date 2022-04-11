@@ -1,26 +1,24 @@
-import spinner from '../../image/spinner.gif';
-import notFound from '../../image/404-not-found.png';
+import spinner from 'image/spinner.gif';
+import notFound from 'image/404-not-found.png';
 
 import { Post } from './Post';
-import { useFetch } from '../../hooks/useFetch';
-import { IArticles, TypeLoadingStatus } from '../../interfaces/interfaces';
+import { IArticle, TypeLoadingStatus } from 'interfaces';
+import { useArticles } from 'hooks/useArticles';
 
 export function Posts() {
-  const { data, loading, error } = useFetch<IArticles>('/articles');
-  const articles = data?.articles;
+  const { data, isLoading, isError } = useArticles<IArticle[]>('/articles', 'articles');
   return (
-    <div className="w-full pt-6 flex flex-col justify-items-start xl:w-2/3 lg:w-2/3 md:w-full sm:w-full sm:pt-2">
-      {error && loading === TypeLoadingStatus.IS_REJECTED ? (
+    <div className="w-full flex flex-col xl:w-2/3 lg:w-2/3 md:w-full sm:w-full">
+      {isError ? (
         <div className="w-full h-full flex justify-center items-center">
           <img src={notFound} alt="not-found" />
         </div>
-      ) : loading === TypeLoadingStatus.IS_PENDING ? (
+      ) : isLoading === TypeLoadingStatus.IS_PENDING ? (
         <div className="w-full h-full flex justify-center items-center">
           <img src={spinner} width={100} alt="spinner" />
         </div>
       ) : (
-        loading === TypeLoadingStatus.IS_RESOLVED &&
-        articles?.map((post) => {
+        data?.map((post) => {
           return (
             <Post
               key={post.slug}

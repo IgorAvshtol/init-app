@@ -17,23 +17,11 @@ export interface IAuthor {
   following: boolean;
 }
 
-export interface IArticles {
-  articles: IArticle[];
-}
-
-export interface ICurrentArticle {
-  article: IArticle;
-}
-
 export interface ITags {
   tags: string[];
 }
 
-export interface IComments {
-  comments: IComment[];
-}
-
-interface IComment {
+export interface IComment {
   id: number;
   createdAt: string;
   updatedAt: string;
@@ -41,7 +29,7 @@ interface IComment {
   author: IAuthor;
 }
 
-export interface ISendComments {
+export interface ISendComment {
   comment: IBody;
 }
 

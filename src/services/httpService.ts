@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { dataFromStorageIsValid } from '../services/dataFromStorageIsValid';
+import { dataFromStorageIsValid } from 'utils/dataFromStorageIsValid';
 
 export const instance = axios.create({
   withCredentials: false,

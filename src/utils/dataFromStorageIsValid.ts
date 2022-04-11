@@ -1,5 +1,5 @@
-import { getUserFromLocalStorage } from './localStorage/localStorage';
-import { IResponseData } from '../hooks/useProvideAuth';
+import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
+import { IResponseData } from 'hooks/useProvideAuth';
 
 export function dataFromStorageIsValid(): IResponseData | null {
   const data = getUserFromLocalStorage();

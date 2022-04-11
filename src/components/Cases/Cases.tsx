@@ -1,6 +1,6 @@
-import apartments from '../../image/apartments.webp';
-import office from '../../image/office.webp';
-import lens from '../../image/lens.webp';
+import apartments from 'image/apartments.webp';
+import office from 'image/office.webp';
+import lens from 'image/lens.webp';
 
 import { Case } from './Case';
 

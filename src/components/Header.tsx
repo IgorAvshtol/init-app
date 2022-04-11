@@ -1,18 +1,25 @@
-import logo from '../image/logo.png';
+import logo from 'image/logo.png';
 
-import { useAuth } from '../hooks/useProvideAuth';
+import { useAuth } from 'hooks/useProvideAuth';
 
 import { DropdownMenu } from './Menu';
 
 interface IHeader {
   onSignInBtnClick: () => void;
   onSignUpBtnClick: () => void;
+  purpose: boolean;
 }
 
-export function Header({ onSignInBtnClick, onSignUpBtnClick }: IHeader) {
+export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader) {
   const { user } = useAuth();
   return (
-    <header className="h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-50">
+    <header
+      className={
+        purpose
+          ? 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-100'
+          : 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-50'
+      }
+    >
       <div className="h-full w-4/5 flex justify-center items-center">
         <div className="w-full flex justify-between items-center relative">
           <a href="/">

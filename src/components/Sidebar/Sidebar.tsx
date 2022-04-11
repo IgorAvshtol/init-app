@@ -1,11 +1,11 @@
 import { nanoid } from 'nanoid';
 
-import spinner from '../../image/spinner.gif';
+import spinner from 'image/spinner.gif';
 
 import { Tag } from './Tag';
 import { Link } from './Link';
-import { useFetch } from '../../hooks/useFetch';
-import { ITags, TypeLoadingStatus } from '../../interfaces/interfaces';
+import { ITags, TypeLoadingStatus } from 'interfaces';
+import { useTags } from 'hooks/useTags';
 
 export const links = [
   { id: 1, name: 'Help' },
@@ -20,23 +20,22 @@ export const links = [
 ];
 
 export function Sidebar() {
-  const { data, loading, error } = useFetch<ITags>('/tags');
-  const tags = data?.tags;
+  const { data, isLoading, isError } = useTags<ITags>('/tags');
   return (
-    <div className="xl:right-[10%] lg:right-[5%] xl:w-1/4 lg:w-1/4 lg:fixed md:w-full md:static sm:w-full sm:static w-full flex flex-col">
+    <div className="xl:right-[10%] lg:right-[5%] xl:w-1/4 lg:w-1/4 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col">
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
-      <div className="h-24 w-full pt-4 pl-2 flex flex-wrap justify-start">
-        {error && loading === TypeLoadingStatus.IS_REJECTED ? (
+      <div className="w-full pt-4 flex flex-wrap justify-start">
+        {isError && isLoading === TypeLoadingStatus.IS_REJECTED ? (
           <div className="w-full flex justify-center items-center">
             <p className="text-sm">Sorry, tag field is not available now!</p>
           </div>
-        ) : loading === TypeLoadingStatus.IS_PENDING ? (
+        ) : isLoading === TypeLoadingStatus.IS_PENDING ? (
           <div className="w-full h-full flex justify-center items-center">
             <img src={spinner} width={20} height={20} alt="spinner" />
           </div>
         ) : (
-          loading === TypeLoadingStatus.IS_RESOLVED &&
-          tags?.map((tag) => <Tag key={nanoid()} tag={tag} />)
+          isLoading === TypeLoadingStatus.IS_RESOLVED &&
+          data?.tags.map((tag) => <Tag key={nanoid()} tag={tag} />)
         )}
         <hr className="w-full mt-2 mb-2" />
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">

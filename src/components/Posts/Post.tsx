@@ -2,9 +2,9 @@ import { nanoid } from 'nanoid';
 import { NavLink } from 'react-router-dom';
 import { format } from 'date-fns';
 
-import add from '../../image/add.svg';
-import lens from '../../image/lens.webp';
-import like from '../../image/like.png';
+import add from 'image/add.svg';
+import lens from 'image/lens.webp';
+import like from 'image/like.png';
 
 export interface IPost {
   avatar: string;
