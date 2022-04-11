@@ -8,7 +8,7 @@ interface IArticleSidebar {
 
 export function Sidebar({ avatar, author }: IArticleSidebar) {
   return (
-    <div className="sticky top-24 ml-2 flex-col xl:w-full lg:w-4/5 -z-10">
+    <div className="sticky top-24 ml-4 flex-col xl:w-full lg:w-4/5 -z-10">
       <img src={avatar} className="w-1/3 h-1/3 rounded-full" alt="avatar" />
       <p className="pt-2 font-bold text-lg">{author}</p>
       <div className="pt-1 w-full flex">
