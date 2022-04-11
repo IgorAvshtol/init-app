@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useEffect, useRef } from 'react';
 
 interface ITextField {
   avatar: string;
@@ -17,10 +17,14 @@ export function TextField({
   error,
   onClickSendButton,
 }: ITextField) {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    e.currentTarget.style.height = '10px';
-    e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
-  };
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  useEffect(() => {
+    if (textareaRef && textareaRef.current) {
+      textareaRef.current.style.height = '0px';
+      const scrollHeight = textareaRef.current.scrollHeight;
+      textareaRef.current.style.height = scrollHeight + 'px';
+    }
+  }, [commentText]);
   return (
     <div className="w-full min-h-[52px] my-2 py-3 px-4 w-full rounded shadow font-thin">
       <div className="h-12 flex item-center">
@@ -28,9 +32,9 @@ export function TextField({
         <p className="pl-2">{user}</p>
       </div>
       <textarea
+        ref={textareaRef}
         value={commentText}
         onChange={onChangeInputHandler}
-        onKeyDown={handleKeyDown}
         placeholder="What are your thoughts?"
         className="w-full resize-none bg-inherit my-2 py-3 px-4 w-full rounded shadow font-thin focus:outline-none focus:shadow-lg focus:shadow-slate-200 shadow-gray-100"
       />

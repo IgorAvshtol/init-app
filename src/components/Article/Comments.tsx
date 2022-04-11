@@ -16,10 +16,7 @@ interface ICommentsProps {
 export function Comments({ setIsOpen }: ICommentsProps) {
   const { user } = useAuth();
   const { slug } = useParams<string>();
-  const { data, isError, sendComment } = useComments<IComment[]>(
-    `/articles/${slug}/comments`,
-    'comments'
-  );
+  const { data, isError, sendComment } = useComments<IComment[]>(`/articles/${slug}/comments`);
   const [commentText, setCommentText] = useState<string>('');
   const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentText(e.currentTarget.value);
