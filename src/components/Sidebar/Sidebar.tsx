@@ -22,7 +22,7 @@ export const links = [
 export function Sidebar() {
   const { data, isLoading, isError } = useTags<ITags>('/tags');
   return (
-    <div className="xl:right-[10%] lg:right-[5%] xl:w-1/4 lg:w-1/4 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col">
+    <div className="xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col">
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
       <div className="w-full pt-4 flex flex-wrap justify-start">
         {isError && isLoading === TypeLoadingStatus.IS_REJECTED ? (
