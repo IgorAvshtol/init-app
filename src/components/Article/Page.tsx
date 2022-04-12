@@ -12,7 +12,7 @@ import { Response } from './Response';
 
 export function Page() {
   const { slug } = useParams<string>();
-  const { data } = useArticles<IArticle>(`/articles/${slug}`, 'article');
+  const { data } = useArticles<IArticle>(`/articles/${slug}`);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <article className="flex flex-1">
