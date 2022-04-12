@@ -5,10 +5,10 @@ import { SignInForm } from 'components/SignInForm/SignInForm';
 import { SignUpForm } from 'components/SignUpForm/SignUpForm';
 import { Header } from 'components/Header';
 import { Main } from 'components/Main/Main';
-import { Footer } from 'components/Footer';
 import { Modal } from 'components/Modal';
 import { ProvideAuth } from 'hooks/useProvideAuth';
 import { Page } from 'components/Article/Page';
+import { Form } from 'components/Article/AddArticleForm/Form';
 
 function App() {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   const listenScrollEvent = () => {
-    if (window.scrollY > 222) {
+    if (window.scrollY > 20) {
       setPurpose(true);
     } else {
       setPurpose(false);
@@ -50,8 +50,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/:slug" element={<Page />} />
+          <Route path="/new-article" element={<Form />} />
         </Routes>
-        <Footer />
+        {/*<Footer />*/}
       </div>
     </ProvideAuth>
   );

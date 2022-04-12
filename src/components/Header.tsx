@@ -15,9 +15,11 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
   return (
     <header
       className={
-        purpose
-          ? 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-100'
-          : 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-50'
+        !user
+          ? purpose
+            ? 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-100'
+            : 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-50'
+          : 'hidden'
       }
     >
       <div className="h-full w-4/5 flex justify-center items-center">

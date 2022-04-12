@@ -50,7 +50,7 @@ export function Image() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-5/6 p-6 mt-4 transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="inline-block w-5/6 p-6 mt-4 transition-all transform bg-white shadow-xl rounded-2xl xl:w-2/3 lg:w-2/3">
                 <img src={lens} className="w-full" alt="image" />
               </div>
             </Transition.Child>

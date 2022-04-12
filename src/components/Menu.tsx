@@ -1,6 +1,5 @@
 import { Menu } from '@headlessui/react';
 
-import menuLogo from 'image/menulogo.png';
 import avatar from 'image/avatar.png';
 
 import { useAuth } from 'hooks/useProvideAuth';
@@ -9,16 +8,15 @@ export function DropdownMenu() {
   const { user, logout } = useAuth();
 
   return (
-    <Menu as="div">
-      <div className="absolute right-0 h-full flex items-center">
+    <Menu as="div" className="relative">
+      <div className="h-full flex items-center">
         <Menu.Button>
-          <div className="w-20 flex items-center justify-between">
-            <img src={menuLogo} className="h-6 w-6" alt="menu" />
+          <div className="flex justify-center">
             <img src={user?.user.image || avatar} className="h-8" alt="avatar" />
           </div>
         </Menu.Button>
       </div>
-      <Menu.Items className="fixed bg-slate-100 rounded-xl border-inherit absolute top-12 right-0 z-3">
+      <Menu.Items className="fixed bg-slate-100 rounded-xl border-inherit absolute bottom-10 left-10 z-3">
         <div className="w-32 flex flex-col justify-items-start p-5">
           <Menu.Item>
             {({ active }) => <a className={`${active ? 'underline pb-2' : 'pb-2'}`}>Settings</a>}

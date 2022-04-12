@@ -21,7 +21,7 @@ export interface IPost {
 export function Post(props: IPost) {
   const { author, avatar, description, title, createdAt, tagList, favoritesCount, slug } = props;
   return (
-    <div className="w-full pt-6 flex justify-between">
+    <div className="w-full py-6 flex justify-between border-b-2">
       <div className="w-2/3 flex flex-col">
         <div className="flex justify-between w-44 xl:w-full lg:w-full md:w-full sm:w-full">
           <a href="/" className="flex w-24">
