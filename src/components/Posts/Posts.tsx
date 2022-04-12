@@ -6,7 +6,7 @@ import { IArticle, TypeLoadingStatus } from 'interfaces';
 import { useArticles } from 'hooks/useArticles';
 
 export function Posts() {
-  const { data, isLoading, isError } = useArticles<IArticle[]>('/articles', 'articles');
+  const { data, isLoading, isError } = useArticles<IArticle[]>('/articles');
   return (
     <div className="w-full flex flex-col items-center xl:w-2/3 lg:w-2/3 md:w-full sm:w-full">
       {isError ? (

@@ -1,11 +1,12 @@
 import { useAuth } from 'hooks/useProvideAuth';
-import logo from 'image/logo.png';
 import { DropdownMenu } from '../../Menu';
+
+import logo from 'image/logo.png';
 
 export function Header() {
   const { user } = useAuth();
   return (
-    <div className="w-1/2 h-14 bg-fuchsia-500 flex justify-between items-center">
+    <div className="w-1/2 h-14 flex justify-between items-center">
       <div className="flex">
         <a href="/">
           <img width={30} src={logo} alt="main-logo" />

@@ -16,7 +16,7 @@ export function DropdownMenu() {
           </div>
         </Menu.Button>
       </div>
-      <Menu.Items className="fixed bg-slate-100 rounded-xl border-inherit absolute bottom-10 left-10 z-3">
+      <Menu.Items className="fixed bg-slate-100 rounded-xl border-inherit absolute left-10 z-3">
         <div className="w-32 flex flex-col justify-items-start p-5">
           <Menu.Item>
             {({ active }) => <a className={`${active ? 'underline pb-2' : 'pb-2'}`}>Settings</a>}

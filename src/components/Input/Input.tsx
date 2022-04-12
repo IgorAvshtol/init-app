@@ -9,8 +9,8 @@ interface InputProps extends ComponentProps<'input'> {
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { name, label, errors, ...inputProps } = props;
   return (
-    <div className="flex flex-col justify-center items-center">
-      <label htmlFor={name}>{label}:</label>
+    <div className="flex flex-col justify-center items-center ">
+      <label htmlFor={name}>{label ? label + ':' : null}</label>
       <input
         id={name}
         type={name}

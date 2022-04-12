@@ -10,6 +10,10 @@ export interface IArticle {
   author: IAuthor;
 }
 
+export interface IArticles {
+  article: IArticle;
+}
+
 export interface IAuthor {
   username: string;
   bio: string;
