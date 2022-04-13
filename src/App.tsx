@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   const listenScrollEvent = () => {
-    if (window.scrollY > 20) {
+    if (window.scrollY > 350) {
       setPurpose(true);
     } else {
       setPurpose(false);
@@ -49,10 +49,9 @@ function App() {
         </Modal>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/:slug" element={<Page />} />
+          <Route path="/:slug" element={<Page toggleSignInModal={toggleSignInModal} />} />
           <Route path="/new-article" element={<Form />} />
         </Routes>
-        {/*<Footer />*/}
       </div>
     </ProvideAuth>
   );

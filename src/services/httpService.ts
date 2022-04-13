@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { dataFromStorageIsValid } from 'utils/dataFromStorageIsValid';
+import { getUserFromLocalStorage } from './localStorage/localStorage';
 
 export const instance = axios.create({
   withCredentials: false,
@@ -7,7 +7,7 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use(function (config) {
-  const userData = dataFromStorageIsValid();
+  const userData = getUserFromLocalStorage();
   const token = userData?.user.token;
   if (config.headers) config.headers.Authorization = token ? `Bearer ${token}` : '';
   return config;

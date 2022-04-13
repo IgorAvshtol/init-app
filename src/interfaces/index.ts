@@ -33,7 +33,7 @@ export interface IComment {
   author: IAuthor;
 }
 
-export interface ISendComment {
+export interface ICreateMenu {
   comment: IBody;
 }
 
@@ -42,7 +42,7 @@ export interface IBody {
 }
 
 export interface IEditCommentData {
-  id: number | null;
+  id?: number | null;
   isEdit: boolean;
 }
 

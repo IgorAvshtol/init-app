@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 import logo from 'image/logo.png';
 import home from 'image/home.png';
@@ -6,8 +7,21 @@ import write from 'image/write.png';
 import { DropdownMenu } from '../Menu';
 import { useAuth } from 'hooks/useProvideAuth';
 
-export function Navbar() {
+interface INavBar {
+  toggleSignInModal?: () => void;
+}
+
+export function Navbar({ toggleSignInModal }: INavBar) {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const forwarding = () => {
+    if (!user && toggleSignInModal) {
+      toggleSignInModal();
+      return;
+    }
+    navigate('/new-article');
+  };
 
   return (
     <div className="bg-emerald-100 z-10 fixed h-12 left-0 bottom-0 flex items-center justify-center w-full xl:static xl:h-full xl:flex xl:justify-center xl:items-center xl:w-16 lg:static	lg:h-full lg:flex lg:justify-around lg:items-center lg:w-16 md:fixed md:h-12 md:w-full md:left-0 md:bottom-0 sm:fixed sm:h-12 sm:w-full sm:left-0 sm:bottom-0">
@@ -21,8 +35,8 @@ export function Navbar() {
             <img className="w-9" src={home} alt="home" />
           </a>
           <hr className="hidden xl:block xl:mt-4 xl:w-5/6 lg:block lg:mt-4 lg:w-5/6 md:hidden sm:hidden" />
-          <NavLink
-            to="/new-article"
+          <a
+            onClick={forwarding}
             className="relative hover:after:content-['Write'] after:w-24 after:text-center after:rounded-lg after:bg-emerald-100 after:absolute after:bottom-10 after:left-2 lg:after:left-8 lg:after:bottom-0 md:after:bottom-12 md:after:left-2 sm:after:bottom-10 sm:after:left-2"
           >
             <img
@@ -30,7 +44,7 @@ export function Navbar() {
               src={write}
               alt="write"
             />
-          </NavLink>
+          </a>
         </div>
         {user && <DropdownMenu />}
       </div>
