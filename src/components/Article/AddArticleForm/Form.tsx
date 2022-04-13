@@ -74,11 +74,7 @@ export function Form() {
         </div>
         {fields.map((field, index) => (
           <div key={field.id} className="mt-2">
-            <Input
-              {...register(`tagList.${index}`)}
-              label={'Tag'}
-              errors={errors?.body?.message ?? null}
-            />
+            <Input {...register(`tagList.${index}`)} label={'Tag'} />
             <button
               className="absolute bottom-7 right-[-22px]"
               onClick={(e) => onDeleteButtonHandler(e, index)}

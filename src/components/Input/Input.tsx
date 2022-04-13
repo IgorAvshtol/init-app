@@ -3,7 +3,7 @@ import { ComponentProps, forwardRef } from 'react';
 interface InputProps extends ComponentProps<'input'> {
   name: string;
   label: string;
-  errors: string | null;
+  errors?: string | null;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
