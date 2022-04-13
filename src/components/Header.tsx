@@ -17,8 +17,8 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
       className={
         !user
           ? purpose
-            ? 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-100'
-            : 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-50'
+            ? 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-white'
+            : 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-emerald-400'
           : 'hidden'
       }
     >
@@ -33,13 +33,21 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
             ) : (
               <div className="w-full flex justify-between">
                 <button
-                  className="text-green-300 hover:text-green-700 cursor-pointer"
+                  className={
+                    purpose
+                      ? 'text-green-300 hover:text-green-700 cursor-pointer'
+                      : 'text-white cursor-pointer'
+                  }
                   onClick={onSignInBtnClick}
                 >
                   Sign In
                 </button>
                 <button
-                  className="text-green-300 hover:text-green-700 cursor-pointer"
+                  className={
+                    purpose
+                      ? 'text-green-300 hover:text-green-700 cursor-pointer'
+                      : 'text-white cursor-pointer'
+                  }
                   onClick={onSignUpBtnClick}
                 >
                   Sign Up
@@ -49,7 +57,6 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
           </div>
         </div>
       </div>
-      <hr className="h-0.5 w-full bg-black" />
     </header>
   );
 }

@@ -14,9 +14,9 @@ export const getUserFromLocalStorage = () => {
 };
 
 export const setUserFromLocalStorage = (data: IResponseData) => {
-  return localStorage.setItem(`${process.env.REACT_APP_LOCALSTORAGE_KEY}`, JSON.stringify(data));
+  return localStorage.setItem(REACT_APP_LOCALSTORAGE_KEY, JSON.stringify(data));
 };
 
 export const removeUserFromLocalStorage = () => {
-  localStorage.removeItem(`${process.env.REACT_APP_LOCALSTORAGE_KEY}`);
+  localStorage.removeItem(REACT_APP_LOCALSTORAGE_KEY);
 };

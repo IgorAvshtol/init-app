@@ -3,7 +3,7 @@ import { mutate } from 'swr';
 import React, { useRef } from 'react';
 
 import { useComments } from 'hooks/useComments';
-import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 
 interface IEditMenu {
   id: number;

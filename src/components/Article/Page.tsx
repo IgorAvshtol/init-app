@@ -10,14 +10,18 @@ import { Comments } from './Comments';
 import { useArticles } from 'hooks/useArticles';
 import { Response } from './Response';
 
-export function Page() {
+interface IPage {
+  toggleSignInModal: () => void;
+}
+
+export function Page({ toggleSignInModal }: IPage) {
   const { slug } = useParams<string>();
   const { data } = useArticles<IArticle>(`/articles/${slug}`);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <article className="flex flex-1">
       <div className="w-full m-auto flex xl:w-3/4 lg:4/5 md:w-full sm:w-full">
-        <Navbar />
+        <Navbar toggleSignInModal={toggleSignInModal} />
         <div className="w-full relative min-h-screen border-0 xl:w-4/5 xl:mb-0 xl:border-x-2 lg:w-4/5 lg:mb-0 lg:border-x-2 md:mb-0 sm:mb-0">
           <div className="mt-6 mb-24 xl:mt-12 lg:mt-12 md:mt-6 sm:mt-6">
             {data && (

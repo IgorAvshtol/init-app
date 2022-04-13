@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
+import { mutate } from 'swr';
 
 import close from 'image/close.png';
 
-import { IComment, ISendComment } from 'interfaces';
+import { IComment, ICreateMenu } from 'interfaces';
 import { Comment } from './Comment';
 import { TextField } from './TextField';
 import { useAuth } from 'hooks/useProvideAuth';
@@ -16,18 +17,18 @@ interface ICommentsProps {
 export function Comments({ setIsOpen }: ICommentsProps) {
   const { user } = useAuth();
   const { slug } = useParams<string>();
-  const { data, isError, createComment, deleteComment } = useComments<IComment[]>(
+  const { data, isError, sendComment, deleteComment } = useComments<IComment[]>(
     `/articles/${slug}/comments`
   );
   const [commentText, setCommentText] = useState<string>('');
-
   const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentText(e.currentTarget.value);
   };
   const onClickSendButton = async () => {
-    await createComment<ISendComment>(`/articles/${slug}/comments`, {
+    await sendComment<ICreateMenu>(`/articles/${slug}/comments`, {
       comment: { body: commentText },
     });
+    await mutate(`/articles/${slug}/comments`);
     setCommentText('');
   };
   const closeComments = () => {

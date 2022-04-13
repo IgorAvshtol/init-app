@@ -5,6 +5,7 @@ import { Input } from '../../Input/Input';
 import { Header } from './Header';
 import { useArticles } from 'hooks/useArticles';
 import { IArticle } from 'interfaces';
+import { BodyField } from './BodyField';
 
 interface IAddArticle {
   article: INewArticleData;
@@ -49,8 +50,9 @@ export function Form() {
       onSubmit={handleSubmit(registration)}
     >
       <Header />
-      <div className="relative w-80 mt-6 flex flex-col">
+      <div className="relative w-2/3 mt-6 flex flex-col">
         <Input
+          placeholder="Title..."
           {...register('title', {
             required: 'Title is required',
           })}
@@ -58,23 +60,20 @@ export function Form() {
           errors={errors?.title?.message ?? null}
         />
         <Input
+          placeholder="Description..."
           {...register('description', {
             required: 'Description is required',
           })}
           label="Description"
           errors={errors?.description?.message ?? null}
         />
-        <div className="flex flex-col items-center">
-          <textarea
-            placeholder="Body..."
-            {...register('body', { required: 'Body is required' })}
-            className="mt-2 border-2 w-full p-2"
-          />
-          {errors?.body?.message ?? null}
-        </div>
+        <BodyField
+          {...register('body', { required: 'Body is required' })}
+          errors={errors?.body?.message ?? null}
+        />
         {fields.map((field, index) => (
           <div key={field.id} className="mt-2">
-            <Input {...register(`tagList.${index}`)} label={'Tag'} />
+            <Input {...register(`tagList.${index}`)} label={'Tag'} placeholder={'Tag'} />
             <button
               className="absolute bottom-7 right-[-22px]"
               onClick={(e) => onDeleteButtonHandler(e, index)}
