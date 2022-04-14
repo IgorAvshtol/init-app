@@ -1,4 +1,6 @@
 .fading {
+    display: flex;
+    justify-content: flex-end;
     color: black;
     font-size: 28px;
     line-height: 32px;
