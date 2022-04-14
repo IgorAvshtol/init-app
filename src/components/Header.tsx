@@ -17,8 +17,8 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
       className={
         !user
           ? purpose
-            ? 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-white z-10'
-            : 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-emerald-400 z-10'
+            ? 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-white z-30'
+            : 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-emerald-400 z-30'
           : 'hidden'
       }
     >

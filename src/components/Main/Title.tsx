@@ -2,7 +2,7 @@ import { Animation } from '../Style/Animation';
 
 export function Title() {
   return (
-    <div className="relative w-full mt-12 bg-emerald-400 flex justify-end items-center h-[450px] border-b-[1px] border-black -z-10">
+    <div className="relative w-full mt-12 bg-emerald-400 flex justify-end items-center h-[450px] border-b-[1px] border-black">
       <div className="relative w-3/4 m-auto flex-col justify-between items-center xl:w-3/5 lg:w-5/6 md:w-5/6 sm:w-5/6 z-10">
         <h1 className="text-5xl xl:text-8xl lg:text-7xl md:text-7xl sm:text-7xl font-serif	">
           Itransition.
