@@ -21,16 +21,20 @@ export function Animation() {
   }, []);
 
   return (
-    <div className="absolute z-20 right-0 hidden xl:absolute xl:w-1/2 xl:h-4/5 lg:absolute lg:w-1/2 lg:h-4/5 md:block md:w-1/2 sm:hidden">
+    <div className="absolute z-20 top-0 right-0 hidden xl:absolute xl:w-1/2 xl:h-4/5 lg:absolute lg:w-1/2 lg:h-4/5 md:block md:w-1/2 sm:hidden">
       <div className="fading">M M M M M M M M M M M</div>
-      <div className="fading">M M M M M M M M M</div>
+      <div className="fading">M M M M M M M M M M M M M M M M M M M M M M</div>
       <div className="fading">M M M M M M M M M M M M M M</div>
+      <div className="fading">M M M M M M M M M M M</div>
+      <div className="fading">M M M M M M M</div>
       <div className="fading">M M M M M M M M M M M M M M</div>
-      <div className="fading">M M M M M M M M M</div>
-      <div className="fading">M M M M M M M M</div>
-      <div className="fading">M M M M M M M M M</div>
-      <div className="fading">M M M M M M M M M M M M M</div>
+      <div className="fading">M M M M M</div>
       <div className="fading">M M M M</div>
+      <div className="fading">M M M M</div>
+      <div className="fading">M M M M M M M M M M M M</div>
+      <div className="fading">M M M M M M M M M M M M M M M M M M</div>
+      <div className="fading">M M M M M M M M M M M M</div>
+      <div className="fading">M M M M M M M M M M M M M M M M M</div>
       <div className="fading">M M M M M M M M M M M M</div>
     </div>
   );
