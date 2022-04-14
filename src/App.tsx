@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { SignInForm } from 'components/SignInForm/SignInForm';
 import { SignUpForm } from 'components/SignUpForm/SignUpForm';
@@ -9,11 +9,13 @@ import { Modal } from 'components/Modal';
 import { ProvideAuth } from 'hooks/useProvideAuth';
 import { Page } from 'components/Article/Page';
 import { Form } from 'components/Article/AddArticleForm/Form';
+import { PrivateRoute } from './components/Routes/PrivateRoute';
 
 function App() {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [purpose, setPurpose] = useState(false);
+  const { pathname } = useLocation();
 
   const toggleSignInModal = useCallback(() => {
     setIsSignInModalOpen((isOpen) => !isOpen);
@@ -36,11 +38,13 @@ function App() {
   return (
     <ProvideAuth>
       <div className="min-h-screen h-full flex flex-col">
-        <Header
-          purpose={purpose}
-          onSignInBtnClick={toggleSignInModal}
-          onSignUpBtnClick={toggleSignUpModal}
-        />
+        <div className={pathname !== '/' ? 'hidden' : 'block'}>
+          <Header
+            purpose={purpose}
+            onSignInBtnClick={toggleSignInModal}
+            onSignUpBtnClick={toggleSignUpModal}
+          />
+        </div>
         <Modal isOpen={isSignInModalOpen} onClose={toggleSignInModal}>
           <SignInForm onSignIn={toggleSignInModal} />
         </Modal>
@@ -50,7 +54,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/:slug" element={<Page toggleSignInModal={toggleSignInModal} />} />
-          <Route path="/new-article" element={<Form />} />
+          <Route
+            path="/new-article"
+            element={
+              <PrivateRoute>
+                <Form />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </div>
     </ProvideAuth>

@@ -17,12 +17,12 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
       className={
         !user
           ? purpose
-            ? 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-white'
-            : 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-emerald-400'
+            ? 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-white z-10'
+            : 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-emerald-400 z-10'
           : 'hidden'
       }
     >
-      <div className="h-full w-4/5 flex justify-center items-center">
+      <div className="w-3/4 m-auto flex-col justify-between items-center flex-1 xl:w-3/5 lg:w-5/6 md:w-5/6 sm:w-5/6 z-10">
         <div className="w-full flex justify-between items-center relative">
           <a href="/">
             <img width={30} src={logo} alt="main-logo" />
