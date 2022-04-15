@@ -1,13 +1,13 @@
 import useSWR from 'swr';
 
 import { deleteComment, getComments, createComment } from 'services/commentService';
-import { ICreateMenu } from '../interfaces';
+import { ISendComment } from '../interfaces';
 import { AxiosResponse } from 'axios';
 
 interface DataResponse<T> {
   data: T | undefined;
   isError: string;
-  createComment: <T>(url: string, body: T) => Promise<AxiosResponse<ICreateMenu> | string>;
+  createComment: <T>(url: string, body: T) => Promise<AxiosResponse<ISendComment> | string>;
   deleteComment: (url: string) => Promise<AxiosResponse | string>;
 }
 

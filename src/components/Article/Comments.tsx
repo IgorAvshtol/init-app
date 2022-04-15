@@ -4,7 +4,7 @@ import { mutate } from 'swr';
 
 import close from 'image/close.png';
 
-import { IComment, ICreateMenu } from 'interfaces';
+import { IComment, ISendComment } from 'interfaces';
 import { Comment } from './Comment';
 import { TextField } from './TextField';
 import { useAuth } from 'hooks/useProvideAuth';
@@ -25,7 +25,7 @@ export function Comments({ setIsOpen }: ICommentsProps) {
     setCommentText(e.currentTarget.value);
   };
   const onClickSendButton = async () => {
-    await createComment<ICreateMenu>(`/articles/${slug}/comments`, {
+    await createComment<ISendComment>(`/articles/${slug}/comments`, {
       comment: { body: commentText },
     });
     await mutate(`/articles/${slug}/comments`);

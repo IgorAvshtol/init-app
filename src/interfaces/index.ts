@@ -33,7 +33,7 @@ export interface IComment {
   author: IAuthor;
 }
 
-export interface ICreateMenu {
+export interface ISendComment {
   comment: IBody;
 }
 
