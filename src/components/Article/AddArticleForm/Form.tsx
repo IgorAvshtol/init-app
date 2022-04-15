@@ -30,7 +30,7 @@ export function Form() {
     handleSubmit,
     formState: { errors },
   } = useForm<INewArticleData>({ mode: 'all' });
-  const registration = (data: INewArticleData) => onSubmitButtonHandler(data);
+  const registration = (data: INewArticleData) => console.log(data);
   const { fields, append, remove } = useFieldArray<INewArticleData>({
     control,
     name: 'tagList',
@@ -73,7 +73,12 @@ export function Form() {
         />
         {fields.map((field, index) => (
           <div key={field.id} className="mt-2">
-            <Input {...register(`tagList.${index}`)} label={'Tag'} placeholder={'Tag'} />
+            <Input
+              errors={null}
+              {...register(`tagList.${index}`)}
+              label={'Tag'}
+              placeholder={'Tag'}
+            />
             <button
               className="absolute bottom-7 right-[-22px]"
               onClick={(e) => onDeleteButtonHandler(e, index)}
