@@ -80,14 +80,18 @@ export function Form() {
               placeholder={'Tag'}
             />
             <button
-              className="absolute bottom-7 right-[-22px]"
+              className="absolute bottom-7 right-[-22px] font-semibold"
               onClick={(e) => onDeleteButtonHandler(e, index)}
             >
               Delete
             </button>
           </div>
         ))}
-        <button onClick={addFieldButtonHandler}>Add Tag</button>
+        <div className="w-full flex justify-center">
+          <button className="mt-5 w-24 font-semibold" onClick={addFieldButtonHandler}>
+            Add Tag
+          </button>
+        </div>
       </div>
       <button className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">
         Submit
