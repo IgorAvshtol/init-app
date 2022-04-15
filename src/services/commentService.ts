@@ -15,7 +15,7 @@ export const getComments = async (url: string) => {
   }
 };
 
-export const sendComment = async <T>(
+export const createComment = async <T>(
   url: string,
   body: T
 ): Promise<AxiosResponse<ISendComment> | string> => {

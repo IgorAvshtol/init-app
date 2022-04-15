@@ -17,12 +17,12 @@ interface ICommentProps {
 export function Comment({ author, createdAt, body, id }: ICommentProps) {
   const { user } = useAuth();
   const currentUser = user?.user.username;
-  const [editMenuIsShow, setEditMenuIsShow] = useState<boolean>(false);
+  const [editMenuIsOpen, setEditMenuIsOpen] = useState<boolean>(false);
   const correctDate = formatDistance(new Date(createdAt), new Date(), {
     addSuffix: true,
   });
   const onEditButtonHandler = () => {
-    setEditMenuIsShow(true);
+    setEditMenuIsOpen(true);
   };
   return (
     <div className="mt-4 flex-col relative">
@@ -39,7 +39,7 @@ export function Comment({ author, createdAt, body, id }: ICommentProps) {
             <button className="font-normal" onClick={onEditButtonHandler}>
               ···
             </button>
-            {editMenuIsShow && <EditMenu id={id} setEditMenuIsOpen={setEditMenuIsShow} />}
+            {editMenuIsOpen && <EditMenu id={id} setEditMenuIsOpen={setEditMenuIsOpen} />}
           </>
         )}
       </div>
