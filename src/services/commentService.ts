@@ -3,7 +3,7 @@ import { mutate } from 'swr';
 
 import { instance } from './httpService';
 import { errorHandleService } from 'utils/errorHandleService';
-import { ICreateMenu } from '../interfaces';
+import { ISendComment } from '../interfaces';
 
 export const getComments = async (url: string) => {
   try {
@@ -18,7 +18,7 @@ export const getComments = async (url: string) => {
 export const createComment = async <T>(
   url: string,
   body: T
-): Promise<AxiosResponse<ICreateMenu> | string> => {
+): Promise<AxiosResponse<ISendComment> | string> => {
   try {
     return await instance.post(url, body);
   } catch (e) {
