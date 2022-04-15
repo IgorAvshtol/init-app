@@ -30,7 +30,7 @@ export function Form() {
     handleSubmit,
     formState: { errors },
   } = useForm<INewArticleData>({ mode: 'all' });
-  const registration = (data: INewArticleData) => console.log(data);
+  const registration = (data: INewArticleData) => onSubmitButtonHandler(data);
   const { fields, append, remove } = useFieldArray<INewArticleData>({
     control,
     name: 'tagList',
