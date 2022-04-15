@@ -20,7 +20,16 @@ export const sendComment = async <T>(
   body: T
 ): Promise<AxiosResponse<ISendComment> | string> => {
   try {
-    const res = await instance.post(url, body);
+    return await instance.post(url, body);
+  } catch (e) {
+    const error = e as AxiosError;
+    return errorHandleService(error);
+  }
+};
+
+export const deleteComment = async (url: string): Promise<AxiosResponse | string> => {
+  try {
+    const res = await instance.delete(url);
     await mutate(url);
     return res;
   } catch (e) {

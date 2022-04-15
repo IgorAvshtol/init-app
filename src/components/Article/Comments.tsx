@@ -16,8 +16,11 @@ interface ICommentsProps {
 export function Comments({ setIsOpen }: ICommentsProps) {
   const { user } = useAuth();
   const { slug } = useParams<string>();
-  const { data, isError, sendComment } = useComments<IComment[]>(`/articles/${slug}/comments`);
+  const { data, isError, sendComment, deleteComment } = useComments<IComment[]>(
+    `/articles/${slug}/comments`
+  );
   const [commentText, setCommentText] = useState<string>('');
+
   const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentText(e.currentTarget.value);
   };
@@ -63,6 +66,8 @@ export function Comments({ setIsOpen }: ICommentsProps) {
                 author={comment.author}
                 body={comment.body}
                 createdAt={comment.createdAt}
+                id={comment.id}
+                deleteComment={deleteComment}
               />
             );
           })}

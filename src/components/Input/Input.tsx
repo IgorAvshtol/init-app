@@ -1,12 +1,12 @@
-import React from 'react';
+import { ComponentProps, forwardRef } from 'react';
 
-interface InputProps extends React.ComponentProps<'input'> {
+interface InputProps extends ComponentProps<'input'> {
   name: string;
   label: string;
   errors: string | null;
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { name, label, errors, ...inputProps } = props;
   return (
     <div className="flex flex-col justify-center items-center">

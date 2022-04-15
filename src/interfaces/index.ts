@@ -37,6 +37,11 @@ export interface IBody {
   body: string;
 }
 
+export interface IEditCommentData {
+  id: number | null;
+  isEdit: boolean;
+}
+
 export enum TypeLoadingStatus {
   IS_PENDING = 'IS_PENDING',
   IS_RESOLVED = 'IS_RESOLVED',
