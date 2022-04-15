@@ -1,7 +1,16 @@
 import { IResponseData } from 'hooks/useProvideAuth';
 
+const REACT_APP_LOCALSTORAGE_KEY = 'userData';
+
 export const getUserFromLocalStorage = () => {
-  return localStorage.getItem(`${process.env.REACT_APP_LOCALSTORAGE_KEY}`);
+  const data = localStorage.getItem(REACT_APP_LOCALSTORAGE_KEY);
+  if (data) {
+    try {
+      return JSON.parse(data);
+    } catch (e) {
+      console.log('JSON is not valid');
+    }
+  }
 };
 
 export const setUserFromLocalStorage = (data: IResponseData) => {
