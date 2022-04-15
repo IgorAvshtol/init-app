@@ -2,10 +2,10 @@ import React, { createContext, Dispatch, SetStateAction, useContext, useState } 
 
 import { instance } from 'services/httpService';
 import {
+  getUserFromLocalStorage,
   removeUserFromLocalStorage,
   setUserFromLocalStorage,
 } from 'services/localStorage/localStorage';
-import { dataFromStorageIsValid } from 'utils/dataFromStorageIsValid';
 import { errorHandleService } from 'utils/errorHandleService';
 
 export interface IRegisterData {
@@ -56,7 +56,7 @@ export const useAuth = () => {
 };
 
 export const useProvideAuth = () => {
-  const [user, setUser] = useState<IResponseData | null>(dataFromStorageIsValid);
+  const [user, setUser] = useState<IResponseData | null>(getUserFromLocalStorage);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
