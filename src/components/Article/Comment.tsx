@@ -2,7 +2,7 @@ import { formatDistance } from 'date-fns';
 import { AxiosResponse } from 'axios';
 import { useState } from 'react';
 
-import { IAuthor, IEditCommentData } from 'interfaces';
+import { IAuthor } from 'interfaces';
 import { EditMenu } from './EditMenu';
 import { useAuth } from 'hooks/useProvideAuth';
 
@@ -17,15 +17,12 @@ interface ICommentProps {
 export function Comment({ author, createdAt, body, id }: ICommentProps) {
   const { user } = useAuth();
   const currentUser = user?.user.username;
-  const [editMenuIsShow, setEditMenuIsShow] = useState<IEditCommentData>({
-    id: null,
-    isEdit: false,
-  });
+  const [editMenuIsShow, setEditMenuIsShow] = useState<boolean>(false);
   const correctDate = formatDistance(new Date(createdAt), new Date(), {
     addSuffix: true,
   });
-  const onEditButtonHandler = (id: number) => {
-    setEditMenuIsShow((prevState) => ({ id: id, isEdit: !prevState.isEdit }));
+  const onEditButtonHandler = () => {
+    setEditMenuIsShow(true);
   };
   return (
     <div className="mt-4 flex-col relative">
@@ -39,12 +36,10 @@ export function Comment({ author, createdAt, body, id }: ICommentProps) {
         </div>
         {currentUser === author.username && (
           <>
-            <button className="font-normal" onClick={() => onEditButtonHandler(id)}>
+            <button className="font-normal" onClick={onEditButtonHandler}>
               ···
             </button>
-            {editMenuIsShow.id === id && editMenuIsShow.isEdit && (
-              <EditMenu id={id} setEditMenuIsShow={setEditMenuIsShow} />
-            )}
+            {editMenuIsShow && <EditMenu id={id} setEditMenuIsOpen={setEditMenuIsShow} />}
           </>
         )}
       </div>
