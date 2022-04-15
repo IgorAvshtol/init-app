@@ -17,7 +17,7 @@ export function useComments<T>(url?: string): DataResponse<T> {
   return {
     data,
     isError: error,
-    createComment: createComment,
+    createComment,
     deleteComment,
   };
 }
