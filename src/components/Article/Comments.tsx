@@ -17,7 +17,7 @@ interface ICommentsProps {
 export function Comments({ setIsOpen }: ICommentsProps) {
   const { user } = useAuth();
   const { slug } = useParams<string>();
-  const { data, isError, sendComment, deleteComment } = useComments<IComment[]>(
+  const { data, isError, createComment, deleteComment } = useComments<IComment[]>(
     `/articles/${slug}/comments`
   );
   const [commentText, setCommentText] = useState<string>('');
@@ -25,7 +25,7 @@ export function Comments({ setIsOpen }: ICommentsProps) {
     setCommentText(e.currentTarget.value);
   };
   const onClickSendButton = async () => {
-    await sendComment<ICreateMenu>(`/articles/${slug}/comments`, {
+    await createComment<ICreateMenu>(`/articles/${slug}/comments`, {
       comment: { body: commentText },
     });
     await mutate(`/articles/${slug}/comments`);

@@ -7,7 +7,7 @@ import { AxiosResponse } from 'axios';
 interface DataResponse<T> {
   data: T | undefined;
   isError: string;
-  sendComment: <T>(url: string, body: T) => Promise<AxiosResponse<ICreateMenu> | string>;
+  createComment: <T>(url: string, body: T) => Promise<AxiosResponse<ICreateMenu> | string>;
   deleteComment: (url: string) => Promise<AxiosResponse | string>;
 }
 
@@ -17,7 +17,7 @@ export function useComments<T>(url?: string): DataResponse<T> {
   return {
     data,
     isError: error,
-    sendComment: createComment,
+    createComment: createComment,
     deleteComment,
   };
 }
