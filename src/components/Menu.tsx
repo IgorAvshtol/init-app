@@ -1,30 +1,37 @@
 import { Menu } from '@headlessui/react';
 
-import menuLogo from 'image/menulogo.png';
 import avatar from 'image/avatar.png';
 
 import { useAuth } from 'hooks/useProvideAuth';
 
-export function DropdownMenu() {
-  const { user, logout } = useAuth();
+interface IDropdownMenu {
+  positionTop?: boolean;
+}
 
+export function DropdownMenu({ positionTop }: IDropdownMenu) {
+  const { user, logout } = useAuth();
   return (
-    <Menu as="div">
-      <div className="absolute right-0 h-full flex items-center">
+    <Menu as="div" className="relative z-10">
+      <div className="h-full flex items-center">
         <Menu.Button>
-          <div className="w-20 flex items-center justify-between">
-            <img src={menuLogo} className="h-6 w-6" alt="menu" />
+          <div className="flex justify-center">
             <img src={user?.user.image || avatar} className="h-8" alt="avatar" />
           </div>
         </Menu.Button>
       </div>
-      <Menu.Items className="fixed bg-slate-100 rounded-xl border-inherit absolute top-12 right-0 z-3">
-        <div className="w-32 flex flex-col justify-items-start p-5">
+      <Menu.Items
+        className={
+          positionTop
+            ? 'fixed bg-slate-100 rounded-xl border-inherit top-11 absolute xl:left-5 xl:top-10 lg:left-5 lg:top-10 md:top-11 sm:top-11 sm:top-11'
+            : 'fixed bg-slate-100 rounded-xl border-inherit bottom-11 right-5 absolute xl:left-5 xl:top-10 lg:left-5 lg:top-10 md:bottom-11 sm:bottom-11 sm:right-5'
+        }
+      >
+        <div className="w-24 bg-slate-100 rounded-xl flex flex-col items-start p-4 sm:w-24">
           <Menu.Item>
             {({ active }) => <a className={`${active ? 'underline pb-2' : 'pb-2'}`}>Settings</a>}
           </Menu.Item>
           <Menu.Item disabled>
-            <hr className="bg-emerald-100 h-0.5" />
+            <hr className="bg-emerald-100 h-0.5 w-full" />
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (

@@ -21,7 +21,7 @@ export function Modal({ isOpen, onClose, children }: IModal) {
       <Dialog
         initialFocus={initRef}
         as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
+        className="fixed inset-0 z-30 overflow-y-auto"
         onClose={onCloseModal}
       >
         <div className="min-h-screen px-4 text-center">
@@ -48,7 +48,7 @@ export function Modal({ isOpen, onClose, children }: IModal) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-emerald-100 shadow-xl rounded-2xl">
+            <div className="inline-block z-30 max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-emerald-100 shadow-xl rounded-2xl">
               {children}
               {error && <div className="pt-2 w-64 text-red-600 text-center">{error}</div>}
             </div>

@@ -15,12 +15,14 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
   return (
     <header
       className={
-        purpose
-          ? 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-100'
-          : 'h-12 w-full fixed flex flex-col items-center justify-center bg-emerald-50'
+        !user
+          ? purpose
+            ? 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-white z-30'
+            : 'h-12 w-full fixed flex flex-col items-center justify-center border-b-[1px] border-black duration-1000 ease-out bg-emerald-400 z-30'
+          : 'hidden'
       }
     >
-      <div className="h-full w-4/5 flex justify-center items-center">
+      <div className="w-3/4 m-auto flex-col justify-between items-center flex-1 xl:w-3/5 lg:w-5/6 md:w-5/6 sm:w-5/6 z-10">
         <div className="w-full flex justify-between items-center relative">
           <a href="/">
             <img width={30} src={logo} alt="main-logo" />
@@ -31,13 +33,21 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
             ) : (
               <div className="w-full flex justify-between">
                 <button
-                  className="text-green-300 hover:text-green-700 cursor-pointer"
+                  className={
+                    purpose
+                      ? 'text-green-300 hover:text-green-700 cursor-pointer'
+                      : 'text-white cursor-pointer'
+                  }
                   onClick={onSignInBtnClick}
                 >
                   Sign In
                 </button>
                 <button
-                  className="text-green-300 hover:text-green-700 cursor-pointer"
+                  className={
+                    purpose
+                      ? 'text-green-300 hover:text-green-700 cursor-pointer'
+                      : 'text-white cursor-pointer'
+                  }
                   onClick={onSignUpBtnClick}
                 >
                   Sign Up
@@ -47,7 +57,6 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
           </div>
         </div>
       </div>
-      <hr className="h-0.5 w-full bg-black" />
     </header>
   );
 }

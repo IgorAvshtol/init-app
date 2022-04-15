@@ -1,21 +1,19 @@
 import useSWR from 'swr';
+import { AxiosResponse } from 'axios';
 
-import { getArticles } from 'services/articleService';
-import { TypeLoadingStatus } from 'interfaces';
-
-interface DataPayload<T> {
-  [key: string]: T;
-}
+import { addArticle, getArticles } from 'services/articleService';
+import { IArticles, TypeLoadingStatus } from 'interfaces';
 
 interface DataResponse<T> {
   data: T | undefined;
   isLoading: TypeLoadingStatus;
   isError: string;
+  addArticle: <T>(url: string, body: T) => Promise<AxiosResponse<IArticles> | string>;
 }
 
-export function useArticles<T>(url: string, key: string): DataResponse<T> {
-  const { data: payload, error } = useSWR<DataPayload<T>>(url, getArticles);
-  const data = payload ? payload[key] : undefined;
+export function useArticles<T>(url?: string): DataResponse<T> {
+  const { data: payload, error } = useSWR(url, getArticles);
+  const data = payload ? payload?.[Object.keys(payload)?.[0]] : undefined;
   return {
     data,
     isLoading: !data
@@ -24,5 +22,6 @@ export function useArticles<T>(url: string, key: string): DataResponse<T> {
       ? TypeLoadingStatus.IS_REJECTED
       : TypeLoadingStatus.IS_RESOLVED,
     isError: error,
+    addArticle,
   };
 }

@@ -10,6 +10,10 @@ export interface IArticle {
   author: IAuthor;
 }
 
+export interface IArticles {
+  article: IArticle;
+}
+
 export interface IAuthor {
   username: string;
   bio: string;
@@ -35,11 +39,6 @@ export interface ISendComment {
 
 export interface IBody {
   body: string;
-}
-
-export interface IEditCommentData {
-  id: number | null;
-  isEdit: boolean;
 }
 
 export enum TypeLoadingStatus {

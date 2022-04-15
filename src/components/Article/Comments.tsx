@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
+import { mutate } from 'swr';
 
 import close from 'image/close.png';
 
@@ -20,7 +21,6 @@ export function Comments({ setIsOpen }: ICommentsProps) {
     `/articles/${slug}/comments`
   );
   const [commentText, setCommentText] = useState<string>('');
-
   const onChangeInputHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCommentText(e.currentTarget.value);
   };
@@ -28,6 +28,7 @@ export function Comments({ setIsOpen }: ICommentsProps) {
     await createComment<ISendComment>(`/articles/${slug}/comments`, {
       comment: { body: commentText },
     });
+    await mutate(`/articles/${slug}/comments`);
     setCommentText('');
   };
   const closeComments = () => {
