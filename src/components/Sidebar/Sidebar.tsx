@@ -6,7 +6,7 @@ import { Tag } from './Tag';
 import { Link } from './Link';
 import { ITags, TypeLoadingStatus } from 'interfaces';
 import { useTags } from 'hooks/useTags';
-import { useAuth } from '../../hooks/useProvideAuth';
+import { useAuth } from 'hooks/useProvideAuth';
 
 export const links = [
   { id: 1, name: 'Help' },
@@ -27,7 +27,7 @@ export function Sidebar() {
     <div
       className={
         !user
-          ? 'xl:right-[18%] lg:right-[8%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col'
+          ? 'static xl:w-1/5 xl:sticky xl:top-[55px] xl:mt-6 lg:w-1/5 lg:sticky lg:h-full lg:top-[55px] lg:mt-6 md:w-full md:static sm:w-full sm:static w-full flex flex-col'
           : 'xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col'
       }
     >

@@ -11,10 +11,10 @@ export function Main() {
       {!user ? (
         <>
           <Title />
-          <div className="pt-3 w-3/4 m-auto flex-col justify-between items-center flex-1 xl:w-3/5 lg:w-5/6 md:w-5/6 sm:w-5/6">
-            <div className="w-full pt-4 flex flex-col justify-between md:flex md:flex-col sm:flex sm:flex-col">
-              <Sidebar />
+          <div className="pt-3 w-3/4 m-auto flex-col justify-between items-center xl:w-3/5 lg:w-5/6 md:w-5/6 sm:w-5/6">
+            <div className="w-full pt-4 flex flex-col-reverse justify-between xl:flex-row xl:items-start lg:flex-row md:flex md:flex-col-reverse sm:flex-col-reverse">
               <Posts />
+              <Sidebar />
             </div>
           </div>
         </>
