@@ -6,6 +6,7 @@ import { Tag } from './Tag';
 import { Link } from './Link';
 import { ITags, TypeLoadingStatus } from 'interfaces';
 import { useTags } from 'hooks/useTags';
+import { useAuth } from '../../hooks/useProvideAuth';
 
 export const links = [
   { id: 1, name: 'Help' },
@@ -21,8 +22,15 @@ export const links = [
 
 export function Sidebar() {
   const { data, isLoading, isError } = useTags<ITags>('/tags');
+  const { user } = useAuth();
   return (
-    <div className="xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col">
+    <div
+      className={
+        !user
+          ? 'xl:right-[18%] lg:right-[8%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col'
+          : 'xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col'
+      }
+    >
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
       <div className="w-full pt-4 flex flex-wrap justify-start">
         {isError && isLoading === TypeLoadingStatus.IS_REJECTED ? (
