@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { mutate } from 'swr';
 import React, { useRef } from 'react';
 
-import { useComments } from 'hooks/useComments';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import { useAppDispatch } from 'store/store';
+import { deleteComment } from 'store/comments/commentsThunk';
 
 interface IEditMenu {
   id: number;
@@ -11,12 +11,11 @@ interface IEditMenu {
 }
 
 export function EditMenu({ id, setEditMenuIsOpen }: IEditMenu) {
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const { slug } = useParams<string>();
-  const { deleteComment } = useComments();
-  const onDeleteButtonHandler = async (id: number) => {
-    await deleteComment(`/articles/${slug}/comments/${id}`);
-    await mutate(`/articles/${slug}/comments`);
+  const onDeleteButtonHandler = (id: number) => {
+    slug && dispatch(deleteComment({ slug, id }));
   };
   useOnClickOutside(ref, setEditMenuIsOpen);
   return (

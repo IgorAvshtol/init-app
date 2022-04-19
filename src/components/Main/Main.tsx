@@ -1,11 +1,23 @@
 import { Posts } from '../Posts/Posts';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { Title } from './Title';
-import { useAuth } from 'hooks/useProvideAuth';
 import { Navbar } from '../Article/Navbar';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { useEffect } from 'react';
+import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
+import { getCurrentUser } from 'store/auth/authSlice';
+import { getArticles } from 'store/articles/articlesThunk';
+import { getTags } from 'store/tags/tagsThunk';
 
 export function Main() {
-  const { user } = useAuth();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
+  useEffect(() => {
+    const currentUser = getUserFromLocalStorage();
+    currentUser && dispatch(getCurrentUser(currentUser));
+    dispatch(getArticles());
+    dispatch(getTags());
+  }, [dispatch]);
   return (
     <main className="flex-col justify-between flex-1">
       {!user ? (

@@ -1,6 +1,6 @@
 import logo from 'image/logo.png';
 
-import { useAuth } from 'hooks/useProvideAuth';
+import { useAppSelector } from '../store/store';
 
 interface IHeader {
   onSignInBtnClick: () => void;
@@ -9,7 +9,7 @@ interface IHeader {
 }
 
 export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader) {
-  const { user } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
   return (
     <header
       className={

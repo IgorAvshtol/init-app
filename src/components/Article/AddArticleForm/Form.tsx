@@ -3,13 +3,9 @@ import React from 'react';
 
 import { Input } from '../../Input/Input';
 import { Header } from './Header';
-import { useArticles } from 'hooks/useArticles';
-import { IArticle } from 'interfaces';
 import { BodyField } from './BodyField';
-
-interface IAddArticle {
-  article: INewArticleData;
-}
+import { useAppDispatch } from 'store/store';
+import { addArticle } from 'store/articles/articlesThunk';
 
 type INewArticleData = FieldValues & {
   title: string;
@@ -19,10 +15,9 @@ type INewArticleData = FieldValues & {
 };
 
 export function Form() {
-  const { addArticle } = useArticles<IArticle>();
-
-  const onSubmitButtonHandler = async (data: INewArticleData) => {
-    await addArticle<IAddArticle>(`articles`, { article: data });
+  const dispatch = useAppDispatch();
+  const onSubmitButtonHandler = (data: INewArticleData) => {
+    dispatch(addArticle(data));
   };
   const {
     register,

@@ -5,14 +5,14 @@ import logo from 'image/logo.png';
 import home from 'image/home.png';
 import write from 'image/write.png';
 import { DropdownMenu } from '../Menu';
-import { useAuth } from 'hooks/useProvideAuth';
+import { useAppSelector } from 'store/store';
 
 interface INavBar {
   toggleSignInModal?: () => void;
 }
 
 export function Navbar({ toggleSignInModal }: INavBar) {
-  const { user } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const forwarding = () => {

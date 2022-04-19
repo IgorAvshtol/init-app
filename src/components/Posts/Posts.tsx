@@ -2,23 +2,23 @@ import spinner from 'image/spinner.gif';
 import notFound from 'image/404-not-found.png';
 
 import { Post } from './Post';
-import { IArticle, TypeLoadingStatus } from 'interfaces';
-import { useArticles } from 'hooks/useArticles';
+import { TypeLoadingStatus } from 'interfaces';
+import { useAppSelector } from 'store/store';
 
 export function Posts() {
-  const { data, isLoading, isError } = useArticles<IArticle[]>('/articles');
+  const { articles, loading } = useAppSelector((state) => state.articles);
   return (
     <div className="w-full flex flex-col items-center xl:w-3/4 lg:w-3/4 md:w-full sm:w-full">
-      {isError ? (
+      {loading === TypeLoadingStatus.IS_REJECTED ? (
         <div className="w-full h-full flex justify-center items-center">
           <img src={notFound} alt="not-found" />
         </div>
-      ) : isLoading === TypeLoadingStatus.IS_PENDING ? (
+      ) : loading === TypeLoadingStatus.IS_PENDING ? (
         <div className="w-full h-full flex justify-center items-center">
           <img src={spinner} width={100} alt="spinner" />
         </div>
       ) : (
-        data?.map((post) => {
+        articles?.map((post) => {
           return (
             <Post
               key={post.slug}

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
+
 import spinner from 'image/spinner.gif';
-
-import { useAuth } from 'hooks/useProvideAuth';
-
 import { Input } from '../Input/Input';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { signin } from 'store/auth/authThunk';
+import { TypeLoadingStatus } from 'interfaces';
 
 interface ISignInForm {
   onSignIn: () => void;
@@ -21,14 +22,15 @@ export interface IErrorData {
 }
 
 export function SignInForm({ onSignIn }: ISignInForm) {
-  const { user, signin, loading } = useAuth();
+  const { user, loading } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (user) {
       onSignIn();
     }
   }, [user, onSignIn]);
   const onSubmitHandler = (data: ISignInData) => {
-    signin(data);
+    dispatch(signin(data));
   };
   const {
     register,
@@ -64,13 +66,10 @@ export function SignInForm({ onSignIn }: ISignInForm) {
           errors={errors?.password?.message ?? null}
         />
       </div>
-      {loading ? (
+      {loading === TypeLoadingStatus.IS_PENDING ? (
         <img src={spinner} alt="spinner" />
       ) : (
-        <button
-          disabled={loading}
-          className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        >
+        <button className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">
           Submit
         </button>
       )}

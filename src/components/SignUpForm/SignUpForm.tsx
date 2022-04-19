@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 
-import { useAuth } from 'hooks/useProvideAuth';
-
 import { Input } from '../Input/Input';
 import spinner from 'image/spinner.gif';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { signup } from 'store/auth/authThunk';
+import { TypeLoadingStatus } from 'interfaces';
+
+interface ISignUpForm {
+  onSignUp: () => void;
+}
 
 export interface ISignUpData {
   name: string;
   email: string;
   password: string;
-}
-
-interface ISignUpForm {
-  onSignUp: () => void;
 }
 
 export interface IErrorData {
@@ -22,17 +23,16 @@ export interface IErrorData {
 }
 
 export function SignUpForm({ onSignUp }: ISignUpForm) {
-  const { user, signup, loading } = useAuth();
+  const { user, loading } = useAppSelector((state) => state.auth);
   useEffect(() => {
     if (user) {
       onSignUp();
     }
   }, [user, onSignUp]);
-
+  const dispatch = useAppDispatch();
   const onSubmitHandler = (data: ISignUpData) => {
-    signup(data);
+    dispatch(signup(data));
   };
-
   const {
     register,
     handleSubmit,
@@ -75,13 +75,10 @@ export function SignUpForm({ onSignUp }: ISignUpForm) {
           errors={errors?.password?.message ?? null}
         />
       </div>
-      {loading ? (
+      {loading === TypeLoadingStatus.IS_PENDING ? (
         <img src={spinner} alt="spinner" />
       ) : (
-        <button
-          disabled={loading}
-          className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        >
+        <button className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">
           Submit
         </button>
       )}

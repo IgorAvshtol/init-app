@@ -10,8 +10,10 @@ export interface IArticle {
   author: IAuthor;
 }
 
-export interface IArticles {
-  article: IArticle;
+export interface IRegisterData {
+  name?: string;
+  email: string;
+  password: string;
 }
 
 export interface IAuthor {
@@ -33,12 +35,71 @@ export interface IComment {
   author: IAuthor;
 }
 
-export interface ISendComment {
-  comment: IBody;
+export interface IAuthState {
+  user: IUser | null;
+  loading: TypeLoadingStatus;
+  error: string;
 }
 
-export interface IBody {
+export interface IUserData {
+  user: IUser;
+}
+
+export interface IUser {
+  email: string;
+  bio: string;
+  image: string;
+  token: string;
+  username: string;
+}
+
+export interface IGetCurrentUser {
+  user: IUser | null;
+}
+
+export interface IGetArticles {
+  articles: IArticle[] | null;
+  articlesCount: number;
+}
+
+export interface INewArticle {
+  title: string;
+  description: string;
   body: string;
+  tagList: string[];
+}
+
+export interface IArticlesState {
+  articles: IArticle[] | null;
+  currentArticle: IArticle | null;
+  articlesCount: number;
+  loading: TypeLoadingStatus;
+}
+
+export interface IGetComments {
+  comments: IComment[];
+}
+
+export interface ICreateComment {
+  slug: string | undefined;
+  comment: string;
+}
+
+export interface IDeleteComment {
+  slug: string;
+  id: number;
+}
+
+export interface ICommentsState {
+  comments: IComment[];
+  loading: TypeLoadingStatus;
+  error: string;
+}
+
+export interface ITagsState {
+  tags: string[];
+  loading: TypeLoadingStatus;
+  error: string;
 }
 
 export enum TypeLoadingStatus {

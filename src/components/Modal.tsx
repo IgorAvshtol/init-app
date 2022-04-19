@@ -1,7 +1,8 @@
 import { Fragment, useRef } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { useAuth } from 'hooks/useProvideAuth';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { entryIsSuccess } from 'store/auth/authSlice';
 
 interface IModal {
   onClose: () => void;
@@ -10,11 +11,12 @@ interface IModal {
 }
 
 export function Modal({ isOpen, onClose, children }: IModal) {
-  const { error, setError } = useAuth();
+  const { error } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const initRef = useRef(null);
   const onCloseModal = () => {
     onClose();
-    setError('');
+    dispatch(entryIsSuccess());
   };
   return (
     <Transition appear show={isOpen} as={Fragment}>

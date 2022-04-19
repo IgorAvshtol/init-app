@@ -2,16 +2,17 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ProvideAuth } from 'hooks/useProvideAuth';
 import { SignUpForm } from './SignUpForm';
+import { Provider } from 'react-redux';
+import { store } from 'store/store';
 
 describe('SignInForm test', () => {
   const mock = jest.fn();
   it('name is required', async () => {
     render(
-      <ProvideAuth>
+      <Provider store={store}>
         <SignUpForm onSignUp={mock} />{' '}
-      </ProvideAuth>
+      </Provider>
     );
     const nameField = screen.getByRole('textbox', { name: /name/i });
 
@@ -32,9 +33,9 @@ describe('SignInForm test', () => {
   });
   it('email is required', async () => {
     render(
-      <ProvideAuth>
+      <Provider store={store}>
         <SignUpForm onSignUp={mock} />{' '}
-      </ProvideAuth>
+      </Provider>
     );
     const emailField = screen.getByRole('textbox', { name: /email/i });
 
@@ -55,9 +56,9 @@ describe('SignInForm test', () => {
   });
   it('password is required', async () => {
     render(
-      <ProvideAuth>
+      <Provider store={store}>
         <SignUpForm onSignUp={mock} />{' '}
-      </ProvideAuth>
+      </Provider>
     );
     const passwordField = screen.getByText(/password/i);
 

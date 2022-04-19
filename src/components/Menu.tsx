@@ -1,21 +1,25 @@
 import { Menu } from '@headlessui/react';
 
 import avatar from 'image/avatar.png';
-
-import { useAuth } from 'hooks/useProvideAuth';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { logout } from 'store/auth/authSlice';
 
 interface IDropdownMenu {
   positionTop?: boolean;
 }
 
 export function DropdownMenu({ positionTop }: IDropdownMenu) {
-  const { user, logout } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const onLogoutButtonHandler = () => {
+    dispatch(logout());
+  };
   return (
     <Menu as="div" className="relative z-10">
       <div className="h-full flex items-center">
         <Menu.Button>
           <div className="flex justify-center">
-            <img src={user?.user.image || avatar} className="h-8" alt="avatar" />
+            <img src={user?.image || avatar} className="h-8" alt="avatar" />
           </div>
         </Menu.Button>
       </div>
@@ -35,7 +39,11 @@ export function DropdownMenu({ positionTop }: IDropdownMenu) {
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <a className={`${active ? 'underline pt-2' : 'pt-2'}`} onClick={logout} href="/">
+              <a
+                className={`${active ? 'underline pt-2' : 'pt-2'}`}
+                onClick={onLogoutButtonHandler}
+                href="/"
+              >
                 Logout
               </a>
             )}

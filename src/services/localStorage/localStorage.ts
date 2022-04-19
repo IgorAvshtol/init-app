@@ -1,4 +1,4 @@
-import { IResponseData } from 'hooks/useProvideAuth';
+import { IUserData } from 'interfaces';
 
 const REACT_APP_LOCALSTORAGE_KEY = 'userData';
 
@@ -13,7 +13,7 @@ export const getUserFromLocalStorage = () => {
   }
 };
 
-export const setUserFromLocalStorage = (data: IResponseData) => {
+export const setUserFromLocalStorage = (data: IUserData) => {
   return localStorage.setItem(REACT_APP_LOCALSTORAGE_KEY, JSON.stringify(data));
 };
 

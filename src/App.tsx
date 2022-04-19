@@ -6,7 +6,6 @@ import { SignUpForm } from 'components/SignUpForm/SignUpForm';
 import { Header } from 'components/Header';
 import { Main } from 'components/Main/Main';
 import { Modal } from 'components/Modal';
-import { ProvideAuth } from 'hooks/useProvideAuth';
 import { Page } from 'components/Article/Page';
 import { Form } from 'components/Article/AddArticleForm/Form';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
@@ -35,36 +34,35 @@ function App() {
     window.addEventListener('scroll', listenScrollEvent);
     return () => window.removeEventListener('scroll', listenScrollEvent);
   }, []);
+
   return (
-    <ProvideAuth>
-      <div className="min-h-screen h-full flex flex-col">
-        <div className={pathname !== '/' ? 'hidden' : 'block'}>
-          <Header
-            purpose={purpose}
-            onSignInBtnClick={toggleSignInModal}
-            onSignUpBtnClick={toggleSignUpModal}
-          />
-        </div>
-        <Modal isOpen={isSignInModalOpen} onClose={toggleSignInModal}>
-          <SignInForm onSignIn={toggleSignInModal} />
-        </Modal>
-        <Modal isOpen={isSignUpModalOpen} onClose={toggleSignUpModal}>
-          <SignUpForm onSignUp={toggleSignUpModal} />
-        </Modal>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/:slug" element={<Page toggleSignInModal={toggleSignInModal} />} />
-          <Route
-            path="/new-article"
-            element={
-              <PrivateRoute>
-                <Form />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
+    <div className="min-h-screen h-full flex flex-col">
+      <div className={pathname !== '/' ? 'hidden' : 'block'}>
+        <Header
+          purpose={purpose}
+          onSignInBtnClick={toggleSignInModal}
+          onSignUpBtnClick={toggleSignUpModal}
+        />
       </div>
-    </ProvideAuth>
+      <Modal isOpen={isSignInModalOpen} onClose={toggleSignInModal}>
+        <SignInForm onSignIn={toggleSignInModal} />
+      </Modal>
+      <Modal isOpen={isSignUpModalOpen} onClose={toggleSignUpModal}>
+        <SignUpForm onSignUp={toggleSignUpModal} />
+      </Modal>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/:slug" element={<Page toggleSignInModal={toggleSignInModal} />} />
+        <Route
+          path="/new-article"
+          element={
+            <PrivateRoute>
+              <Form />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </div>
   );
 }
 

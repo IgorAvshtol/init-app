@@ -1,16 +1,14 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from 'hooks/useProvideAuth';
+import { useAppSelector } from 'store/store';
 
 type PropsType = {
   children: JSX.Element;
 };
 
 export function PrivateRoute({ children }: PropsType) {
-  const { user } = useAuth();
-
-  if (!user?.user.username) {
+  const { user } = useAppSelector((state) => state.auth);
+  if (!user?.username) {
     return <Navigate to="/" />;
   }
-
   return children;
 }
