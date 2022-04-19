@@ -20,8 +20,15 @@ export const links = [
 
 export function Sidebar() {
   const { tags, loading, error } = useAppSelector((state) => state.tags);
+  const { user } = useAppSelector((state) => state.auth);
   return (
-    <div className="xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col">
+    <div
+      className={
+        !user
+          ? 'static xl:w-1/5 xl:sticky xl:top-[55px] xl:mt-6 lg:w-1/5 lg:sticky lg:h-full lg:top-[55px] lg:mt-6 md:w-full md:static sm:w-full sm:static w-full flex flex-col'
+          : 'xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col'
+      }
+    >
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
       <div className="w-full pt-4 flex flex-wrap justify-start">
         {loading === TypeLoadingStatus.IS_REJECTED ? (

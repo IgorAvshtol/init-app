@@ -18,7 +18,7 @@ export const tagsReducer = createSlice({
         state.loading = TypeLoadingStatus.IS_PENDING;
       })
       .addCase(getTags.fulfilled, (state, action: PayloadAction<ITags>) => {
-        state.tags.push(...action.payload.tags);
+        state.tags = action.payload.tags;
         state.loading = TypeLoadingStatus.IS_RESOLVED;
         state.error = '';
       })

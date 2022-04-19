@@ -7,8 +7,9 @@ import { useAppSelector } from 'store/store';
 
 export function Posts() {
   const { articles, loading } = useAppSelector((state) => state.articles);
+
   return (
-    <div className="w-full flex flex-col items-center xl:w-3/4 lg:w-3/4 md:w-full sm:w-full">
+    <div className="w-full flex flex-col items-center xl:w-2/3 lg:w-3/4 md:w-full sm:w-full">
       {loading === TypeLoadingStatus.IS_REJECTED ? (
         <div className="w-full h-full flex justify-center items-center">
           <img src={notFound} alt="not-found" />
