@@ -70,22 +70,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/:slug" element={<Page toggleSignInModal={toggleSignInModal} />} />
-        {/*<Route*/}
-        {/*  path="/new-article"*/}
-        {/*  element={*/}
-        {/*    <PrivateRoute>*/}
-        {/*      <Form />*/}
-        {/*    </PrivateRoute>*/}
-        {/*  }*/}
-        {/*/>*/}
-        {/*<Route*/}
-        {/*  path="/update-:slug"*/}
-        {/*  element={*/}
-        {/*    <PrivateRoute>*/}
-        {/*      <Form />*/}
-        {/*    </PrivateRoute>*/}
-        {/*  }*/}
-        {/*/>*/}
+        <Route
+          path="/new-article"
+          element={
+            <PrivateRoute>
+              <Form />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/update-:slug"
+          element={
+            <PrivateRoute>
+              <Form />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </div>
   );
