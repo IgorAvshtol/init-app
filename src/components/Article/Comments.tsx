@@ -23,7 +23,7 @@ export function Comments({ setIsOpen }: ICommentsProps) {
     setCommentText(e.currentTarget.value);
   };
   const onClickSendButton = () => {
-    slug && dispatch(createComment({ slug, comment: commentText }));
+    dispatch(createComment({ slug, comment: commentText }));
     setCommentText('');
   };
   const closeComments = () => {
@@ -60,11 +60,12 @@ export function Comments({ setIsOpen }: ICommentsProps) {
               user={user.username}
             />
           )}
-          {loading === TypeLoadingStatus.IS_PENDING ? (
+          {loading === TypeLoadingStatus.IS_PENDING && (
             <div className="w-full h-full flex justify-center items-center">
               <img src={spinner} alt="spinner" className="w-16" />
             </div>
-          ) : (
+          )}
+          {loading === TypeLoadingStatus.IS_RESOLVED &&
             comments?.map((comment) => {
               return (
                 <Comment
@@ -75,8 +76,7 @@ export function Comments({ setIsOpen }: ICommentsProps) {
                   id={comment.id}
                 />
               );
-            })
-          )}
+            })}
         </div>
       </div>
     </div>

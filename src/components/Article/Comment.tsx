@@ -31,7 +31,7 @@ export function Comment({ author, createdAt, body, id }: ICommentProps) {
             <p className="text-sm text-zinc-400">{correctDate}</p>
           </div>
         </div>
-        {user?.username === author.username && (
+        {user?.username === author?.username && (
           <>
             <button className="font-normal" onClick={onEditButtonHandler}>
               ···

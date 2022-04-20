@@ -4,7 +4,7 @@ import { FieldError, useForm } from 'react-hook-form';
 import { Input } from '../Input/Input';
 import spinner from 'image/spinner.gif';
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { signup } from 'store/auth/authThunk';
+import { signUp } from 'store/auth/authThunk';
 import { TypeLoadingStatus } from 'interfaces';
 
 interface ISignUpForm {
@@ -31,7 +31,7 @@ export function SignUpForm({ onSignUp }: ISignUpForm) {
   }, [user, onSignUp]);
   const dispatch = useAppDispatch();
   const onSubmitHandler = (data: ISignUpData) => {
-    dispatch(signup(data));
+    dispatch(signUp(data));
   };
   const {
     register,
