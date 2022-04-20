@@ -31,6 +31,7 @@ export function Page({ toggleSignInModal }: IPage) {
             {currentArticle && (
               <div className=" w-3/4 m-auto flex-col">
                 <Header
+                  slug={currentArticle.slug}
                   author={currentArticle.author.username}
                   avatar={currentArticle.author.image}
                   createdAt={currentArticle.createdAt}
