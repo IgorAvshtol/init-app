@@ -2,23 +2,10 @@ import { Posts } from '../Posts/Posts';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { Title } from './Title';
 import { Navbar } from '../Article/Navbar';
-import { useAppDispatch, useAppSelector } from 'store/store';
-import { useEffect } from 'react';
-import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
-import { getCurrentUser } from 'store/auth/authSlice';
-import { getArticles } from 'store/articles/articlesThunk';
-import { getTags } from 'store/tags/tagsThunk';
+import { useAppSelector } from 'store/store';
 
 export function Main() {
-  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
-  const token = user ? user.token : '';
-  useEffect(() => {
-    const currentUser = getUserFromLocalStorage();
-    currentUser && dispatch(getCurrentUser(currentUser));
-    dispatch(getArticles());
-    dispatch(getTags());
-  }, [dispatch, token]);
   return (
     <main className="flex-col justify-between flex-1">
       {!user ? (

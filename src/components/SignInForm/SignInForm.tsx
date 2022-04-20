@@ -4,7 +4,7 @@ import { FieldError, useForm } from 'react-hook-form';
 import spinner from 'image/spinner.gif';
 import { Input } from '../Input/Input';
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { signIn } from 'store/auth/authThunk';
+import { login } from 'store/auth/authThunk';
 import { TypeLoadingStatus } from 'interfaces';
 
 interface ISignInForm {
@@ -30,14 +30,14 @@ export function SignInForm({ onSignIn }: ISignInForm) {
     }
   }, [user, onSignIn]);
   const onSubmitHandler = (data: ISignInData) => {
-    dispatch(signIn(data));
+    dispatch(login(data));
   };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignInData>({ defaultValues: { email: '', password: '' } });
-  const login = (data: ISignInData) => onSubmitHandler(data);
+  const onSubmit = (data: ISignInData) => onSubmitHandler(data);
   const handleError = (data: IErrorData) => {
     console.log(data);
   };
@@ -45,7 +45,7 @@ export function SignInForm({ onSignIn }: ISignInForm) {
   return (
     <form
       className="flex flex-col justify-between items-center"
-      onSubmit={handleSubmit(login, handleError)}
+      onSubmit={handleSubmit(onSubmit, handleError)}
     >
       <div className="flex flex-col justify-center items-center">
         <Input

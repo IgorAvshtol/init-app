@@ -1,6 +1,6 @@
 import { DropdownMenu } from '../../Menu';
 import logo from 'image/logo.png';
-import { useAppSelector } from '../../../store/store';
+import { useAppSelector } from 'store/store';
 
 export function Header() {
   const { user } = useAppSelector((state) => state.auth);

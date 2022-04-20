@@ -6,7 +6,7 @@ import { errorHandleService } from 'utils/errorHandleService';
 import { setUserFromLocalStorage } from 'services/localStorage/localStorage';
 import { IRegisterData } from 'interfaces';
 
-export const signIn = createAsyncThunk(
+export const login = createAsyncThunk(
   'auth/signin',
   async (signInData: IRegisterData, { rejectWithValue }) => {
     const user = {
@@ -26,7 +26,7 @@ export const signIn = createAsyncThunk(
   }
 );
 
-export const signUp = createAsyncThunk(
+export const registration = createAsyncThunk(
   'auth/signup',
   async (signUpData: IRegisterData, { rejectWithValue }) => {
     const user = {

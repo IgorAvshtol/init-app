@@ -5,7 +5,7 @@ import add from 'image/add.svg';
 import edit from 'image/edit.png';
 import like from 'image/like.png';
 import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../store/store';
+import { useAppSelector } from 'store/store';
 
 interface IArticleHeader {
   slug: string;
@@ -61,7 +61,7 @@ export function Header({
             <button>
               <img className="w-6 pt-2" src={add} alt="add-to-favourite" />
             </button>
-            <NavLink to={`/new-article/${slug}`}>
+            <NavLink to={`/update-${slug}`}>
               <img
                 className="w-6 pt-2 xl:ml-2 lg:ml-2 md:ml-2 sm:ml-1"
                 src={edit}

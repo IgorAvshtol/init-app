@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { signIn, signUp } from './authThunk';
+import { login, registration } from './authThunk';
 import { IAuthState, IGetCurrentUser, IUser, TypeLoadingStatus } from 'interfaces';
 import { removeUserFromLocalStorage } from 'services/localStorage/localStorage';
 
@@ -27,29 +27,29 @@ export const authReducer = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signIn.pending, (state) => {
+      .addCase(login.pending, (state) => {
         state.loading = TypeLoadingStatus.IS_PENDING;
         state.error = '';
       })
-      .addCase(signIn.fulfilled, (state, action: PayloadAction<IUser>) => {
+      .addCase(login.fulfilled, (state, action: PayloadAction<IUser>) => {
         state.user = action.payload;
         state.loading = TypeLoadingStatus.IS_RESOLVED;
         state.error = '';
       })
-      .addCase(signIn.rejected.type, (state, action: PayloadAction<string>) => {
+      .addCase(login.rejected.type, (state, action: PayloadAction<string>) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
         state.error = action.payload;
       })
-      .addCase(signUp.pending, (state) => {
+      .addCase(registration.pending, (state) => {
         state.loading = TypeLoadingStatus.IS_PENDING;
         state.error = '';
       })
-      .addCase(signUp.fulfilled.type, (state, action: PayloadAction<IUser>) => {
+      .addCase(registration.fulfilled.type, (state, action: PayloadAction<IUser>) => {
         state.user = action.payload;
         state.loading = TypeLoadingStatus.IS_RESOLVED;
         state.error = '';
       })
-      .addCase(signUp.rejected.type, (state, action: PayloadAction<string>) => {
+      .addCase(registration.rejected.type, (state, action: PayloadAction<string>) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
         state.error = action.payload;
       });

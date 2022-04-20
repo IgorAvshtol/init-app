@@ -1,11 +1,13 @@
 import { FieldValues, useFieldArray, useForm } from 'react-hook-form';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Input } from '../../Input/Input';
 import { Header } from './Header';
 import { BodyField } from './BodyField';
-import { useAppDispatch } from 'store/store';
-import { addArticle } from 'store/articles/articlesThunk';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { addArticle, updateArticle } from 'store/articles/articlesThunk';
+import { DeleteButton } from './DeleteButton';
 
 type INewArticleData = FieldValues & {
   title: string;
@@ -15,17 +17,31 @@ type INewArticleData = FieldValues & {
 };
 
 export function Form() {
+  const { slug } = useParams<string>();
   const dispatch = useAppDispatch();
+  const { currentArticle, error } = useAppSelector((state) => state.articles);
   const onSubmitButtonHandler = (data: INewArticleData) => {
-    dispatch(addArticle(data));
+    if (slug) {
+      dispatch(updateArticle({ slug, ...data }));
+    } else {
+      dispatch(addArticle(data));
+    }
   };
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<INewArticleData>({ mode: 'all' });
-  const registration = (data: INewArticleData) => onSubmitButtonHandler(data);
+  } = useForm<INewArticleData>({
+    mode: 'all',
+    defaultValues: {
+      title: slug && currentArticle?.title,
+      description: slug && currentArticle?.description,
+      body: slug && currentArticle?.body,
+      tagList: slug ? currentArticle?.tagList : [],
+    },
+  });
+  const submit = (data: INewArticleData) => onSubmitButtonHandler(data);
   const { fields, append, remove } = useFieldArray<INewArticleData>({
     control,
     name: 'tagList',
@@ -40,11 +56,9 @@ export function Form() {
   };
 
   return (
-    <form
-      className="flex flex-col justify-center items-center"
-      onSubmit={handleSubmit(registration)}
-    >
+    <form className="flex flex-col justify-center items-center" onSubmit={handleSubmit(submit)}>
       <Header />
+      {error && <div className="pt-2 w-64 text-red-600 text-center">{error}</div>}
       <div className="relative w-2/3 mt-6 flex flex-col">
         <Input
           placeholder="Title..."
@@ -64,6 +78,7 @@ export function Form() {
         />
         <BodyField
           {...register('body', { required: 'Body is required' })}
+          initialValue={slug && currentArticle?.body}
           errors={errors?.body?.message ?? null}
         />
         {fields.map((field, index) => (
@@ -89,8 +104,9 @@ export function Form() {
         </div>
       </div>
       <button className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-        Submit
+        {slug ? 'Update' : 'Submit'}
       </button>
+      {slug && <DeleteButton />}
     </form>
   );
 }

@@ -1,13 +1,13 @@
 import { Navigate } from 'react-router-dom';
-import { useAppSelector } from 'store/store';
+import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
 
 type PropsType = {
   children: JSX.Element;
 };
 
 export function PrivateRoute({ children }: PropsType) {
-  const { user } = useAppSelector((state) => state.auth);
-  if (!user?.username) {
+  const currentUser = getUserFromLocalStorage();
+  if (!currentUser) {
     return <Navigate to="/" />;
   }
   return children;

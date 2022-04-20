@@ -58,7 +58,7 @@ export interface IGetCurrentUser {
 }
 
 export interface IGetArticles {
-  articles: IArticle[] | null;
+  articles: IArticle[];
   articlesCount: number;
 }
 
@@ -69,11 +69,20 @@ export interface INewArticle {
   tagList: string[];
 }
 
+export interface IUpdateArticle {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
+}
+
 export interface IArticlesState {
-  articles: IArticle[] | null;
+  articles: IArticle[];
   currentArticle: IArticle | null;
   articlesCount: number;
   loading: TypeLoadingStatus;
+  error: string;
 }
 
 export interface IGetComments {

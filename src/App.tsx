@@ -9,8 +9,14 @@ import { Modal } from 'components/Modal';
 import { Page } from 'components/Article/Page';
 import { Form } from 'components/Article/AddArticleForm/Form';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
+import { useAppDispatch, useAppSelector } from './store/store';
+import { getUserFromLocalStorage } from './services/localStorage/localStorage';
+import { getCurrentUser } from './store/auth/authSlice';
+import { getArticles } from './store/articles/articlesThunk';
+import { getTags } from './store/tags/tagsThunk';
 
 function App() {
+  const dispatch = useAppDispatch();
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [purpose, setPurpose] = useState(false);
@@ -30,10 +36,21 @@ function App() {
       setPurpose(false);
     }
   };
+
   useEffect(() => {
     window.addEventListener('scroll', listenScrollEvent);
     return () => window.removeEventListener('scroll', listenScrollEvent);
   }, []);
+
+  const { user } = useAppSelector((state) => state.auth);
+  const token = user ? user.token : '';
+
+  useEffect(() => {
+    const currentUser = getUserFromLocalStorage();
+    currentUser && dispatch(getCurrentUser(currentUser));
+    dispatch(getArticles());
+    dispatch(getTags());
+  }, [dispatch, token]);
 
   return (
     <div className="min-h-screen h-full flex flex-col">
@@ -53,14 +70,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/:slug" element={<Page toggleSignInModal={toggleSignInModal} />} />
-        <Route
-          path="/new-article"
-          element={
-            <PrivateRoute>
-              <Form />
-            </PrivateRoute>
-          }
-        />
+        {/*<Route*/}
+        {/*  path="/new-article"*/}
+        {/*  element={*/}
+        {/*    <PrivateRoute>*/}
+        {/*      <Form />*/}
+        {/*    </PrivateRoute>*/}
+        {/*  }*/}
+        {/*/>*/}
+        {/*<Route*/}
+        {/*  path="/update-:slug"*/}
+        {/*  element={*/}
+        {/*    <PrivateRoute>*/}
+        {/*      <Form />*/}
+        {/*    </PrivateRoute>*/}
+        {/*  }*/}
+        {/*/>*/}
       </Routes>
     </div>
   );

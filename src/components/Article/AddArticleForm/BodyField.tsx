@@ -2,13 +2,14 @@ import React, { ChangeEvent, ComponentProps, forwardRef, useState } from 'react'
 import reset from 'image/reset.png';
 
 interface BodyFieldProps extends ComponentProps<'textarea'> {
+  initialValue?: string;
   name: string;
   errors: string | null;
 }
 
 export const BodyField = forwardRef<HTMLTextAreaElement, BodyFieldProps>((props, ref) => {
-  const { name, errors, ...inputProps } = props;
-  const [articleBody, setArticleBody] = useState<string>('');
+  const { name, errors, initialValue, ...inputProps } = props;
+  const [articleBody, setArticleBody] = useState<string>(initialValue ? initialValue : '');
   const onChangeFieldBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setArticleBody(e.currentTarget.value);
   };
