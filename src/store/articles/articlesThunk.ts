@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 
 import { instance } from 'services/httpService';
 import { INewArticle } from 'interfaces';
-import { AxiosError } from 'axios';
 import { errorHandleService } from 'utils/errorHandleService';
 
 export const getArticles = createAsyncThunk('articles/getArticles', async () => {
@@ -29,6 +29,5 @@ export const addArticle = createAsyncThunk(
       const error = e as AxiosError;
       return rejectWithValue(errorHandleService(error));
     }
-    // return data.article;
   }
 );

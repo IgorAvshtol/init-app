@@ -73,7 +73,6 @@ export function Comments({ setIsOpen }: ICommentsProps) {
                   body={comment.body}
                   createdAt={comment.createdAt}
                   id={comment.id}
-                  // deleteComment={deleteComment}
                 />
               );
             })
