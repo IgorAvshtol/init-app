@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { login, registration } from './authThunk';
 import { IAuthState, IGetCurrentUser, IUser, TypeLoadingStatus } from 'interfaces';
 import { removeUserFromLocalStorage } from 'services/localStorage/localStorage';
+import { AxiosResponse } from 'axios';
 
 const initialState: IAuthState = {
   user: null,
@@ -31,8 +32,8 @@ export const authReducer = createSlice({
         state.loading = TypeLoadingStatus.IS_PENDING;
         state.error = '';
       })
-      .addCase(login.fulfilled, (state, action: PayloadAction<IUser>) => {
-        state.user = action.payload;
+      .addCase(login.fulfilled, (state, action: PayloadAction<AxiosResponse<IUser>>) => {
+        state.user = action.payload.data;
         state.loading = TypeLoadingStatus.IS_RESOLVED;
         state.error = '';
       })
@@ -44,8 +45,8 @@ export const authReducer = createSlice({
         state.loading = TypeLoadingStatus.IS_PENDING;
         state.error = '';
       })
-      .addCase(registration.fulfilled.type, (state, action: PayloadAction<IUser>) => {
-        state.user = action.payload;
+      .addCase(registration.fulfilled, (state, action: PayloadAction<AxiosResponse<IUser>>) => {
+        state.user = action.payload.data;
         state.loading = TypeLoadingStatus.IS_RESOLVED;
         state.error = '';
       })

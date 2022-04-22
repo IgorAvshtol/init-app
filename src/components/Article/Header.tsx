@@ -1,10 +1,10 @@
 import { nanoid } from 'nanoid';
 import { format } from 'date-fns';
+import { NavLink } from 'react-router-dom';
 
 import add from 'image/add.svg';
 import edit from 'image/edit.png';
 import like from 'image/like.png';
-import { NavLink } from 'react-router-dom';
 import { useAppSelector } from 'store/store';
 
 interface IArticleHeader {

@@ -45,6 +45,10 @@ export interface IUserData {
   user: IUser;
 }
 
+export interface IArticleData {
+  article: IArticle;
+}
+
 export interface IUser {
   email: string;
   bio: string;
@@ -83,6 +87,7 @@ export interface IArticlesState {
   articlesCount: number;
   loading: TypeLoadingStatus;
   error: string;
+  isSuccess: boolean;
 }
 
 export interface IGetComments {

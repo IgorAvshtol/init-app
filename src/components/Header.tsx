@@ -1,6 +1,5 @@
 import logo from 'image/logo.png';
-
-import { useAppSelector } from '../store/store';
+import { useAppSelector } from 'store/store';
 
 interface IHeader {
   onSignInBtnClick: () => void;

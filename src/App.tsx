@@ -9,11 +9,11 @@ import { Modal } from 'components/Modal';
 import { Page } from 'components/Article/Page';
 import { Form } from 'components/Article/AddArticleForm/Form';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
-import { useAppDispatch, useAppSelector } from './store/store';
-import { getUserFromLocalStorage } from './services/localStorage/localStorage';
-import { getCurrentUser } from './store/auth/authSlice';
-import { getArticles } from './store/articles/articlesThunk';
-import { getTags } from './store/tags/tagsThunk';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { getArticles } from 'store/articles/articlesThunk';
+import { getTags } from 'store/tags/tagsThunk';
+import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
+import { getCurrentUser } from 'store/auth/authSlice';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -36,7 +36,6 @@ function App() {
       setPurpose(false);
     }
   };
-
   useEffect(() => {
     window.addEventListener('scroll', listenScrollEvent);
     return () => window.removeEventListener('scroll', listenScrollEvent);

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IComment, ICommentsState, IGetComments, TypeLoadingStatus } from 'interfaces';
 import { createComment, deleteComment, getComments } from './commentsThunk';
+import { AxiosResponse } from 'axios';
 
 const initialState: ICommentsState = {
   comments: [],
@@ -17,17 +18,20 @@ export const commentsReducer = createSlice({
       .addCase(getComments.pending, (state) => {
         state.loading = TypeLoadingStatus.IS_PENDING;
       })
-      .addCase(getComments.fulfilled, (state, action: PayloadAction<IGetComments>) => {
-        state.comments = action.payload.comments;
-        state.loading = TypeLoadingStatus.IS_RESOLVED;
-      })
+      .addCase(
+        getComments.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IGetComments>>) => {
+          state.comments = action.payload.data.comments;
+          state.loading = TypeLoadingStatus.IS_RESOLVED;
+        }
+      )
       .addCase(getComments.rejected, (state) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
       })
       .addCase(
-        createComment.fulfilled,
-        (state: ICommentsState, action: PayloadAction<IComment>) => {
-          state.comments.push(action.payload);
+        createComment.fulfilled.type,
+        (state: ICommentsState, action: PayloadAction<AxiosResponse<IComment>>) => {
+          state.comments.push(action.payload.data);
           state.loading = TypeLoadingStatus.IS_RESOLVED;
           state.error = '';
         }

@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { instance } from '../../services/httpService';
-import { ITags } from '../../interfaces';
+import { instance } from 'services/httpService';
 
-export const getTags = createAsyncThunk('tags', async () => {
-  const { data } = await instance.get('tags');
-  return data as ITags;
+export const getTags = createAsyncThunk('tags/getTags', async () => {
+  return await instance.get('tags');
 });

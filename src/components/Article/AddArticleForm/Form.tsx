@@ -8,6 +8,7 @@ import { BodyField } from './BodyField';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { addArticle, updateArticle } from 'store/articles/articlesThunk';
 import { DeleteButton } from './DeleteButton';
+import { Success } from './Succes';
 
 type INewArticleData = FieldValues & {
   title: string;
@@ -19,7 +20,7 @@ type INewArticleData = FieldValues & {
 export function Form() {
   const { slug } = useParams<string>();
   const dispatch = useAppDispatch();
-  const { currentArticle, error } = useAppSelector((state) => state.articles);
+  const { currentArticle } = useAppSelector((state) => state.articles);
   const onSubmitButtonHandler = (data: INewArticleData) => {
     if (slug) {
       dispatch(updateArticle({ slug, ...data }));
@@ -31,6 +32,7 @@ export function Form() {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<INewArticleData>({
     mode: 'all',
@@ -58,7 +60,7 @@ export function Form() {
   return (
     <form className="flex flex-col justify-center items-center" onSubmit={handleSubmit(submit)}>
       <Header />
-      {error && <div className="pt-2 w-64 text-red-600 text-center">{error}</div>}
+      <Success />
       <div className="relative w-2/3 mt-6 flex flex-col">
         <Input
           placeholder="Title..."
@@ -78,7 +80,7 @@ export function Form() {
         />
         <BodyField
           {...register('body', { required: 'Body is required' })}
-          initialValue={slug && currentArticle?.body}
+          reset={() => reset({ body: '' })}
           errors={errors?.body?.message ?? null}
         />
         {fields.map((field, index) => (

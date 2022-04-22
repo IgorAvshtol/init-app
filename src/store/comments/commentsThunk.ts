@@ -5,8 +5,7 @@ import { AxiosError } from 'axios';
 import { errorHandleService } from 'utils/errorHandleService';
 
 export const getComments = createAsyncThunk('comments/getComments', async (slug: string) => {
-  const { data } = await instance.get(`articles/${slug}/comments`);
-  return data;
+  return await instance.get(`articles/${slug}/comments`);
 });
 
 export const createComment = createAsyncThunk(
@@ -14,10 +13,9 @@ export const createComment = createAsyncThunk(
   async (data: ICreateComment, { rejectWithValue }) => {
     try {
       const { slug, comment } = data;
-      const response = await instance.post(`articles/${slug}/comments`, {
+      return await instance.post(`articles/${slug}/comments`, {
         comment: { body: comment },
       });
-      return response.data.comment;
     } catch (e) {
       const error = e as AxiosError;
       return rejectWithValue(errorHandleService(error));

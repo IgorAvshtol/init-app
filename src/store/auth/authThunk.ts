@@ -7,7 +7,7 @@ import { setUserFromLocalStorage } from 'services/localStorage/localStorage';
 import { IRegisterData } from 'interfaces';
 
 export const login = createAsyncThunk(
-  'auth/signin',
+  'auth/login',
   async (signInData: IRegisterData, { rejectWithValue }) => {
     const user = {
       user: {
@@ -18,7 +18,7 @@ export const login = createAsyncThunk(
     try {
       const response = await instance.post(`users/login`, user);
       await setUserFromLocalStorage(response.data);
-      return response.data;
+      return response;
     } catch (e) {
       const error = e as AxiosError;
       return rejectWithValue(errorHandleService(error));
@@ -27,7 +27,7 @@ export const login = createAsyncThunk(
 );
 
 export const registration = createAsyncThunk(
-  'auth/signup',
+  'auth/registration',
   async (signUpData: IRegisterData, { rejectWithValue }) => {
     const user = {
       user: {
@@ -39,7 +39,7 @@ export const registration = createAsyncThunk(
     try {
       const response = await instance.post(`users/`, user);
       await setUserFromLocalStorage(response.data);
-      return response.data;
+      return response;
     } catch (e) {
       const error = e as AxiosError;
       return rejectWithValue(errorHandleService(error));

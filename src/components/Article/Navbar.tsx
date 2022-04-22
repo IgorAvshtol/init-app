@@ -14,7 +14,6 @@ interface INavBar {
 export function Navbar({ toggleSignInModal }: INavBar) {
   const { user } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
-
   const forwarding = () => {
     if (!user && toggleSignInModal) {
       toggleSignInModal();

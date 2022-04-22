@@ -1,5 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IArticle, IArticlesState, IGetArticles, TypeLoadingStatus } from 'interfaces';
+import { AxiosResponse } from 'axios';
+
+import {
+  IArticle,
+  IArticleData,
+  IArticlesState,
+  IGetArticles,
+  TypeLoadingStatus,
+} from 'interfaces';
 import {
   addArticle,
   deleteArticle,
@@ -14,64 +22,91 @@ const initialState: IArticlesState = {
   articlesCount: 0,
   loading: TypeLoadingStatus.IS_RESOLVED,
   error: '',
+  isSuccess: false,
 };
 
 export const articleReducer = createSlice({
   name: 'articles',
   initialState,
-  reducers: {},
+  reducers: {
+    closeModal: (state) => {
+      state.error = '';
+      state.loading = TypeLoadingStatus.IS_RESOLVED;
+      state.isSuccess = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getArticles.pending, (state) => {
         state.loading = TypeLoadingStatus.IS_PENDING;
       })
-      .addCase(getArticles.fulfilled, (state, action: PayloadAction<IGetArticles>) => {
-        state.articles = action.payload.articles;
-        state.articlesCount = action.payload.articlesCount;
-        state.loading = TypeLoadingStatus.IS_RESOLVED;
-      })
+      .addCase(
+        getArticles.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IGetArticles>>) => {
+          state.articles = action.payload.data.articles;
+          state.articlesCount = action.payload.data.articlesCount;
+          state.loading = TypeLoadingStatus.IS_RESOLVED;
+        }
+      )
       .addCase(getArticles.rejected, (state) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
       })
       .addCase(getCurrentArticle.pending, (state) => {
         state.loading = TypeLoadingStatus.IS_PENDING;
       })
-      .addCase(getCurrentArticle.fulfilled, (state, action: PayloadAction<IArticle>) => {
-        state.currentArticle = action.payload;
-        state.loading = TypeLoadingStatus.IS_RESOLVED;
-      })
+      .addCase(
+        getCurrentArticle.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IArticleData>>) => {
+          state.currentArticle = action.payload.data.article;
+          state.loading = TypeLoadingStatus.IS_RESOLVED;
+        }
+      )
       .addCase(getCurrentArticle.rejected, (state) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
       })
       .addCase(addArticle.pending, (state) => {
         state.loading = TypeLoadingStatus.IS_PENDING;
       })
-      .addCase(addArticle.fulfilled, (state, action: PayloadAction<IArticle>) => {
-        state.articles.push(action.payload);
-        state.loading = TypeLoadingStatus.IS_RESOLVED;
-        state.error = '';
-      })
+      .addCase(
+        addArticle.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IArticle>>) => {
+          state.articles.push(action.payload.data);
+          state.loading = TypeLoadingStatus.IS_RESOLVED;
+          state.error = '';
+          state.isSuccess = true;
+        }
+      )
       .addCase(addArticle.rejected.type, (state, action: PayloadAction<string>) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
         state.error = action.payload;
+        state.isSuccess = false;
       })
       .addCase(updateArticle.pending, (state) => {
         state.loading = TypeLoadingStatus.IS_PENDING;
       })
-      .addCase(updateArticle.fulfilled, (state, action: PayloadAction<IArticle>) => {
-        state.articles = state.articles.map((article) => {
-          if (article.slug === action.payload.slug) {
-            return action.payload;
-          }
-          return article;
-        });
-        state.loading = TypeLoadingStatus.IS_RESOLVED;
-      })
-      .addCase(updateArticle.rejected, (state) => {
+      .addCase(
+        updateArticle.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IArticle>>) => {
+          state.articles = state.articles.map((article) => {
+            if (article.slug === action.payload.data.slug) {
+              return action.payload.data;
+            }
+            return article;
+          });
+          state.loading = TypeLoadingStatus.IS_RESOLVED;
+          state.isSuccess = true;
+        }
+      )
+      .addCase(updateArticle.rejected.type, (state, action: PayloadAction<string>) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
+        state.error = action.payload;
+        state.isSuccess = false;
       })
       .addCase(deleteArticle.fulfilled, (state, action: PayloadAction<string>) => {
         state.articles = state.articles.filter((article) => article.slug !== action.payload);
+        state.isSuccess = true;
       });
   },
 });
+
+export const { closeModal } = articleReducer.actions;
