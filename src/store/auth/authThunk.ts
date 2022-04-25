@@ -5,6 +5,7 @@ import { instance } from 'services/httpService';
 import { errorHandleService } from 'utils/errorHandleService';
 import { setUserFromLocalStorage } from 'services/localStorage/localStorage';
 import { IRegisterData } from 'interfaces';
+import { mutate } from 'swr';
 
 export const login = createAsyncThunk(
   'auth/login',
@@ -18,6 +19,7 @@ export const login = createAsyncThunk(
     try {
       const response = await instance.post(`users/login`, user);
       await setUserFromLocalStorage(response.data);
+      await mutate('userData', response?.data);
       return response;
     } catch (e) {
       const error = e as AxiosError;

@@ -8,7 +8,7 @@ import { BodyField } from './BodyField';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { addArticle, updateArticle } from 'store/articles/articlesThunk';
 import { DeleteButton } from './DeleteButton';
-import { Success } from './Succes';
+import { Popup } from './Popup';
 
 type INewArticleData = FieldValues & {
   title: string;
@@ -60,7 +60,7 @@ export function Form() {
   return (
     <form className="flex flex-col justify-center items-center" onSubmit={handleSubmit(submit)}>
       <Header />
-      <Success />
+      <Popup />
       <div className="relative w-2/3 mt-6 flex flex-col">
         <Input
           placeholder="Title..."

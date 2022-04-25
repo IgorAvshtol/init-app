@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
 
 import { SignInForm } from './SignInForm';
-import { store } from '../../store/store';
-import { Provider } from 'react-redux';
+import { store } from 'store/store';
 
 describe('SignInForm test', () => {
   const mock = jest.fn();

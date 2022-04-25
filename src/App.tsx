@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import useSWR from 'swr';
 
 import { SignInForm } from 'components/SignInForm/SignInForm';
 import { SignUpForm } from 'components/SignUpForm/SignUpForm';
@@ -9,13 +10,15 @@ import { Modal } from 'components/Modal';
 import { Page } from 'components/Article/Page';
 import { Form } from 'components/Article/AddArticleForm/Form';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
-import { useAppDispatch, useAppSelector } from 'store/store';
+import { useAppDispatch } from 'store/store';
 import { getArticles } from 'store/articles/articlesThunk';
 import { getTags } from 'store/tags/tagsThunk';
 import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
 import { getCurrentUser } from 'store/auth/authSlice';
+import { IUserData } from './interfaces';
 
 function App() {
+  const { data: currentUser } = useSWR<IUserData>('userData', getUserFromLocalStorage);
   const dispatch = useAppDispatch();
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
@@ -41,15 +44,11 @@ function App() {
     return () => window.removeEventListener('scroll', listenScrollEvent);
   }, []);
 
-  const { user } = useAppSelector((state) => state.auth);
-  const token = user ? user.token : '';
-
   useEffect(() => {
-    const currentUser = getUserFromLocalStorage();
     currentUser && dispatch(getCurrentUser(currentUser));
     dispatch(getArticles());
     dispatch(getTags());
-  }, [dispatch, token]);
+  }, [dispatch, currentUser]);
 
   return (
     <div className="min-h-screen h-full flex flex-col">

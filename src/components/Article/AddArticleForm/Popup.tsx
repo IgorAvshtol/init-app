@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from 'store/store';
 import { closeModal } from 'store/articles/articleSlice';
 import { TypeLoadingStatus } from 'interfaces';
 
-export function Success() {
+export function Popup() {
   const { error, loading, isSuccess } = useAppSelector((state) => state.articles);
   const initRef = useRef(null);
   const dispatch = useAppDispatch();
@@ -65,7 +65,7 @@ export function Success() {
                   }
                 >
                   {error && error}
-                  {isSuccess && 'Success'}
+                  {isSuccess && 'Popup'}
                 </Dialog.Title>
               </div>
             </Transition.Child>
