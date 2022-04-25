@@ -20,8 +20,6 @@ export const addArticle = createAsyncThunk(
   'articles/addArticle',
   async (article: INewArticle, { rejectWithValue }) => {
     try {
-      const resp = await instance.post('articles', { article: article });
-      console.log(resp);
       return await instance.post('articles', { article: article });
     } catch (e) {
       const error = e as AxiosError;
