@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import useSWR from 'swr';
 
@@ -10,28 +10,19 @@ import { Modal } from 'components/Modal';
 import { Page } from 'components/Article/Page';
 import { Form } from 'components/Article/AddArticleForm/Form';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
-import { useAppDispatch } from 'store/store';
-import { getArticles } from 'store/articles/articlesThunk';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { getArticles, getFavoriteArticles } from 'store/articles/articlesThunk';
 import { getTags } from 'store/tags/tagsThunk';
 import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
 import { getCurrentUser } from 'store/auth/authSlice';
-import { IUserData } from './interfaces';
+import { IUserData } from 'interfaces';
 
 function App() {
   const { data: currentUser } = useSWR<IUserData>('userData', getUserFromLocalStorage);
+  const { signInModalOpen, signUpModalOpen } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [purpose, setPurpose] = useState(false);
   const { pathname } = useLocation();
-
-  const toggleSignInModal = useCallback(() => {
-    setIsSignInModalOpen((isOpen) => !isOpen);
-  }, []);
-  const toggleSignUpModal = useCallback(() => {
-    setIsSignUpModalOpen((isOpen) => !isOpen);
-  }, []);
-
   const listenScrollEvent = () => {
     if (window.scrollY > 350) {
       setPurpose(true);
@@ -48,26 +39,21 @@ function App() {
     currentUser && dispatch(getCurrentUser(currentUser));
     dispatch(getArticles());
     dispatch(getTags());
+    currentUser && dispatch(getFavoriteArticles(currentUser?.user.username));
   }, [dispatch, currentUser]);
 
   return (
     <div className="min-h-screen h-full flex flex-col">
       <div className={pathname !== '/' ? 'hidden' : 'block'}>
-        <Header
-          purpose={purpose}
-          onSignInBtnClick={toggleSignInModal}
-          onSignUpBtnClick={toggleSignUpModal}
-        />
+        <Header purpose={purpose} />
       </div>
-      <Modal isOpen={isSignInModalOpen} onClose={toggleSignInModal}>
-        <SignInForm onSignIn={toggleSignInModal} />
-      </Modal>
-      <Modal isOpen={isSignUpModalOpen} onClose={toggleSignUpModal}>
-        <SignUpForm onSignUp={toggleSignUpModal} />
+      <Modal>
+        {signInModalOpen && <SignInForm />}
+        {signUpModalOpen && <SignUpForm />}
       </Modal>
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/:slug" element={<Page toggleSignInModal={toggleSignInModal} />} />
+        <Route path="/*" element={<Main />} />
+        <Route path="/posts/:slug" element={<Page />} />
         <Route
           path="/new-article"
           element={

@@ -1,14 +1,20 @@
 import logo from 'image/logo.png';
-import { useAppSelector } from 'store/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { isSignInModalOpen, isSignUpModalOpen } from '../store/auth/authSlice';
 
 interface IHeader {
-  onSignInBtnClick: () => void;
-  onSignUpBtnClick: () => void;
   purpose: boolean;
 }
 
-export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader) {
+export function Header({ purpose }: IHeader) {
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
+  const onSignInBtnClick = () => {
+    dispatch(isSignInModalOpen());
+  };
+  const onSignUpBtnClick = () => {
+    dispatch(isSignUpModalOpen());
+  };
   return (
     <header
       className={

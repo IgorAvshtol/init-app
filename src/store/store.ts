@@ -26,6 +26,7 @@ export const store = configureStore({
           'comments/getComments/fulfilled',
           'comments/createComment/fulfilled',
           'tags/getTags/fulfilled',
+          'articles/getFavouriteArticles/fulfilled',
         ],
       },
     }),

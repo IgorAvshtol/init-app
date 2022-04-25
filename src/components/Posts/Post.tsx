@@ -38,7 +38,7 @@ export function Post(props: IPost) {
             </p>
           </a>
         </div>
-        <NavLink to={`/${slug}`}>
+        <NavLink to={`/posts/${slug}`}>
           <h2 className="text-base font-bold pt-2 xl:text-xl lg:text-xl md:text-xl sm:text-base">
             {title}
           </h2>

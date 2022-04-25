@@ -1,22 +1,21 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 import logo from 'image/logo.png';
 import home from 'image/home.png';
 import write from 'image/write.png';
+import lists from 'image/lists.png';
 import { DropdownMenu } from '../Menu';
-import { useAppSelector } from 'store/store';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { isSignInModalOpen } from 'store/auth/authSlice';
 
-interface INavBar {
-  toggleSignInModal?: () => void;
-}
-
-export function Navbar({ toggleSignInModal }: INavBar) {
+export function Navbar() {
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const forwarding = () => {
-    if (!user && toggleSignInModal) {
-      toggleSignInModal();
+    if (!user) {
+      dispatch(isSignInModalOpen());
       return;
     }
     navigate('/new-article');
@@ -33,6 +32,16 @@ export function Navbar({ toggleSignInModal }: INavBar) {
           >
             <img className="w-9" src={home} alt="home" />
           </a>
+          <Link
+            to="/lists"
+            className="relative hover:after:content-['Lists'] after:w-24 after:text-center after:rounded-lg after:bg-emerald-100 after:absolute after:bottom-10 after:left-2 lg:after:left-8 lg:after:bottom-0 md:after:bottom-12 md:after:left-2 sm:after:bottom-10 sm:after:left-2"
+          >
+            <img
+              className="w-7 ml-1.5 ml-6 xl:mt-6 xl:ml-0 lg:mt-6 lg:ml-0"
+              src={lists}
+              alt="lists"
+            />
+          </Link>
           <hr className="hidden xl:block xl:mt-4 xl:w-5/6 lg:block lg:mt-4 lg:w-5/6 md:hidden sm:hidden" />
           <a
             onClick={forwarding}

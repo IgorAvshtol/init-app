@@ -1,8 +1,11 @@
+import { Route, Routes } from 'react-router-dom';
+
 import { Posts } from '../Posts/Posts';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { Title } from './Title';
 import { Navbar } from '../Article/Navbar';
 import { useAppSelector } from 'store/store';
+import { Lists } from '../Lists/Lists';
 
 export function Main() {
   const { user } = useAppSelector((state) => state.auth);
@@ -25,7 +28,10 @@ export function Main() {
             <div className="w-full min-h-screen mb-12 border-0 flex justify-center xl:w-3/4 xl:mt-0 xl:border-x-2 xl:pt-14 lg:w-3/4 lg:mb-0 lg:border-x-2 md:mt-12 sm:mb-12">
               <div className="w-full pt-4 flex flex-col justify-between items-center md:flex md:flex-col sm:flex sm:flex-col">
                 <Sidebar />
-                <Posts />
+                <Routes>
+                  <Route path="/" element={<Posts />} />
+                  <Route path="/lists" element={<Lists />} />
+                </Routes>
               </div>
             </div>
           </div>

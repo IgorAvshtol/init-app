@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 
 import spinner from 'image/spinner.gif';
@@ -6,10 +6,6 @@ import { Input } from '../Input/Input';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { login } from 'store/auth/authThunk';
 import { TypeLoadingStatus } from 'interfaces';
-
-interface ISignInForm {
-  onSignIn: () => void;
-}
 
 export interface ISignInData {
   email: string;
@@ -21,14 +17,9 @@ export interface IErrorData {
   password?: FieldError | undefined;
 }
 
-export function SignInForm({ onSignIn }: ISignInForm) {
-  const { user, loading } = useAppSelector((state) => state.auth);
+export function SignInForm() {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (user) {
-      onSignIn();
-    }
-  }, [user, onSignIn]);
+  const { loading } = useAppSelector((state) => state.auth);
   const onSubmitHandler = (data: ISignInData) => {
     dispatch(login(data));
   };

@@ -9,6 +9,13 @@ export const getArticles = createAsyncThunk('articles/getArticles', async () => 
   return await instance.get('articles');
 });
 
+export const getFavoriteArticles = createAsyncThunk(
+  'articles/getFavouriteArticles',
+  async (username: string) => {
+    return await instance.get(`articles?favorited=${username}`);
+  }
+);
+
 export const getCurrentArticle = createAsyncThunk(
   'articles/getCurrentArticle',
   async (slug: string) => {

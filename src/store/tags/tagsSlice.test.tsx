@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom';
+
 import { ITagsState, TypeLoadingStatus } from 'interfaces';
 import { getTags } from './tagsThunk';
 import { tagsReducer } from './tagsSlice';

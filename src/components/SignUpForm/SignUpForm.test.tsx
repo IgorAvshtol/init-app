@@ -7,11 +7,10 @@ import { Provider } from 'react-redux';
 import { store } from 'store/store';
 
 describe('SignInForm test', () => {
-  const mock = jest.fn();
   it('name is required', async () => {
     render(
       <Provider store={store}>
-        <SignUpForm onSignUp={mock} />{' '}
+        <SignUpForm />
       </Provider>
     );
     const nameField = screen.getByRole('textbox', { name: /name/i });
@@ -34,7 +33,7 @@ describe('SignInForm test', () => {
   it('email is required', async () => {
     render(
       <Provider store={store}>
-        <SignUpForm onSignUp={mock} />{' '}
+        <SignUpForm />
       </Provider>
     );
     const emailField = screen.getByRole('textbox', { name: /email/i });
@@ -57,7 +56,7 @@ describe('SignInForm test', () => {
   it('password is required', async () => {
     render(
       <Provider store={store}>
-        <SignUpForm onSignUp={mock} />{' '}
+        <SignUpForm />
       </Provider>
     );
     const passwordField = screen.getByText(/password/i);

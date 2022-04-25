@@ -8,6 +8,8 @@ const initialState: IAuthState = {
   user: null,
   loading: TypeLoadingStatus.IS_RESOLVED,
   error: '',
+  signInModalOpen: false,
+  signUpModalOpen: false,
 };
 
 export const authReducer = createSlice({
@@ -25,6 +27,12 @@ export const authReducer = createSlice({
       removeUserFromLocalStorage();
       state.user = null;
     },
+    isSignInModalOpen: (state) => {
+      state.signInModalOpen = !state.signInModalOpen;
+    },
+    isSignUpModalOpen: (state) => {
+      state.signUpModalOpen = !state.signUpModalOpen;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -36,6 +44,7 @@ export const authReducer = createSlice({
         state.user = action.payload.data;
         state.loading = TypeLoadingStatus.IS_RESOLVED;
         state.error = '';
+        state.signInModalOpen = false;
       })
       .addCase(login.rejected.type, (state, action: PayloadAction<string>) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
@@ -49,6 +58,7 @@ export const authReducer = createSlice({
         state.user = action.payload.data;
         state.loading = TypeLoadingStatus.IS_RESOLVED;
         state.error = '';
+        state.signUpModalOpen = false;
       })
       .addCase(registration.rejected.type, (state, action: PayloadAction<string>) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
@@ -57,4 +67,5 @@ export const authReducer = createSlice({
   },
 });
 
-export const { entryIsSuccess, logout, getCurrentUser } = authReducer.actions;
+export const { entryIsSuccess, logout, getCurrentUser, isSignInModalOpen, isSignUpModalOpen } =
+  authReducer.actions;

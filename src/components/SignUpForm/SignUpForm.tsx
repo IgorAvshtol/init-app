@@ -7,10 +7,6 @@ import { useAppDispatch, useAppSelector } from 'store/store';
 import { registration } from 'store/auth/authThunk';
 import { TypeLoadingStatus } from 'interfaces';
 
-interface ISignUpForm {
-  onSignUp: () => void;
-}
-
 export interface ISignUpData {
   name: string;
   email: string;
@@ -22,14 +18,9 @@ export interface IErrorData {
   password?: FieldError | undefined;
 }
 
-export function SignUpForm({ onSignUp }: ISignUpForm) {
-  const { user, loading } = useAppSelector((state) => state.auth);
-  useEffect(() => {
-    if (user) {
-      onSignUp();
-    }
-  }, [user, onSignUp]);
+export function SignUpForm() {
   const dispatch = useAppDispatch();
+  const { loading } = useAppSelector((state) => state.auth);
   const onSubmitHandler = (data: ISignUpData) => {
     dispatch(registration(data));
   };

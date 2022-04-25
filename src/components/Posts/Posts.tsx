@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 import spinner from 'image/spinner.gif';
 import notFound from 'image/404-not-found.png';
 
@@ -22,7 +24,7 @@ export function Posts() {
         articles?.map((post) => {
           return (
             <Post
-              key={post.slug}
+              key={nanoid()}
               title={post.title}
               avatar={post.author.image}
               description={post.description}

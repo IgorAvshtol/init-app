@@ -39,6 +39,8 @@ export interface IAuthState {
   user: IUser | null;
   loading: TypeLoadingStatus;
   error: string;
+  signInModalOpen: boolean;
+  signUpModalOpen: boolean;
 }
 
 export interface IUserData {
@@ -83,6 +85,7 @@ export interface IUpdateArticle {
 
 export interface IArticlesState {
   articles: IArticle[];
+  favoriteArticles: IGetArticles;
   currentArticle: IArticle | null;
   articlesCount: number;
   loading: TypeLoadingStatus;

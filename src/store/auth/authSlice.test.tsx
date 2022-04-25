@@ -9,6 +9,8 @@ describe('authSlice', () => {
     user: null,
     loading: TypeLoadingStatus.IS_RESOLVED,
     error: '',
+    signInModalOpen: false,
+    signUpModalOpen: false,
   };
   const userData = {
     data: {
@@ -22,7 +24,13 @@ describe('authSlice', () => {
   it('login status is pending', () => {
     const action = { type: login.pending };
     const state = authReducer.reducer(initialState, action);
-    expect(state).toEqual({ user: null, loading: TypeLoadingStatus.IS_PENDING, error: '' });
+    expect(state).toEqual({
+      user: null,
+      loading: TypeLoadingStatus.IS_PENDING,
+      error: '',
+      signInModalOpen: false,
+      signUpModalOpen: false,
+    });
   });
   it('login status is resolve', () => {
     const action = {
@@ -40,6 +48,8 @@ describe('authSlice', () => {
       },
       loading: TypeLoadingStatus.IS_RESOLVED,
       error: '',
+      signInModalOpen: false,
+      signUpModalOpen: false,
     });
   });
   it('login status is rejected', () => {
@@ -49,12 +59,20 @@ describe('authSlice', () => {
       user: null,
       loading: TypeLoadingStatus.IS_REJECTED,
       error: 'Error message',
+      signInModalOpen: false,
+      signUpModalOpen: false,
     });
   });
   it('registration status is pending', () => {
     const action = { type: login.pending };
     const state = authReducer.reducer(initialState, action);
-    expect(state).toEqual({ user: null, loading: TypeLoadingStatus.IS_PENDING, error: '' });
+    expect(state).toEqual({
+      user: null,
+      loading: TypeLoadingStatus.IS_PENDING,
+      error: '',
+      signInModalOpen: false,
+      signUpModalOpen: false,
+    });
   });
   it('registration status is resolve', () => {
     const action = {
@@ -72,6 +90,8 @@ describe('authSlice', () => {
       },
       loading: TypeLoadingStatus.IS_RESOLVED,
       error: '',
+      signInModalOpen: false,
+      signUpModalOpen: false,
     });
   });
   it('registration status is rejected', () => {
@@ -81,6 +101,8 @@ describe('authSlice', () => {
       user: null,
       loading: TypeLoadingStatus.IS_REJECTED,
       error: 'Error message',
+      signInModalOpen: false,
+      signUpModalOpen: false,
     });
   });
   it('logout', () => {
@@ -95,12 +117,16 @@ describe('authSlice', () => {
       },
       loading: TypeLoadingStatus.IS_RESOLVED,
       error: '',
+      signInModalOpen: false,
+      signUpModalOpen: false,
     };
     const state = authReducer.reducer(newState, action);
     expect(state).toEqual({
       user: null,
       loading: TypeLoadingStatus.IS_RESOLVED,
       error: '',
+      signInModalOpen: false,
+      signUpModalOpen: false,
     });
   });
 });

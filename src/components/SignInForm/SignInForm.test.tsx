@@ -7,11 +7,10 @@ import { SignInForm } from './SignInForm';
 import { store } from 'store/store';
 
 describe('SignInForm test', () => {
-  const mock = jest.fn();
   it('email is required', async () => {
     render(
       <Provider store={store}>
-        <SignInForm onSignIn={mock} />
+        <SignInForm />
       </Provider>
     );
     const emailField = screen.getByRole('textbox', { name: /email/i });
@@ -34,7 +33,7 @@ describe('SignInForm test', () => {
   it('password is required', async () => {
     render(
       <Provider store={store}>
-        <SignInForm onSignIn={mock} />
+        <SignInForm />
       </Provider>
     );
     const passwordField = screen.getByText(/password/i);
