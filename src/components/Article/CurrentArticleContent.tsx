@@ -24,6 +24,7 @@ export function CurrentArticleContent() {
             createdAt={currentArticle.createdAt}
             tagList={currentArticle.tagList}
             favoritesCount={currentArticle.favoritesCount}
+            favorited={currentArticle.favorited}
           />
           <Description
             title={currentArticle.title}

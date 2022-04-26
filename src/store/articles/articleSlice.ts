@@ -11,9 +11,11 @@ import {
 import {
   addArticle,
   deleteArticle,
+  hasDislike,
   getArticles,
   getCurrentArticle,
   getFavoriteArticles,
+  hasLike,
   updateArticle,
 } from './articlesThunk';
 
@@ -124,7 +126,49 @@ export const articleReducer = createSlice({
       .addCase(deleteArticle.fulfilled, (state, action: PayloadAction<string>) => {
         state.articles = state.articles.filter((article) => article.slug !== action.payload);
         state.isSuccess = true;
-      });
+      })
+      .addCase(
+        hasLike.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IArticleData>>) => {
+          state.articles = state.articles.map((article) => {
+            if (article.slug === action.payload.data.article.slug) {
+              return {
+                ...article,
+                favoritesCount: article.favoritesCount + 1,
+                favorited: true,
+              };
+            }
+            return article;
+          });
+          state.favoriteArticles.articles.push(action.payload.data.article);
+          state.favoriteArticles.articlesCount = state.favoriteArticles.articlesCount + 1;
+          state.currentArticle = action.payload.data.article;
+          state.loading = TypeLoadingStatus.IS_RESOLVED;
+          state.isSuccess = true;
+        }
+      )
+      .addCase(
+        hasDislike.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IArticleData>>) => {
+          state.articles = state.articles.map((article) => {
+            if (article.slug === action.payload.data.article.slug) {
+              return {
+                ...article,
+                favoritesCount: article.favoritesCount - 1,
+                favorited: false,
+              };
+            }
+            return article;
+          });
+          state.favoriteArticles.articles = state.favoriteArticles.articles.filter(
+            (article) => article.slug !== action.payload.data.article.slug
+          );
+          state.favoriteArticles.articlesCount = state.favoriteArticles.articlesCount - 1;
+          state.currentArticle = action.payload.data.article;
+          state.loading = TypeLoadingStatus.IS_RESOLVED;
+          state.isSuccess = true;
+        }
+      );
   },
 });
 

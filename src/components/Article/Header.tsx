@@ -5,7 +5,9 @@ import { NavLink } from 'react-router-dom';
 import add from 'image/add.svg';
 import edit from 'image/edit.png';
 import like from 'image/like.png';
-import { useAppSelector } from 'store/store';
+import dislike from 'image/dislike.png';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { hasDislike, hasLike } from '../../store/articles/articlesThunk';
 
 interface IArticleHeader {
   slug: string;
@@ -13,6 +15,7 @@ interface IArticleHeader {
   author: string;
   tagList: string[];
   createdAt: string;
+  favorited: boolean;
   favoritesCount: number;
 }
 
@@ -21,11 +24,20 @@ export function Header({
   author,
   createdAt,
   tagList,
+  favorited,
   favoritesCount,
   slug,
 }: IArticleHeader) {
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const correctDate = format(new Date(createdAt), 'MMMd');
+  const onLikeButtonClick = () => {
+    if (favorited) {
+      dispatch(hasDislike(slug));
+    } else {
+      dispatch(hasLike(slug));
+    }
+  };
   return (
     <div className="w-full flex justify-between items-start xl:items-center lg:items-center md:items-center">
       <div className="w-2/3 flex items-start">
@@ -52,8 +64,11 @@ export function Header({
         </div>
       </div>
       <div className="w-14 flex-col items-center">
-        <button className="flex w-full bg-emerald-100 px-1.5 justify-between items-center text-center rounded-full border-black">
-          <img className="h-3" src={like} alt="favourite" />
+        <button
+          className="flex w-full bg-emerald-100 px-1.5 justify-between items-center text-center rounded-full border-black"
+          onClick={onLikeButtonClick}
+        >
+          <img className="h-3" src={favorited ? like : dislike} alt="favourite" />
           <p className="text-xs xl:text-sm lg:text-sm md:text-sm sm:text-sm">{favoritesCount}</p>
         </button>
         {user?.username === author && (

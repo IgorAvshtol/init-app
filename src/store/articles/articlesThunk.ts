@@ -56,3 +56,19 @@ export const deleteArticle = createAsyncThunk('articles/deleteArticle', async (s
     console.log(e);
   }
 });
+
+export const hasLike = createAsyncThunk('articles/like', async (slug: string) => {
+  try {
+    return await instance.post(`articles/${slug}/favorite`);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+export const hasDislike = createAsyncThunk('articles/dislike', async (slug: string) => {
+  try {
+    return await instance.delete(`articles/${slug}/favorite`);
+  } catch (e) {
+    console.log(e);
+  }
+});

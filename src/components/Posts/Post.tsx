@@ -5,6 +5,9 @@ import { format } from 'date-fns';
 import add from 'image/add.svg';
 import lens from 'image/lens.webp';
 import like from 'image/like.png';
+import dislike from 'image/dislike.png';
+import { useAppDispatch } from 'store/store';
+import { hasLike, hasDislike } from 'store/articles/articlesThunk';
 
 export interface IPost {
   avatar: string;
@@ -13,13 +16,32 @@ export interface IPost {
   description: string;
   author: string;
   createdAt: string;
+  favorited: boolean;
   favoritesCount: number;
   tagList: string[];
 }
 
 export function Post(props: IPost) {
-  const { author, avatar, description, title, createdAt, tagList, favoritesCount, slug } = props;
+  const dispatch = useAppDispatch();
+  const {
+    author,
+    avatar,
+    description,
+    title,
+    createdAt,
+    tagList,
+    favoritesCount,
+    slug,
+    favorited,
+  } = props;
   const correctDate = format(new Date(createdAt), 'MMMd');
+  const onLikeButtonClick = () => {
+    if (favorited) {
+      dispatch(hasDislike(slug));
+    } else {
+      dispatch(hasLike(slug));
+    }
+  };
   return (
     <div className="w-full py-6 flex justify-between border-b-2">
       <div className="w-2/3 flex flex-col">
@@ -28,15 +50,15 @@ export function Post(props: IPost) {
             <img src={avatar} width={25} height={20} className="rounded-full" alt="avatar" />
             <p className="ml-2">{author}</p>
           </a>
-          <a
-            href="/"
+          <button
             className="flex w-[65px] justify-between items-center px-1 bg-emerald-100 text-center rounded-full border-black"
+            onClick={onLikeButtonClick}
           >
-            <img className="h-4" src={like} alt="favourite" />
+            <img className="h-4" src={favorited ? like : dislike} alt="favourite" />
             <p className="text-xs xl:text-base lg:text-base md:text-base sm:text-base">
               {favoritesCount}
             </p>
-          </a>
+          </button>
         </div>
         <NavLink to={`/posts/${slug}`}>
           <h2 className="text-base font-bold pt-2 xl:text-xl lg:text-xl md:text-xl sm:text-base">
