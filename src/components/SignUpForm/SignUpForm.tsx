@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 
 import { Input } from '../Input/Input';
