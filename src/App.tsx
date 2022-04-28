@@ -11,11 +11,16 @@ import { Page } from 'components/Article/Page';
 import { Form } from 'components/Article/AddArticleForm/Form';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { getArticles, getFavoriteArticles } from 'store/articles/articlesThunk';
+import {
+  getArticles,
+  getCurrentUserArticles,
+  getFavoriteArticles,
+} from 'store/articles/articlesThunk';
 import { getTags } from 'store/tags/tagsThunk';
 import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
 import { getCurrentUser } from 'store/auth/authSlice';
 import { IUserData } from 'interfaces';
+import { ReadingLists } from './components/ReadingLists/ReadingLists';
 
 function App() {
   const { data: currentUser } = useSWR<IUserData>('userData', getUserFromLocalStorage);
@@ -36,10 +41,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    currentUser && dispatch(getCurrentUser(currentUser));
+    if (currentUser) {
+      dispatch(getCurrentUser(currentUser));
+      dispatch(getCurrentUserArticles(currentUser?.user.username));
+      dispatch(getFavoriteArticles(currentUser?.user.username));
+    }
     dispatch(getArticles());
     dispatch(getTags());
-    currentUser && dispatch(getFavoriteArticles(currentUser?.user.username));
   }, [dispatch, currentUser]);
 
   return (
@@ -54,6 +62,7 @@ function App() {
       <Routes>
         <Route path="/*" element={<Main />} />
         <Route path="/posts/:slug" element={<Page />} />
+        <Route path="lists/:username/list/reading-list/*" element={<ReadingLists />} />
         <Route
           path="/new-article"
           element={

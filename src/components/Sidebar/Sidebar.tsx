@@ -26,7 +26,7 @@ export function Sidebar() {
       className={
         !user
           ? 'static xl:w-1/5 xl:sticky xl:top-[55px] xl:mt-6 lg:w-1/5 lg:sticky lg:h-full lg:top-[55px] lg:mt-6 md:w-full md:static sm:w-full sm:static w-full flex flex-col'
-          : 'xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col'
+          : 'xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-6 sm:mt-4 sm:w-full sm:static w-full flex flex-col'
       }
     >
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>

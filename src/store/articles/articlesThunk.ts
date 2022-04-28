@@ -16,6 +16,13 @@ export const getFavoriteArticles = createAsyncThunk(
   }
 );
 
+export const getCurrentUserArticles = createAsyncThunk(
+  'articles/getCurrentUserArticles',
+  async (username: string) => {
+    return await instance.get(`articles?author=${username}`);
+  }
+);
+
 export const getCurrentArticle = createAsyncThunk(
   'articles/getCurrentArticle',
   async (slug: string) => {

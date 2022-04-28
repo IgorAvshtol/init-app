@@ -1,13 +1,18 @@
+import { Link } from 'react-router-dom';
+
 import lens from 'image/lens.webp';
 import { useAppSelector } from 'store/store';
 
 export function List() {
   const { favoriteArticles } = useAppSelector((state) => state.articles);
+  const { user } = useAppSelector((state) => state.auth);
   const images = favoriteArticles.articles.map((articles) => articles.author.image);
   const favoriteCount = favoriteArticles.articlesCount;
-
   return (
-    <div className="mt-12 w-full h-44 border block xl:flex xl:justify-between lg:flex lg:justify-between md:flex md:justify-between sm:flex sm:justify-between">
+    <Link
+      to={`${user?.username}/list/reading-list`}
+      className="bg-zinc-50 mt-12 w-full h-44 border block xl:flex xl:justify-between lg:flex lg:justify-between md:flex md:justify-between sm:flex sm:justify-between"
+    >
       <div className="p-8 w-full flex items-center justify-between xl:flex xl:flex-col xl:justify-between xl:w-3/5 xl:items-start lg:flex lg:flex-col lg:justify-between lg:w-3/5 lg:items-start md:flex md:flex-col md:justify-between md:w-3/5 md:items-start sm:flex sm:flex-col sm:justify-between sm:w-full sm:items-start">
         <p className="text-xl font-bold md:text-2xl sm:text-xl">Reading list</p>
         <div className="flex items-center">
@@ -31,6 +36,6 @@ export function List() {
           style={{ backgroundImage: `url(${images[images.length - 3] || lens})` }}
         />
       </div>
-    </div>
+    </Link>
   );
 }

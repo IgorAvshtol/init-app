@@ -65,7 +65,7 @@ export function Popup() {
                   }
                 >
                   {error && error}
-                  {isSuccess && 'Popup'}
+                  {isSuccess && 'Success'}
                 </Dialog.Title>
               </div>
             </Transition.Child>

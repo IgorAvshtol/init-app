@@ -1,31 +1,18 @@
 import { nanoid } from 'nanoid';
 
-import spinner from 'image/spinner.gif';
-import notFound from 'image/404-not-found.png';
-import { TypeLoadingStatus } from 'interfaces';
 import { useAppSelector } from 'store/store';
-import { Tabs } from '../Tabs/Tabs';
-import { useState } from 'react';
-import { Post } from './Post';
+import { TypeLoadingStatus } from 'interfaces';
+import notFound from 'image/404-not-found.png';
+import spinner from 'image/spinner.gif';
+import { List } from './ReadingList/List';
+import { Header } from './Header';
 
-const listParams = [
-  { id: nanoid(), name: 'All', isActive: true },
-  { id: nanoid(), name: 'My publications', isActive: false },
-];
-
-export function Posts() {
-  const { articles, currentUserArticles, loading } = useAppSelector((state) => state.articles);
-  const { user } = useAppSelector((state) => state.auth);
-  const [showAllArticles, setShowAllArticles] = useState<boolean>(true);
+export function Lists() {
+  const { favoriteArticles, loading } = useAppSelector((state) => state.articles);
   return (
     <div className="w-full flex flex-col items-center xl:w-2/3 lg:w-3/4 md:w-full sm:w-full">
-      {user && (
-        <Tabs
-          list={listParams}
-          showAllArticles={showAllArticles}
-          setShowAllArticles={setShowAllArticles}
-        />
-      )}
+      <Header />
+      <p className="mt-6 text-2xl font-bold sm:text-3xl w-full flex">Reading list</p>
       {loading === TypeLoadingStatus.IS_REJECTED && (
         <div className="w-full h-full flex justify-center items-center">
           <img src={notFound} alt="not-found" />
@@ -37,9 +24,9 @@ export function Posts() {
         </div>
       )}
       {loading === TypeLoadingStatus.IS_RESOLVED &&
-        (showAllArticles ? articles : currentUserArticles).map((post) => {
+        favoriteArticles.articles.map((post) => {
           return (
-            <Post
+            <List
               key={nanoid()}
               title={post.title}
               avatar={post.author.image}

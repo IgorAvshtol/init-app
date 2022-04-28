@@ -16,7 +16,6 @@ export function Navbar() {
   const forwarding = () => {
     if (!user) {
       dispatch(isSignInModalOpen());
-      return;
     }
     navigate('/new-article');
   };
@@ -34,7 +33,7 @@ export function Navbar() {
         <div className="flex items-center justify-between xl:w-full xl:flex xl:flex-col lg:w-full lg:flex lg:flex-col md:flex md:justify-between sm:flex sm:justify-between">
           <a
             href="/"
-            className="relative hover:after:content-['Home'] after:w-12 after:text-center after:rounded-lg after:bg-emerald-100 after:absolute after:bottom-10 after:left-4 lg:after:left-10 lg:after:bottom-0 md:after:bottom-12 md:after:left-4 sm:after:bottom-10 sm:after:left-4"
+            className="relative hover:after:content-['Home'] after:w-24 after:text-center after:rounded-lg after:bg-emerald-100 after:absolute after:bottom-10 after:left-2 lg:after:left-8 lg:after:bottom-0 md:after:bottom-12 md:after:left-2 sm:after:bottom-10 sm:after:left-2"
           >
             <img className="w-9" src={home} alt="home" />
           </a>

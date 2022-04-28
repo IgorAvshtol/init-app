@@ -13,6 +13,7 @@ import { articleReducer } from './articleSlice';
 describe('article', () => {
   const initialState: IArticlesState = {
     articles: [],
+    currentUserArticles: [],
     favoriteArticles: {
       articles: [],
       articlesCount: 0,
@@ -88,6 +89,7 @@ describe('article', () => {
       },
     ],
     currentArticle: null,
+    currentUserArticles: [],
     articlesCount: 0,
     favoriteArticles: {
       articles: [],
@@ -102,6 +104,7 @@ describe('article', () => {
     const state = articleReducer.reducer(initialState, action);
     expect(state).toEqual({
       articles: [],
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -143,6 +146,7 @@ describe('article', () => {
         articles: [],
         articlesCount: 0,
       },
+      currentUserArticles: [],
       currentArticle: null,
       articlesCount: 1,
       loading: TypeLoadingStatus.IS_RESOLVED,
@@ -157,6 +161,7 @@ describe('article', () => {
       articles: [],
       currentArticle: null,
       articlesCount: 0,
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -172,6 +177,7 @@ describe('article', () => {
     expect(state).toEqual({
       articles: [],
       currentArticle: null,
+      currentUserArticles: [],
       articlesCount: 0,
       favoriteArticles: {
         articles: [],
@@ -192,6 +198,7 @@ describe('article', () => {
       articles: [],
       currentArticle: currentArticle.data.article,
       articlesCount: 0,
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -208,6 +215,7 @@ describe('article', () => {
       articles: [],
       currentArticle: null,
       articlesCount: 0,
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -224,6 +232,7 @@ describe('article', () => {
       articles: [],
       currentArticle: null,
       articlesCount: 0,
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -243,6 +252,7 @@ describe('article', () => {
       articles: [currentArticle.data],
       currentArticle: null,
       articlesCount: 0,
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -259,6 +269,7 @@ describe('article', () => {
       articles: [],
       currentArticle: null,
       articlesCount: 0,
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -275,6 +286,7 @@ describe('article', () => {
       articles: [],
       currentArticle: null,
       articlesCount: 0,
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -329,6 +341,7 @@ describe('article', () => {
         },
       ],
       currentArticle: null,
+      currentUserArticles: [],
       articlesCount: 0,
       favoriteArticles: {
         articles: [],
@@ -346,6 +359,7 @@ describe('article', () => {
       articles: [],
       currentArticle: null,
       articlesCount: 0,
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -365,6 +379,7 @@ describe('article', () => {
       articles: [],
       currentArticle: null,
       articlesCount: 0,
+      currentUserArticles: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,

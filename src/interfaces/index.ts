@@ -86,6 +86,7 @@ export interface IUpdateArticle {
 
 export interface IArticlesState {
   articles: IArticle[];
+  currentUserArticles: IArticle[];
   favoriteArticles: IGetArticles;
   currentArticle: IArticle | null;
   articlesCount: number;

@@ -8,6 +8,7 @@ import like from 'image/like.png';
 import dislike from 'image/dislike.png';
 import { useAppDispatch } from 'store/store';
 import { hasLike, hasDislike } from 'store/articles/articlesThunk';
+import { Topic } from '../Topic';
 
 export interface IPost {
   avatar: string;
@@ -43,8 +44,8 @@ export function Post(props: IPost) {
     }
   };
   return (
-    <div className="w-full py-6 flex justify-between border-b-2">
-      <div className="w-2/3 flex flex-col">
+    <div className="w-full py-6 flex justify-between border-b-[1px]">
+      <div className="w-2/3 flex flex-col justify-between">
         <div className="flex justify-between w-44 xl:w-full lg:w-full md:w-full sm:w-full">
           <a href="/" className="flex w-24">
             <img src={avatar} width={25} height={20} className="rounded-full" alt="avatar" />
@@ -65,7 +66,7 @@ export function Post(props: IPost) {
             {title}
           </h2>
         </NavLink>
-        <h3 className="text-sm font-normal text-zinc-400 xl:text-base lg:text-base md:text-base sm:text-xs">
+        <h3 className="text-sm font-normal text-zinc-400 hidden xl:block xl:line-clamp-3 lg:block lg:line-clamp-3 md:text-base md:block md:line-clamp-3 sm:text-xs sm:hidden">
           {description}
         </h3>
         <div className="pt-2 flex justify-between items-start text-xs text-zinc-400">
@@ -74,15 +75,7 @@ export function Post(props: IPost) {
             <span className="pl-1">·</span>
             <div className="w-full flex flex-wrap">
               {tagList.map((tag) => {
-                return (
-                  <a
-                    href="/"
-                    key={nanoid()}
-                    className="mb-1 ml-1 px-2 bg-zinc-200 text-center rounded-full border-black flex justify-center"
-                  >
-                    {tag}
-                  </a>
-                );
+                return <Topic key={nanoid()} topic={tag} />;
               })}
             </div>
           </div>
