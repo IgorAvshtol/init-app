@@ -5,6 +5,7 @@ import { authReducer } from './auth/authSlice';
 import { articleReducer } from './articles/articleSlice';
 import { commentsReducer } from './comments/commentsSliсe';
 import { tagsReducer } from './tags/tagsSlice';
+import { profileReducer } from './profile/profileSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     articles: articleReducer.reducer,
     comments: commentsReducer.reducer,
     tags: tagsReducer.reducer,
+    profile: profileReducer.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -30,6 +32,7 @@ export const store = configureStore({
           'comments/getComments/fulfilled',
           'comments/createComment/fulfilled',
           'tags/getTags/fulfilled',
+          'profile/getUserProfile/fulfilled',
         ],
       },
     }),

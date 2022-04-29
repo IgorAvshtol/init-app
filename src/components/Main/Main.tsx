@@ -5,7 +5,8 @@ import { Sidebar } from '../Sidebar/Sidebar';
 import { Title } from './Title';
 import { Navbar } from '../Article/Navbar';
 import { useAppSelector } from 'store/store';
-import { Lists } from '../Lists/Lists';
+import { PostsContainer } from '../Posts/PostsContainer';
+import { ListsContainer } from '../Lists/ListsContainer';
 
 export function Main() {
   const { user } = useAppSelector((state) => state.auth);
@@ -29,8 +30,8 @@ export function Main() {
               <div className="w-full pt-4 flex flex-col items-center md:flex md:flex-col sm:flex sm:flex-col">
                 <Sidebar />
                 <Routes>
-                  <Route path="/" element={<Posts />} />
-                  <Route path="/lists" element={<Lists />} />
+                  <Route path="/" element={<PostsContainer />} />
+                  <Route path="/lists" element={<ListsContainer />} />
                 </Routes>
               </div>
             </div>

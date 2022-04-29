@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import add from 'image/add.svg';
@@ -47,10 +47,10 @@ export function Post(props: IPost) {
     <div className="w-full py-6 flex justify-between border-b-[1px]">
       <div className="w-2/3 flex flex-col justify-between">
         <div className="flex justify-between w-44 xl:w-full lg:w-full md:w-full sm:w-full">
-          <a href="/" className="flex w-24">
+          <Link to={`/profile/@${author}`} className="flex w-24">
             <img src={avatar} width={25} height={20} className="rounded-full" alt="avatar" />
             <p className="ml-2">{author}</p>
-          </a>
+          </Link>
           <button
             className="flex w-[65px] justify-between items-center px-1 bg-emerald-100 text-center rounded-full border-black"
             onClick={onLikeButtonClick}
@@ -61,11 +61,11 @@ export function Post(props: IPost) {
             </p>
           </button>
         </div>
-        <NavLink to={`/posts/${slug}`}>
+        <Link to={`/posts/${slug}`}>
           <h2 className="text-base font-bold pt-2 xl:text-xl lg:text-xl md:text-xl sm:text-base">
             {title}
           </h2>
-        </NavLink>
+        </Link>
         <h3 className="text-sm font-normal text-zinc-400 hidden xl:block xl:line-clamp-3 lg:block lg:line-clamp-3 md:text-base md:block md:line-clamp-3 sm:text-xs sm:hidden">
           {description}
         </h3>

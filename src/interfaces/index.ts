@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface IArticle {
   slug: string;
   title: string;
@@ -42,6 +44,15 @@ export interface IAuthState {
   error: string;
   signInModalOpen: boolean;
   signUpModalOpen: boolean;
+}
+
+export interface IProfileState {
+  profile: IAuthor | null;
+  loading: TypeLoadingStatus;
+}
+
+export interface IProfileData {
+  profile: IAuthor;
 }
 
 export interface IUserData {
@@ -119,6 +130,12 @@ export interface ITagsState {
   tags: string[];
   loading: TypeLoadingStatus;
   error: string;
+}
+
+export interface ITabs {
+  label: string;
+  index: number;
+  Component: React.FC;
 }
 
 export enum TypeLoadingStatus {

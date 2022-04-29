@@ -1,52 +1,44 @@
-import { useState } from 'react';
+import React, { FC, useState } from 'react';
 
 interface ITabs {
-  id: string;
-  name: string;
-  isActive: boolean;
+  tabs: {
+    label: string;
+    index: number;
+    Component: FC<{ index: number }>;
+  }[];
 }
 
-interface ITabsLIst {
-  list: ITabs[];
-  showAllArticles?: boolean;
-  setShowAllArticles?: (value: boolean) => void;
-}
-
-export function Tabs({ list, showAllArticles, setShowAllArticles }: ITabsLIst) {
-  const [activeId, setActiveId] = useState<string>(list[0].id);
-  const onActiveStatusHandler = (id: string) => {
-    setActiveId(id);
-    setShowAllArticles && setShowAllArticles(!showAllArticles);
+export function Tabs({ tabs }: ITabs) {
+  const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
+  const onTabClickHandler = (index: number) => {
+    setSelectedTab(index);
   };
-  const activeStatusIsChange = (id: string) => {
-    return list.map((param) =>
-      param.id === id ? { ...param, isActive: true } : { ...param, isActive: false }
-    );
-  };
+  const panel = tabs.find((tab) => tab.index === selectedTab);
   return (
-    <div className="mt-4 relative w-full">
-      <div className="flex">
-        {activeStatusIsChange(activeId).map((parameter) => {
-          return (
+    <>
+      <div className="mt-4 relative w-full">
+        <div className="flex">
+          {tabs.map((tab) => (
             <button
-              key={parameter.id}
               className="mr-6 font-light"
-              onClick={() => onActiveStatusHandler(parameter.id)}
+              onClick={() => onTabClickHandler(tab.index)}
+              key={tab.label}
             >
-              <p
+              <span
                 className={
-                  parameter.isActive
+                  selectedTab === tab.index
                     ? 'border-b-2 border-black w-full'
                     : 'text-zinc-500 border-b-2 border-transparent'
                 }
               >
-                {parameter.name}
-              </p>
+                {tab.label}
+              </span>
             </button>
-          );
-        })}
+          ))}
+        </div>
+        <hr className="w-full absolute bottom-[1px] -z-10" />
       </div>
-      <hr className="w-full absolute bottom-[0.5px] -z-10" />
-    </div>
+      {panel && <panel.Component index={selectedTab} />}
+    </>
   );
 }

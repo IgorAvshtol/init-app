@@ -6,17 +6,10 @@ import { TypeLoadingStatus } from 'interfaces';
 import { useAppSelector } from 'store/store';
 import { Post } from './Post';
 
-export function Posts() {
-  const { articles, loading } = useAppSelector((state) => state.articles);
-  const { user } = useAppSelector((state) => state.auth);
+export function MyPublications() {
+  const { currentUserArticles, loading } = useAppSelector((state) => state.articles);
   return (
-    <div
-      className={
-        user
-          ? 'w-full flex flex-col items-center'
-          : 'w-full flex flex-col items-center xl:w-2/3 lg:w-3/4 md:w-full sm:w-full'
-      }
-    >
+    <div className="w-full flex flex-col items-center">
       {loading === TypeLoadingStatus.IS_REJECTED && (
         <div className="w-full h-full flex justify-center items-center">
           <img src={notFound} alt="not-found" />
@@ -28,7 +21,7 @@ export function Posts() {
         </div>
       )}
       {loading === TypeLoadingStatus.IS_RESOLVED &&
-        articles.map((post) => {
+        currentUserArticles.map((post) => {
           return (
             <Post
               key={nanoid()}
