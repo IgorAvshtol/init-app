@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Link } from '../Sidebar/Link';
-import { getUserProfile } from '../../store/profile/profileThunk';
+import { getUserProfile } from 'store/profile/profileThunk';
 
 export const links = [
   { id: 1, name: 'Help' },

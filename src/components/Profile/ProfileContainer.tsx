@@ -3,16 +3,17 @@ import { ITabs } from 'interfaces';
 import { Profile } from './Profile';
 import { Navbar } from '../Article/Navbar';
 import { Sidebar } from './Sidebar';
+import { useAppSelector } from 'store/store';
 
 const tabs: ITabs[] = [
   {
     label: 'Home',
     index: 1,
-    Component: Profile,
   },
 ];
 
 export function ProfileContainer() {
+  const { selectedTab } = useAppSelector((state) => state.tabs);
   return (
     <article className="flex">
       <div className="w-5/6 m-auto flex xl:w-3/4 lg:4/5 md:w-5/6 sm:w-5/6">
@@ -21,7 +22,8 @@ export function ProfileContainer() {
           <div className="w-full pt-4 flex flex-col items-center md:flex md:flex-col sm:flex sm:flex-col">
             <Sidebar />
             <div className="w-full flex flex-col items-center justify-between xl:w-2/3 lg:w-3/4 md:w-full sm:w-full">
-              <Tabs tabs={tabs} />
+              <Tabs tabs={tabs} selectedTab={selectedTab} />
+              {selectedTab === 1 && <Profile />}
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { articleReducer } from './articles/articleSlice';
 import { commentsReducer } from './comments/commentsSliсe';
 import { tagsReducer } from './tags/tagsSlice';
 import { profileReducer } from './profile/profileSlice';
+import { tabsReducer } from './tabs/tabsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     comments: commentsReducer.reducer,
     tags: tagsReducer.reducer,
     profile: profileReducer.reducer,
+    tabs: tabsReducer.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

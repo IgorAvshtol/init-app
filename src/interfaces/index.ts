@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface IArticle {
   slug: string;
   title: string;
@@ -132,10 +130,13 @@ export interface ITagsState {
   error: string;
 }
 
+export interface ITabsState {
+  selectedTab: number;
+}
+
 export interface ITabs {
   label: string;
   index: number;
-  Component: React.FC;
 }
 
 export enum TypeLoadingStatus {
