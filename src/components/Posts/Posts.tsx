@@ -14,7 +14,7 @@ export function Posts() {
       className={
         user
           ? 'w-full flex flex-col items-center'
-          : 'w-full flex flex-col items-center xl:w-2/3 lg:w-3/4 md:w-full sm:w-full'
+          : 'w-full flex flex-col items-center xl:w-2/3 lg:w-3/4'
       }
     >
       {loading === TypeLoadingStatus.IS_REJECTED && (

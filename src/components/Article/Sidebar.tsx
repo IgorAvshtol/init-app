@@ -19,7 +19,7 @@ export function Sidebar({ avatar, author }: IArticleSidebar) {
       <hr className="my-2" />
       <div className="w-full flex flex-wrap">
         {links.map((link) => {
-          return <Link key={link.id} link={link.name} />;
+          return <Link key={link.name} link={link.name} />;
         })}
       </div>
     </div>
