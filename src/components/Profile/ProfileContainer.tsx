@@ -30,7 +30,7 @@ export function ProfileContainer() {
         <Navbar />
         <div className="w-full min-h-screen mb-12 border-0 flex justify-center xl:w-3/4 xl:mt-0 xl:border-x-2 lg:w-3/4 lg:mb-0 lg:border-x-2">
           <div className="w-full pt-4 flex flex-col items-center md:flex md:flex-col sm:flex sm:flex-col">
-            <Sidebar username={profile.username} image={profile.image} bio={profile.bio} />
+            <Sidebar />
             <div className="w-full flex flex-col justify-between xl:w-2/3 lg:w-3/4 md:w-full sm:w-full">
               <span className="mb-4 text-4xl font-bold hidden lg:block">{profile.username}</span>
               <Tabs tabs={tabs} selectedTab={selectedTab} />
