@@ -6,15 +6,15 @@ import { Link } from '../Sidebar/Link';
 import { getUserProfile } from 'store/profile/profileThunk';
 
 export const links = [
-  { id: 1, name: 'Help' },
-  { id: 2, name: 'Status' },
-  { id: 3, name: 'Writers' },
-  { id: 4, name: 'Blog' },
-  { id: 5, name: 'Careers' },
-  { id: 6, name: 'Privacy' },
-  { id: 7, name: 'Terms' },
-  { id: 8, name: 'About' },
-  { id: 9, name: 'Knowable' },
+  { name: 'Help' },
+  { name: 'Status' },
+  { name: 'Writers' },
+  { name: 'Blog' },
+  { name: 'Careers' },
+  { name: 'Privacy' },
+  { name: 'Terms' },
+  { name: 'About' },
+  { name: 'Knowable' },
 ];
 
 export function Sidebar() {
@@ -48,7 +48,7 @@ export function Sidebar() {
         </div>
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
           {links.map((link) => (
-            <Link key={link.id} link={link.name} />
+            <Link key={link.name} link={link.name} />
           ))}
         </div>
       </div>

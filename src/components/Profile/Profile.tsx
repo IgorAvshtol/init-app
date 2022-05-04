@@ -1,13 +1,13 @@
 import { nanoid } from 'nanoid';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { TypeLoadingStatus } from 'interfaces';
 import notFound from 'image/404-not-found.png';
 import spinner from 'image/spinner.gif';
 import { Publication } from './Publication';
-import { useEffect } from 'react';
-import { getCurrentUserArticles } from '../../store/articles/articlesThunk';
-import { useParams } from 'react-router-dom';
+import { getCurrentUserArticles } from 'store/articles/articlesThunk';
 
 export function Profile() {
   const dispatch = useAppDispatch();
