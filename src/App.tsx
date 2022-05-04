@@ -22,6 +22,7 @@ import { getCurrentUser } from 'store/auth/authSlice';
 import { IUserData } from 'interfaces';
 import { ReadingLists } from './components/ReadingLists/ReadingLists';
 import { ProfileContainer } from './components/Profile/ProfileContainer';
+import { ArticlesByTag } from './components/ArticlesByTag/ArticlesByTag';
 
 function App() {
   const { data: currentUser } = useSWR<IUserData>('userData', getUserFromLocalStorage);
@@ -65,6 +66,7 @@ function App() {
         <Route path="/posts/:slug" element={<Page />} />
         <Route path="lists/:username/list/reading-list/*" element={<ReadingLists />} />
         <Route path="/profile/:username" element={<ProfileContainer />} />
+        <Route path="/tag/:tag" element={<ArticlesByTag />} />
         <Route
           path="/new-article"
           element={

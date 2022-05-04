@@ -31,6 +31,7 @@ export const store = configureStore({
           'articles/getFavouriteArticles/fulfilled',
           'articles/like/fulfilled',
           'articles/dislike/fulfilled',
+          'articles/getArticlesByTag/fulfilled',
           'comments/getComments/fulfilled',
           'comments/createComment/fulfilled',
           'tags/getTags/fulfilled',

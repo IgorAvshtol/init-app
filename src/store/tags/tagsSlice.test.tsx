@@ -7,13 +7,19 @@ import { tagsReducer } from './tagsSlice';
 describe('tagsSlice', () => {
   const initialState: ITagsState = {
     tags: [],
+    selectedTag: '',
     loading: TypeLoadingStatus.IS_RESOLVED,
     error: '',
   };
   it('getTags status is pending', () => {
     const action = { type: getTags.pending };
     const state = tagsReducer.reducer(initialState, action);
-    expect(state).toEqual({ tags: [], loading: TypeLoadingStatus.IS_PENDING, error: '' });
+    expect(state).toEqual({
+      tags: [],
+      selectedTag: '',
+      loading: TypeLoadingStatus.IS_PENDING,
+      error: '',
+    });
   });
   it('getTags status is resolve', () => {
     const action = {
@@ -23,6 +29,7 @@ describe('tagsSlice', () => {
     const state = tagsReducer.reducer(initialState, action);
     expect(state).toEqual({
       tags: ['tag'],
+      selectedTag: '',
       loading: TypeLoadingStatus.IS_RESOLVED,
       error: '',
     });
@@ -32,6 +39,7 @@ describe('tagsSlice', () => {
     const state = tagsReducer.reducer(initialState, action);
     expect(state).toEqual({
       tags: [],
+      selectedTag: '',
       loading: TypeLoadingStatus.IS_REJECTED,
       error: 'Error message',
     });

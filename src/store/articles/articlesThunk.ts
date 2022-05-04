@@ -4,6 +4,7 @@ import { AxiosError } from 'axios';
 import { instance } from 'services/httpService';
 import { INewArticle, IUpdateArticle } from 'interfaces';
 import { errorHandleService } from 'utils/errorHandleService';
+import { selectedTag } from '../tags/tagsSlice';
 
 export const getArticles = createAsyncThunk('articles/getArticles', async () => {
   return await instance.get('articles');
@@ -27,6 +28,15 @@ export const getCurrentArticle = createAsyncThunk(
   'articles/getCurrentArticle',
   async (slug: string) => {
     return await instance.get(`articles/${slug}`);
+  }
+);
+
+export const getArticlesByTag = createAsyncThunk(
+  'articles/getArticlesByTag',
+  async (tag: string, { dispatch }) => {
+    const response = await instance.get(`articles?tag=${tag}`);
+    dispatch(selectedTag(tag));
+    return response;
   }
 );
 

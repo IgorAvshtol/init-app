@@ -14,6 +14,7 @@ describe('article', () => {
   const initialState: IArticlesState = {
     articles: [],
     currentUserArticles: [],
+    articlesByTag: [],
     favoriteArticles: {
       articles: [],
       articlesCount: 0,
@@ -90,6 +91,7 @@ describe('article', () => {
     ],
     currentArticle: null,
     currentUserArticles: [],
+    articlesByTag: [],
     articlesCount: 0,
     favoriteArticles: {
       articles: [],
@@ -105,6 +107,7 @@ describe('article', () => {
     expect(state).toEqual({
       articles: [],
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -147,6 +150,7 @@ describe('article', () => {
         articlesCount: 0,
       },
       currentUserArticles: [],
+      articlesByTag: [],
       currentArticle: null,
       articlesCount: 1,
       loading: TypeLoadingStatus.IS_RESOLVED,
@@ -162,6 +166,7 @@ describe('article', () => {
       currentArticle: null,
       articlesCount: 0,
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -178,6 +183,7 @@ describe('article', () => {
       articles: [],
       currentArticle: null,
       currentUserArticles: [],
+      articlesByTag: [],
       articlesCount: 0,
       favoriteArticles: {
         articles: [],
@@ -199,6 +205,7 @@ describe('article', () => {
       currentArticle: currentArticle.data.article,
       articlesCount: 0,
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -216,6 +223,7 @@ describe('article', () => {
       currentArticle: null,
       articlesCount: 0,
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -233,6 +241,7 @@ describe('article', () => {
       currentArticle: null,
       articlesCount: 0,
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -253,6 +262,7 @@ describe('article', () => {
       currentArticle: null,
       articlesCount: 0,
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -270,6 +280,7 @@ describe('article', () => {
       currentArticle: null,
       articlesCount: 0,
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -287,6 +298,7 @@ describe('article', () => {
       currentArticle: null,
       articlesCount: 0,
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -342,6 +354,7 @@ describe('article', () => {
       ],
       currentArticle: null,
       currentUserArticles: [],
+      articlesByTag: [],
       articlesCount: 0,
       favoriteArticles: {
         articles: [],
@@ -360,6 +373,7 @@ describe('article', () => {
       currentArticle: null,
       articlesCount: 0,
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,
@@ -380,6 +394,7 @@ describe('article', () => {
       currentArticle: null,
       articlesCount: 0,
       currentUserArticles: [],
+      articlesByTag: [],
       favoriteArticles: {
         articles: [],
         articlesCount: 0,

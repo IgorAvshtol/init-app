@@ -45,7 +45,7 @@ export interface IAuthState {
 }
 
 export interface IProfileState {
-  profile: IAuthor | null;
+  profile: IAuthor;
   loading: TypeLoadingStatus;
 }
 
@@ -96,6 +96,7 @@ export interface IUpdateArticle {
 export interface IArticlesState {
   articles: IArticle[];
   currentUserArticles: IArticle[];
+  articlesByTag: IArticle[];
   favoriteArticles: IGetArticles;
   currentArticle: IArticle | null;
   articlesCount: number;
@@ -126,6 +127,7 @@ export interface ICommentsState {
 
 export interface ITagsState {
   tags: string[];
+  selectedTag: string;
   loading: TypeLoadingStatus;
   error: string;
 }

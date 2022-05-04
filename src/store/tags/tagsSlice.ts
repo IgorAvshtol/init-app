@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AxiosResponse } from 'axios';
+
 import { ITags, ITagsState, TypeLoadingStatus } from 'interfaces';
 import { getTags } from './tagsThunk';
-import { AxiosResponse } from 'axios';
 
 const initialState: ITagsState = {
   tags: [],
+  selectedTag: '',
   loading: TypeLoadingStatus.IS_RESOLVED,
   error: '',
 };
@@ -12,7 +14,11 @@ const initialState: ITagsState = {
 export const tagsReducer = createSlice({
   name: 'tags',
   initialState,
-  reducers: {},
+  reducers: {
+    selectedTag: (state, action: PayloadAction<string>) => {
+      state.selectedTag = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getTags.pending, (state) => {
@@ -29,3 +35,5 @@ export const tagsReducer = createSlice({
       });
   },
 });
+
+export const { selectedTag } = tagsReducer.actions;

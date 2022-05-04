@@ -5,7 +5,12 @@ import { getUserProfile } from './profileThunk';
 import { IProfileData, IProfileState, TypeLoadingStatus } from 'interfaces';
 
 const initialState: IProfileState = {
-  profile: null,
+  profile: {
+    username: '',
+    bio: '',
+    image: '',
+    following: false,
+  },
   loading: TypeLoadingStatus.IS_RESOLVED,
 };
 

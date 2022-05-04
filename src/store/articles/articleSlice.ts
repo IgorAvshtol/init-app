@@ -18,11 +18,13 @@ import {
   hasLike,
   updateArticle,
   getCurrentUserArticles,
+  getArticlesByTag,
 } from './articlesThunk';
 
 const initialState: IArticlesState = {
   articles: [],
   currentUserArticles: [],
+  articlesByTag: [],
   favoriteArticles: {
     articles: [],
     articlesCount: 0,
@@ -98,6 +100,19 @@ export const articleReducer = createSlice({
         }
       )
       .addCase(getCurrentArticle.rejected, (state) => {
+        state.loading = TypeLoadingStatus.IS_REJECTED;
+      })
+      .addCase(getArticlesByTag.pending, (state) => {
+        state.loading = TypeLoadingStatus.IS_PENDING;
+      })
+      .addCase(
+        getArticlesByTag.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IGetArticles>>) => {
+          state.articlesByTag = action.payload.data.articles;
+          state.loading = TypeLoadingStatus.IS_RESOLVED;
+        }
+      )
+      .addCase(getArticlesByTag.rejected, (state) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
       })
       .addCase(addArticle.pending, (state) => {
