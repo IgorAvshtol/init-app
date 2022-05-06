@@ -7,6 +7,7 @@ interface IHeader {
 
 export function Title({ title }: IHeader) {
   const { selectedTag } = useAppSelector((state) => state.tags);
+
   return (
     <div className="mb-4 flex flex-col">
       <div className="flex">

@@ -2,15 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 
 import { getUserProfile } from './profileThunk';
-import { IProfileData, IProfileState, TypeLoadingStatus } from 'interfaces';
+import { IAuthor, IProfileData, IProfileState, TypeLoadingStatus } from 'interfaces';
 
 const initialState: IProfileState = {
-  profile: {
-    username: '',
-    bio: '',
-    image: '',
-    following: false,
-  },
+  profile: {} as IAuthor,
   loading: TypeLoadingStatus.IS_RESOLVED,
 };
 

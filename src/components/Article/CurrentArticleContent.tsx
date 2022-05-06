@@ -10,9 +10,11 @@ export function CurrentArticleContent() {
   const { slug } = useParams<string>();
   const dispatch = useAppDispatch();
   const { currentArticle } = useAppSelector((state) => state.articles);
+
   useEffect(() => {
     slug && dispatch(getCurrentArticle(slug));
   }, [dispatch, slug]);
+
   return (
     <>
       {currentArticle && (

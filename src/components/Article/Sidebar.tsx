@@ -1,5 +1,4 @@
-import { Link } from '../Sidebar/Link';
-import { links } from '../Sidebar/Sidebar';
+import { Links } from 'components/Links/Links';
 
 interface IArticleSidebar {
   avatar: string;
@@ -18,9 +17,7 @@ export function Sidebar({ avatar, author }: IArticleSidebar) {
       </div>
       <hr className="my-2" />
       <div className="w-full flex flex-wrap">
-        {links.map((link) => {
-          return <Link key={link.name} link={link.name} />;
-        })}
+        <Links />
       </div>
     </div>
   );

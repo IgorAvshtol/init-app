@@ -141,6 +141,10 @@ export interface ITabs {
   index: number;
 }
 
+export type IUpdateUserData = {
+  [key: string]: string | File;
+};
+
 export enum TypeLoadingStatus {
   IS_PENDING = 'IS_PENDING',
   IS_RESOLVED = 'IS_RESOLVED',

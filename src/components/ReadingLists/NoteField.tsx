@@ -2,12 +2,15 @@ import { useState } from 'react';
 
 export function NoteField() {
   const [noteMode, setNoteMode] = useState<boolean>(false);
+
   const onInputClickHandler = () => {
     setNoteMode(true);
   };
+
   const onCancelClickHandler = () => {
     setNoteMode(false);
   };
+
   return (
     <div className="relative flex items-center">
       <textarea

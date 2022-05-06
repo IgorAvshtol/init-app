@@ -31,6 +31,7 @@ export function Header({
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const correctDate = format(new Date(createdAt), 'MMMd');
+
   const onLikeButtonClick = () => {
     if (favorited) {
       dispatch(hasDislike(slug));
@@ -38,6 +39,7 @@ export function Header({
       dispatch(hasLike(slug));
     }
   };
+
   return (
     <div className="w-full flex justify-between items-start xl:items-center lg:items-center md:items-center">
       <div className="w-2/3 flex items-start">

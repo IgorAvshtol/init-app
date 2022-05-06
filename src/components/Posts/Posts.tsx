@@ -9,6 +9,7 @@ import { Post } from './Post';
 export function Posts() {
   const { articles, loading } = useAppSelector((state) => state.articles);
   const { user } = useAppSelector((state) => state.auth);
+
   return (
     <div
       className={

@@ -10,6 +10,7 @@ import { CurrentArticleContent } from './CurrentArticleContent';
 export function Page() {
   const { currentArticle } = useAppSelector((state) => state.articles);
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <article className="flex flex-1">
       <div className="w-full m-auto flex xl:w-3/4 lg:4/5 md:w-full sm:w-full">

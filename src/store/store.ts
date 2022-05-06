@@ -23,6 +23,7 @@ export const store = configureStore({
         ignoredActions: [
           'auth/login/fulfilled',
           'auth/registration/fulfilled',
+          'auth/updateUsername/fulfilled',
           'articles/getArticles/fulfilled',
           'articles/getCurrentArticle/fulfilled',
           'articles/getCurrentUserArticles/fulfilled',

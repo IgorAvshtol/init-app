@@ -21,9 +21,11 @@ export function ProfileContainer() {
   const { username } = useParams();
   const correctUsername = username?.split('').slice(1, username?.length).join('');
   const { profile } = useAppSelector((state) => state.profile);
+
   useEffect(() => {
     correctUsername && dispatch(getUserProfile(correctUsername));
   }, [dispatch, correctUsername]);
+
   return (
     <article className="flex">
       <div className="w-5/6 m-auto flex xl:w-3/4 lg:4/5 md:w-5/6 sm:w-5/6">

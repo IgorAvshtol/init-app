@@ -9,12 +9,15 @@ interface IHeader {
 export function Header({ purpose }: IHeader) {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
+
   const onSignInBtnClick = () => {
     dispatch(isSignInModalOpen());
   };
+
   const onSignUpBtnClick = () => {
     dispatch(isSignUpModalOpen());
   };
+
   return (
     <header
       className={

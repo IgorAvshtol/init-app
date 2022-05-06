@@ -16,6 +16,7 @@ export interface IPublication {
 
 export function Publication({ description, title, createdAt, tagList, slug }: IPublication) {
   const correctDate = format(new Date(createdAt), 'MMMd');
+
   return (
     <div className="w-full py-6 flex justify-between border-b-[1px]">
       <div className="w-full flex flex-col justify-between">

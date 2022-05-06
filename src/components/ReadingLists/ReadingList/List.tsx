@@ -23,6 +23,7 @@ export interface IList {
 export function List(props: IList) {
   const { author, avatar, description, title, createdAt, tagList, slug } = props;
   const correctDate = format(new Date(createdAt), 'MMMd,yyyy');
+
   return (
     <div className="w-full flex flex-col">
       <NoteField />

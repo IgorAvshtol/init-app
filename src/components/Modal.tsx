@@ -12,11 +12,13 @@ export function Modal({ children }: IModal) {
   const { error, signInModalOpen, signUpModalOpen } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const initRef = useRef(null);
+
   const onCloseModal = () => {
     signInModalOpen && dispatch(isSignInModalOpen());
     signUpModalOpen && dispatch(isSignUpModalOpen());
     dispatch(entryIsSuccess());
   };
+
   return (
     <Transition appear show={signInModalOpen ? signInModalOpen : signUpModalOpen} as={Fragment}>
       <Dialog

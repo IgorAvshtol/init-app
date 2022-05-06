@@ -9,9 +9,11 @@ interface ITags {
 export function Tag({ tag }: ITags) {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
+
   const onTagClickHandler = () => {
     dispatch(getArticlesByTag(tag));
   };
+
   return (
     <Link to={`/tag/${tag}`} className="mt-1 mr-2 mb-1">
       <p

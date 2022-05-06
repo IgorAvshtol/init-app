@@ -14,9 +14,11 @@ export function Profile() {
   const { currentUserArticles, loading } = useAppSelector((state) => state.articles);
   const { username } = useParams();
   const correctUsername = username?.split('').slice(1, username?.length).join('');
+
   useEffect(() => {
     correctUsername && dispatch(getCurrentUserArticles(correctUsername));
   }, [dispatch, correctUsername]);
+
   return (
     <div className="w-full flex flex-col items-center ">
       {loading === TypeLoadingStatus.IS_REJECTED && (

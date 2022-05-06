@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { Link } from 'react-router-dom';
 
 interface ITag {
   topic: string;
@@ -6,12 +7,12 @@ interface ITag {
 
 export function Topic({ topic }: ITag) {
   return (
-    <a
-      href="/"
+    <Link
+      to="/"
       key={nanoid()}
       className="mb-1 mx-1 px-2 bg-zinc-200 text-center rounded-full border-black flex justify-center"
     >
       {topic}
-    </a>
+    </Link>
   );
 }

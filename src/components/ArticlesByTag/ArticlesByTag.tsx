@@ -21,9 +21,11 @@ export function ArticlesByTag() {
   const { tag } = useParams();
   const { selectedTab } = useAppSelector((state) => state.tabs);
   const { selectedTag } = useAppSelector((state) => state.tags);
+
   useEffect(() => {
     tag && dispatch(getArticlesByTag(tag));
   }, [dispatch, tag]);
+
   return (
     <article className="flex">
       <div className="w-5/6 m-auto flex xl:w-3/4 lg:4/5 md:w-5/6 sm:w-5/6">

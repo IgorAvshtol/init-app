@@ -36,6 +36,7 @@ export function Post(props: IPost) {
     favorited,
   } = props;
   const correctDate = format(new Date(createdAt), 'MMMd');
+
   const onLikeButtonClick = () => {
     if (favorited) {
       dispatch(hasDislike(slug));
@@ -43,6 +44,7 @@ export function Post(props: IPost) {
       dispatch(hasLike(slug));
     }
   };
+
   return (
     <div className="w-full py-6 flex justify-between border-b-[1px]">
       <div className="w-2/3 flex flex-col justify-between">

@@ -9,6 +9,7 @@ import { Header } from './Header';
 
 export function Lists() {
   const { favoriteArticles, loading } = useAppSelector((state) => state.articles);
+
   return (
     <div className="w-full flex flex-col items-center xl:w-2/3 lg:w-3/4 md:w-full sm:w-full">
       <Header />

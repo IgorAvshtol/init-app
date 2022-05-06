@@ -24,6 +24,7 @@ export function Article(props: IList) {
   const correctDate = formatDistance(new Date(createdAt), new Date(), {
     addSuffix: true,
   });
+
   return (
     <div className="w-full flex flex-col">
       <div className="w-full py-6 flex justify-between border-b-[1px]">
