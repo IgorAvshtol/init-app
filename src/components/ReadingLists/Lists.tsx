@@ -38,6 +38,7 @@ export function Lists() {
               slug={post.slug}
               favorited={post.favorited}
               favoritesCount={post.favoritesCount}
+              note={post.note}
             />
           );
         })}

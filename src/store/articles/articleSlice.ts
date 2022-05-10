@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 
 import {
+  IAddNote,
   IArticle,
   IArticleData,
   IArticlesState,
@@ -44,6 +45,14 @@ export const articleReducer = createSlice({
       state.error = '';
       state.loading = TypeLoadingStatus.IS_RESOLVED;
       state.isSuccess = false;
+    },
+    addNote: (state, action: PayloadAction<IAddNote>) => {
+      state.favoriteArticles.articles = state.favoriteArticles.articles.map((article) => {
+        if (article.slug === action.payload.slug) {
+          return { ...article, note: action.payload.noteText };
+        }
+        return article;
+      });
     },
   },
   extraReducers: (builder) => {
@@ -202,4 +211,4 @@ export const articleReducer = createSlice({
   },
 });
 
-export const { closeModal } = articleReducer.actions;
+export const { closeModal, addNote } = articleReducer.actions;

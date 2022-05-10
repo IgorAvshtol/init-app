@@ -16,7 +16,7 @@ export function Sidebar() {
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
       <div className="w-full pt-4 flex flex-wrap justify-start">
         <Tags />
-        <hr className="w-full mt-2 mb-2" />
+        <hr className={user ? 'w-full mt-2 mb-2 xl:w-5/6' : 'w-full mt-2 mb-2'} />
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
           <Links />
         </div>

@@ -1,8 +1,13 @@
+import useSWR from 'swr';
+
 import message from 'image/message.png';
 import { useAppSelector } from 'store/store';
 import { Links } from '../Links/Links';
+import { IUserData } from 'interfaces';
+import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
 
 export function Sidebar() {
+  const { data: currentUser } = useSWR<IUserData>('userData', getUserFromLocalStorage);
   const { profile } = useAppSelector((state) => state.profile);
 
   return (
@@ -22,14 +27,16 @@ export function Sidebar() {
               {profile.bio && <p className="lg:text-base lg:py-2">{profile.bio}</p>}
             </div>
           </div>
-          <div className="pt-1 w-full flex">
-            <button className="w-full h-8 text-black font-light bg-emerald-500 hover:bg-emerald-800 font-medium rounded-full text-sm mr-2 mb-2 lg:w-20">
-              Follow
-            </button>
-            <button className="h-8 bg-emerald-500 hover:bg-emerald-800 rounded-full mr-2 p-2 flex justify-center items-center">
-              <img src={message} alt="message" className="w-4" />
-            </button>
-          </div>
+          {currentUser?.user.username !== profile.username && (
+            <div className="pt-1 w-full flex">
+              <button className="w-full h-8 text-black font-light bg-emerald-500 hover:bg-emerald-800 font-medium rounded-full text-sm mr-2 mb-2 lg:w-20">
+                Follow
+              </button>
+              <button className="h-8 bg-emerald-500 hover:bg-emerald-800 rounded-full mr-2 p-2 flex justify-center items-center">
+                <img src={message} alt="message" className="w-4" />
+              </button>
+            </div>
+          )}
         </div>
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
           <Links />

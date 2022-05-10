@@ -37,6 +37,8 @@ export const store = configureStore({
           'comments/createComment/fulfilled',
           'tags/getTags/fulfilled',
           'profile/getUserProfile/fulfilled',
+          'profile/follow/fulfilled',
+          'profile/unfollow/fulfilled',
         ],
       },
     }),

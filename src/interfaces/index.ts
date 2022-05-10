@@ -8,6 +8,7 @@ export interface IArticle {
   updatedAt: string;
   favorited: boolean;
   favoritesCount: number;
+  note?: string;
   author: IAuthor;
 }
 
@@ -144,6 +145,11 @@ export interface ITabs {
 export type IUpdateUserData = {
   [key: string]: string | File;
 };
+
+export interface IAddNote {
+  slug: string;
+  noteText: string;
+}
 
 export enum TypeLoadingStatus {
   IS_PENDING = 'IS_PENDING',

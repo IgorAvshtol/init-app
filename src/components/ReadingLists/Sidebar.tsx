@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { useAppSelector } from 'store/store';
 import { Links } from '../Links/Links';
 
@@ -11,9 +13,12 @@ export function Sidebar() {
           <img src={user?.image} className="w-12 rounded-full lg:w-1/4" alt="avatar" />
           <div className="ml-2 flex flex-col justify-between lg:block">
             <p className="font-medium text-base lg:pt-4">{user?.username}</p>
-            <button className="hidden lg:block lg:font-normal lg:text-sm lg:text-emerald-500 lg:pt-4">
+            <Link
+              to="/me/settings"
+              className="hidden lg:block lg:font-normal lg:text-sm lg:text-emerald-500 lg:pt-4"
+            >
               Edit profile
-            </button>
+            </Link>
           </div>
         </div>
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
