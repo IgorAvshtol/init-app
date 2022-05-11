@@ -18,6 +18,7 @@ export function TextField({
   onClickSendButton,
 }: ITextField) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
   useEffect(() => {
     if (textareaRef && textareaRef.current) {
       textareaRef.current.style.height = '0px';
@@ -25,6 +26,7 @@ export function TextField({
       textareaRef.current.style.height = scrollHeight + 'px';
     }
   }, [commentText]);
+
   return (
     <div className="w-full min-h-[52px] my-2 py-3 px-4 w-full rounded shadow font-thin">
       <div className="h-12 flex item-center">

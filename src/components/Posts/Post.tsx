@@ -36,6 +36,7 @@ export function Post(props: IPost) {
     favorited,
   } = props;
   const correctDate = format(new Date(createdAt), 'MMMd');
+
   const onLikeButtonClick = () => {
     if (favorited) {
       dispatch(hasDislike(slug));
@@ -43,6 +44,7 @@ export function Post(props: IPost) {
       dispatch(hasLike(slug));
     }
   };
+
   return (
     <div className="w-full py-6 flex justify-between border-b-[1px]">
       <div className="w-2/3 flex flex-col justify-between">
@@ -72,21 +74,25 @@ export function Post(props: IPost) {
         <div className="pt-2 flex justify-between items-start text-xs text-zinc-400">
           <div className="w-full flex">
             <span>{correctDate}</span>
-            <span className="pl-1">·</span>
-            <div className="w-full flex flex-wrap">
-              {tagList.map((tag) => {
-                return <Topic key={nanoid()} topic={tag} />;
-              })}
-            </div>
+            {tagList.length > 0 && (
+              <>
+                <span className="mx-1">·</span>
+                <div className="w-full flex flex-wrap">
+                  {tagList.map((tag) => (
+                    <Topic key={nanoid()} topic={tag} />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
-          <a href="/">
+          <Link to="/">
             <img src={add} className="fill-white w-5 xl:w-6 lg:w-6 md:w-6 sm:w-6" alt="favourite" />
-          </a>
+          </Link>
         </div>
       </div>
-      <a href="/">
+      <Link to="/">
         <img src={lens} alt="post-cover" className="w-24 xl:w-44 lg:w-44 md:w-44 sm:w-40" />
-      </a>
+      </Link>
     </div>
   );
 }

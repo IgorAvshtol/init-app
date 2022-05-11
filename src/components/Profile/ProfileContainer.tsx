@@ -1,12 +1,13 @@
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import { Tabs } from '../Tabs/Tabs';
 import { ITabs } from 'interfaces';
 import { Profile } from './Profile';
 import { Navbar } from '../Article/Navbar';
 import { Sidebar } from './Sidebar';
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { getUserProfile } from '../../store/profile/profileThunk';
+import { getUserProfile } from 'store/profile/profileThunk';
 
 const tabs: ITabs[] = [
   {
@@ -21,9 +22,11 @@ export function ProfileContainer() {
   const { username } = useParams();
   const correctUsername = username?.split('').slice(1, username?.length).join('');
   const { profile } = useAppSelector((state) => state.profile);
+
   useEffect(() => {
     correctUsername && dispatch(getUserProfile(correctUsername));
   }, [dispatch, correctUsername]);
+
   return (
     <article className="flex">
       <div className="w-5/6 m-auto flex xl:w-3/4 lg:4/5 md:w-5/6 sm:w-5/6">

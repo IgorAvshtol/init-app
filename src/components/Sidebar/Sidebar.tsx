@@ -1,21 +1,10 @@
-import { Link } from './Link';
 import { useAppSelector } from 'store/store';
 import { Tags } from '../Tags/Tags';
-
-export const links = [
-  { name: 'Help' },
-  { name: 'Status' },
-  { name: 'Writers' },
-  { name: 'Blog' },
-  { name: 'Careers' },
-  { name: 'Privacy' },
-  { name: 'Terms' },
-  { name: 'About' },
-  { name: 'Knowable' },
-];
+import { Links } from '../Links/Links';
 
 export function Sidebar() {
   const { user } = useAppSelector((state) => state.auth);
+
   return (
     <div
       className={
@@ -27,11 +16,9 @@ export function Sidebar() {
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
       <div className="w-full pt-4 flex flex-wrap justify-start">
         <Tags />
-        <hr className="w-full mt-2 mb-2" />
+        <hr className={user ? 'w-full mt-2 mb-2 xl:w-5/6' : 'w-full mt-2 mb-2'} />
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
-          {links.map((link) => (
-            <Link key={link.name} link={link.name} />
-          ))}
+          <Links />
         </div>
       </div>
     </div>

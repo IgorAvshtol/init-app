@@ -24,6 +24,7 @@ export function Article(props: IList) {
   const correctDate = formatDistance(new Date(createdAt), new Date(), {
     addSuffix: true,
   });
+
   return (
     <div className="w-full flex flex-col">
       <div className="w-full py-6 flex justify-between border-b-[1px]">
@@ -37,22 +38,22 @@ export function Article(props: IList) {
           </h3>
           <div className="pt-2 flex justify-between items-start text-xs text-zinc-400">
             <div className="w-full flex flex-wrap">
-              {tagList.map((tag) => {
-                return <Topic key={nanoid()} topic={tag} />;
-              })}
+              {tagList.map((tag) => (
+                <Topic key={nanoid()} topic={tag} />
+              ))}
             </div>
-            <a href="/home/iavshtol/web/init-app/public">
+            <div>
               <img
                 src={add}
                 className="fill-white w-5 xl:w-6 lg:w-6 md:w-6 sm:w-6"
                 alt="favourite"
               />
-            </a>
+            </div>
           </div>
         </div>
-        <a href="/home/iavshtol/web/init-app/public">
+        <Link to={`/posts/${slug}`}>
           <img src={lens} alt="post-cover" className="w-24 sm:w-32" />
-        </a>
+        </Link>
       </div>
     </div>
   );

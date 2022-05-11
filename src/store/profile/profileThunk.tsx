@@ -8,3 +8,11 @@ export const getUserProfile = createAsyncThunk(
     return await instance.get(`profiles/${username}`);
   }
 );
+
+export const follow = createAsyncThunk('profile/follow', async (username: string) => {
+  return await instance.post(`profiles/${username}/follow`);
+});
+
+export const unfollow = createAsyncThunk('profile/unfollow', async (username: string) => {
+  return await instance.delete(`profiles/${username}/follow`);
+});

@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
+import { mutate } from 'swr';
 
 import { instance } from 'services/httpService';
 import { errorHandleService } from 'utils/errorHandleService';
 import { setUserFromLocalStorage } from 'services/localStorage/localStorage';
-import { IRegisterData } from 'interfaces';
-import { mutate } from 'swr';
+import { IRegisterData, IUpdateUserData } from 'interfaces';
 
 export const login = createAsyncThunk(
   'auth/login',
@@ -41,10 +41,28 @@ export const registration = createAsyncThunk(
     try {
       const response = await instance.post(`users/`, user);
       await setUserFromLocalStorage(response.data);
+      await mutate('userData', response?.data);
       return response;
     } catch (e) {
       const error = e as AxiosError;
       return rejectWithValue(errorHandleService(error));
+    }
+  }
+);
+
+export const updateUserData = createAsyncThunk(
+  'auth/updateUsername',
+  async (newUserData: IUpdateUserData) => {
+    const updateData = {
+      user: { ...newUserData },
+    };
+    try {
+      const response = await instance.put(`user`, updateData);
+      await setUserFromLocalStorage(response.data);
+      await mutate('userData', response?.data);
+      return response;
+    } catch (e) {
+      console.log(e);
     }
   }
 );

@@ -7,6 +7,7 @@ import { Tag } from './Tag';
 
 export function Tags() {
   const { tags, loading, error } = useAppSelector((state) => state.tags);
+
   return (
     <div className="w-full flex flex-wrap">
       {loading === TypeLoadingStatus.IS_REJECTED ? (

@@ -9,6 +9,7 @@ import { Post } from './Post';
 export function Posts() {
   const { articles, loading } = useAppSelector((state) => state.articles);
   const { user } = useAppSelector((state) => state.auth);
+
   return (
     <div
       className={
@@ -28,22 +29,20 @@ export function Posts() {
         </div>
       )}
       {loading === TypeLoadingStatus.IS_RESOLVED &&
-        articles.map((post) => {
-          return (
-            <Post
-              key={nanoid()}
-              title={post.title}
-              avatar={post.author.image}
-              description={post.description}
-              author={post.author.username}
-              createdAt={post.createdAt}
-              tagList={post.tagList}
-              slug={post.slug}
-              favorited={post.favorited}
-              favoritesCount={post.favoritesCount}
-            />
-          );
-        })}
+        articles.map((post) => (
+          <Post
+            key={nanoid()}
+            title={post.title}
+            avatar={post.author.image}
+            description={post.description}
+            author={post.author.username}
+            createdAt={post.createdAt}
+            tagList={post.tagList}
+            slug={post.slug}
+            favorited={post.favorited}
+            favoritesCount={post.favoritesCount}
+          />
+        ))}
     </div>
   );
 }

@@ -12,6 +12,7 @@ export const BodyField = forwardRef<HTMLTextAreaElement, BodyFieldProps>((props,
   const onResetButtonHandler = () => {
     reset();
   };
+
   return (
     <div className="relative flex flex-col justify-center items-center">
       <textarea

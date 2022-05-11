@@ -8,6 +8,7 @@ import { Article } from './Article';
 
 export function Articles() {
   const { articlesByTag, loading } = useAppSelector((state) => state.articles);
+
   return (
     <div className="w-full flex flex-col items-center ">
       {loading === TypeLoadingStatus.IS_REJECTED && (
@@ -21,22 +22,20 @@ export function Articles() {
         </div>
       )}
       {loading === TypeLoadingStatus.IS_RESOLVED &&
-        articlesByTag.map((post) => {
-          return (
-            <Article
-              key={nanoid()}
-              title={post.title}
-              avatar={post.author.image}
-              description={post.description}
-              author={post.author.username}
-              createdAt={post.createdAt}
-              tagList={post.tagList}
-              slug={post.slug}
-              favorited={post.favorited}
-              favoritesCount={post.favoritesCount}
-            />
-          );
-        })}
+        articlesByTag.map((post) => (
+          <Article
+            key={nanoid()}
+            title={post.title}
+            avatar={post.author.image}
+            description={post.description}
+            author={post.author.username}
+            createdAt={post.createdAt}
+            tagList={post.tagList}
+            slug={post.slug}
+            favorited={post.favorited}
+            favoritesCount={post.favoritesCount}
+          />
+        ))}
     </div>
   );
 }

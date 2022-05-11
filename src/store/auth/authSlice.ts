@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { login, registration } from './authThunk';
+import { AxiosResponse } from 'axios';
+
+import { login, registration, updateUserData } from './authThunk';
 import { IAuthState, IGetCurrentUser, IUser, TypeLoadingStatus } from 'interfaces';
 import { removeUserFromLocalStorage } from 'services/localStorage/localStorage';
-import { AxiosResponse } from 'axios';
 
 const initialState: IAuthState = {
   user: null,
@@ -63,7 +64,13 @@ export const authReducer = createSlice({
       .addCase(registration.rejected.type, (state, action: PayloadAction<string>) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
         state.error = action.payload;
-      });
+      })
+      .addCase(
+        updateUserData.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IUser>>) => {
+          state.user = action.payload.data;
+        }
+      );
   },
 });
 

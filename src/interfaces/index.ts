@@ -8,6 +8,7 @@ export interface IArticle {
   updatedAt: string;
   favorited: boolean;
   favoritesCount: number;
+  note?: string;
   author: IAuthor;
 }
 
@@ -139,6 +140,15 @@ export interface ITabsState {
 export interface ITabs {
   label: string;
   index: number;
+}
+
+export type IUpdateUserData = {
+  [key: string]: string | File;
+};
+
+export interface IAddNote {
+  slug: string;
+  noteText: string;
 }
 
 export enum TypeLoadingStatus {

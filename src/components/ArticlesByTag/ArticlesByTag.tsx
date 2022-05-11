@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { Tabs } from '../Tabs/Tabs';
 import { ITabs } from 'interfaces';
 import { Navbar } from '../Article/Navbar';
 import { Sidebar } from './Sidebar';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Articles } from './Articles';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getArticlesByTag } from '../../store/articles/articlesThunk';
+import { getArticlesByTag } from 'store/articles/articlesThunk';
 import { Title } from './Title';
 
 const tabs: ITabs[] = [
@@ -21,9 +22,11 @@ export function ArticlesByTag() {
   const { tag } = useParams();
   const { selectedTab } = useAppSelector((state) => state.tabs);
   const { selectedTag } = useAppSelector((state) => state.tags);
+
   useEffect(() => {
     tag && dispatch(getArticlesByTag(tag));
   }, [dispatch, tag]);
+
   return (
     <article className="flex">
       <div className="w-5/6 m-auto flex xl:w-3/4 lg:4/5 md:w-5/6 sm:w-5/6">
