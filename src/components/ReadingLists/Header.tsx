@@ -7,6 +7,7 @@ export function Header() {
   const { user } = useAppSelector((state) => state.auth);
   const { favoriteArticles } = useAppSelector((state) => state.articles);
   const correctDate = format(new Date(), 'MMMd');
+
   return (
     <div className="w-full flex">
       <img src={user?.image || lens} className="w-12 rounded-full" alt="avatar" />

@@ -6,6 +6,7 @@ import { articleReducer } from './articles/articleSlice';
 import { commentsReducer } from './comments/commentsSliсe';
 import { tagsReducer } from './tags/tagsSlice';
 import { profileReducer } from './profile/profileSlice';
+import { tabsReducer } from './tabs/tabsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     comments: commentsReducer.reducer,
     tags: tagsReducer.reducer,
     profile: profileReducer.reducer,
+    tabs: tabsReducer.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -21,6 +23,7 @@ export const store = configureStore({
         ignoredActions: [
           'auth/login/fulfilled',
           'auth/registration/fulfilled',
+          'auth/updateUsername/fulfilled',
           'articles/getArticles/fulfilled',
           'articles/getCurrentArticle/fulfilled',
           'articles/getCurrentUserArticles/fulfilled',
@@ -29,10 +32,13 @@ export const store = configureStore({
           'articles/getFavouriteArticles/fulfilled',
           'articles/like/fulfilled',
           'articles/dislike/fulfilled',
+          'articles/getArticlesByTag/fulfilled',
           'comments/getComments/fulfilled',
           'comments/createComment/fulfilled',
           'tags/getTags/fulfilled',
           'profile/getUserProfile/fulfilled',
+          'profile/follow/fulfilled',
+          'profile/unfollow/fulfilled',
         ],
       },
     }),

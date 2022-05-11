@@ -8,6 +8,7 @@ export function List() {
   const { user } = useAppSelector((state) => state.auth);
   const images = favoriteArticles.articles.map((articles) => articles.author.image);
   const favoriteCount = favoriteArticles.articlesCount;
+
   return (
     <Link
       to={`${user?.username}/list/reading-list`}

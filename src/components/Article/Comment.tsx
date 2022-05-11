@@ -18,9 +18,11 @@ export function Comment({ author, createdAt, body, id }: ICommentProps) {
   const correctDate = formatDistance(new Date(createdAt), new Date(), {
     addSuffix: true,
   });
+
   const onEditButtonHandler = () => {
     setEditMenuIsOpen(true);
   };
+
   return (
     <div className="mt-4 flex-col relative">
       <div className="w-full flex justify-between">

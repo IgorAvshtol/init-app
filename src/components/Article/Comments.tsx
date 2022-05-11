@@ -66,17 +66,15 @@ export function Comments({ setIsOpen }: ICommentsProps) {
             </div>
           )}
           {loading === TypeLoadingStatus.IS_RESOLVED &&
-            comments?.map((comment) => {
-              return (
-                <Comment
-                  key={comment.id}
-                  author={comment.author}
-                  body={comment.body}
-                  createdAt={comment.createdAt}
-                  id={comment.id}
-                />
-              );
-            })}
+            comments?.map((comment) => (
+              <Comment
+                key={comment.id}
+                author={comment.author}
+                body={comment.body}
+                createdAt={comment.createdAt}
+                id={comment.id}
+              />
+            ))}
         </div>
       </div>
     </div>

@@ -22,6 +22,8 @@ import { getCurrentUser } from 'store/auth/authSlice';
 import { IUserData } from 'interfaces';
 import { ReadingLists } from './components/ReadingLists/ReadingLists';
 import { ProfileContainer } from './components/Profile/ProfileContainer';
+import { ArticlesByTag } from './components/ArticlesByTag/ArticlesByTag';
+import { SettingsContainer } from './components/Setting/SettingsContainer';
 
 function App() {
   const { data: currentUser } = useSWR<IUserData>('userData', getUserFromLocalStorage);
@@ -29,6 +31,7 @@ function App() {
   const dispatch = useAppDispatch();
   const [purpose, setPurpose] = useState(false);
   const { pathname } = useLocation();
+
   const listenScrollEvent = () => {
     if (window.scrollY > 350) {
       setPurpose(true);
@@ -36,6 +39,7 @@ function App() {
       setPurpose(false);
     }
   };
+
   useEffect(() => {
     window.addEventListener('scroll', listenScrollEvent);
     return () => window.removeEventListener('scroll', listenScrollEvent);
@@ -65,6 +69,15 @@ function App() {
         <Route path="/posts/:slug" element={<Page />} />
         <Route path="lists/:username/list/reading-list/*" element={<ReadingLists />} />
         <Route path="/profile/:username" element={<ProfileContainer />} />
+        <Route path="/tag/:tag" element={<ArticlesByTag />} />
+        <Route
+          path="/me/*"
+          element={
+            <PrivateRoute>
+              <SettingsContainer />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/new-article"
           element={

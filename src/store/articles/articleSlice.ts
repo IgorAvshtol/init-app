@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 
 import {
+  IAddNote,
   IArticle,
   IArticleData,
   IArticlesState,
@@ -18,11 +19,13 @@ import {
   hasLike,
   updateArticle,
   getCurrentUserArticles,
+  getArticlesByTag,
 } from './articlesThunk';
 
 const initialState: IArticlesState = {
   articles: [],
   currentUserArticles: [],
+  articlesByTag: [],
   favoriteArticles: {
     articles: [],
     articlesCount: 0,
@@ -42,6 +45,14 @@ export const articleReducer = createSlice({
       state.error = '';
       state.loading = TypeLoadingStatus.IS_RESOLVED;
       state.isSuccess = false;
+    },
+    addNote: (state, action: PayloadAction<IAddNote>) => {
+      state.favoriteArticles.articles = state.favoriteArticles.articles.map((article) => {
+        if (article.slug === action.payload.slug) {
+          return { ...article, note: action.payload.noteText };
+        }
+        return article;
+      });
     },
   },
   extraReducers: (builder) => {
@@ -98,6 +109,19 @@ export const articleReducer = createSlice({
         }
       )
       .addCase(getCurrentArticle.rejected, (state) => {
+        state.loading = TypeLoadingStatus.IS_REJECTED;
+      })
+      .addCase(getArticlesByTag.pending, (state) => {
+        state.loading = TypeLoadingStatus.IS_PENDING;
+      })
+      .addCase(
+        getArticlesByTag.fulfilled.type,
+        (state, action: PayloadAction<AxiosResponse<IGetArticles>>) => {
+          state.articlesByTag = action.payload.data.articles;
+          state.loading = TypeLoadingStatus.IS_RESOLVED;
+        }
+      )
+      .addCase(getArticlesByTag.rejected, (state) => {
         state.loading = TypeLoadingStatus.IS_REJECTED;
       })
       .addCase(addArticle.pending, (state) => {
@@ -187,4 +211,4 @@ export const articleReducer = createSlice({
   },
 });
 
-export const { closeModal } = articleReducer.actions;
+export const { closeModal, addNote } = articleReducer.actions;

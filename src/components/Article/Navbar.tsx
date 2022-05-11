@@ -31,12 +31,12 @@ export function Navbar() {
       >
         {user && <img className="w-9" src={logo} alt="logo" />}
         <div className="flex items-center justify-between xl:w-full xl:flex xl:flex-col lg:w-full lg:flex lg:flex-col md:flex md:justify-between sm:flex sm:justify-between">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="relative hover:after:content-['Home'] after:w-24 after:text-center after:rounded-lg after:bg-emerald-100 after:absolute after:bottom-10 after:left-2 lg:after:left-8 lg:after:bottom-0 md:after:bottom-12 md:after:left-2 sm:after:bottom-10 sm:after:left-2"
           >
             <img className="w-9" src={home} alt="home" />
-          </a>
+          </Link>
           <Link
             to="/lists"
             className="relative hover:after:content-['Lists'] after:w-24 after:text-center after:rounded-lg after:bg-emerald-100 after:absolute after:bottom-10 after:left-2 lg:after:left-8 lg:after:bottom-0 md:after:bottom-12 md:after:left-2 sm:after:bottom-10 sm:after:left-2"
