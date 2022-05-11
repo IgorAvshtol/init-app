@@ -1,5 +1,5 @@
-import comments from '../../image/comments.png';
-import clap from '../../image/clap.svg';
+import comments from 'image/comments.png';
+import clap from 'image/clap.svg';
 
 interface IResponse {
   setIsOpen: (value: boolean) => void;

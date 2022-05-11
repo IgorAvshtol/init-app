@@ -39,9 +39,9 @@ export function List(props: IList) {
           </h3>
           <div className="pt-2 flex justify-between items-start text-xs text-zinc-400">
             <div className="w-full flex flex-wrap mr-0">
-              {tagList.map((tag) => {
-                return <Topic key={nanoid()} topic={tag} />;
-              })}
+              {tagList.map((tag) => (
+                <Topic key={nanoid()} topic={tag} />
+              ))}
             </div>
             <img src={add} className="fill-white w-5 xl:w-6 lg:w-6 md:w-6 sm:w-6" alt="favourite" />
           </div>

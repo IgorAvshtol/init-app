@@ -32,18 +32,16 @@ export function Profile() {
         </div>
       )}
       {loading === TypeLoadingStatus.IS_RESOLVED &&
-        currentUserArticles.map((post) => {
-          return (
-            <Publication
-              key={nanoid()}
-              title={post.title}
-              description={post.description}
-              createdAt={post.createdAt}
-              tagList={post.tagList}
-              slug={post.slug}
-            />
-          );
-        })}
+        currentUserArticles.map((post) => (
+          <Publication
+            key={nanoid()}
+            title={post.title}
+            description={post.description}
+            createdAt={post.createdAt}
+            tagList={post.tagList}
+            slug={post.slug}
+          />
+        ))}
     </div>
   );
 }

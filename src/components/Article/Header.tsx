@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { format } from 'date-fns';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import add from 'image/add.svg';
 import edit from 'image/edit.png';
@@ -52,17 +52,15 @@ export function Header({
               <>
                 <span className="pl-1">·</span>
                 <div className="w-full flex flex-wrap text-zinc-400">
-                  {tagList.map((tag) => {
-                    return (
-                      <a
-                        href="/"
-                        key={nanoid()}
-                        className="mb-1 ml-1 px-2 bg-zinc-200 te text-sm text-center rounded-full border-black flex justify-center xl:text-base lg:text-base md:text-base sm:text-sm"
-                      >
-                        {tag}
-                      </a>
-                    );
-                  })}
+                  {tagList.map((tag) => (
+                    <Link
+                      to="/"
+                      key={nanoid()}
+                      className="mb-1 ml-1 px-2 bg-zinc-200 te text-sm text-center rounded-full border-black flex justify-center xl:text-base lg:text-base md:text-base sm:text-sm"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
                 </div>
               </>
             )}
@@ -82,13 +80,13 @@ export function Header({
             <button>
               <img className="w-6 pt-2" src={add} alt="add-to-favourite" />
             </button>
-            <NavLink to={`/update-${slug}`}>
+            <Link to={`/update-${slug}`}>
               <img
                 className="w-6 pt-2 xl:ml-2 lg:ml-2 md:ml-2 sm:ml-1"
                 src={edit}
                 alt="edit-this-article"
               />
-            </NavLink>
+            </Link>
           </div>
         )}
       </div>

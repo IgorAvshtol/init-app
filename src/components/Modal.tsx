@@ -1,6 +1,6 @@
 import React, { Fragment, ReactNode, useRef } from 'react';
-
 import { Dialog, Transition } from '@headlessui/react';
+
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { entryIsSuccess, isSignInModalOpen, isSignUpModalOpen } from 'store/auth/authSlice';
 

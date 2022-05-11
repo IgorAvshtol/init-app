@@ -25,23 +25,21 @@ export function Lists() {
         </div>
       )}
       {loading === TypeLoadingStatus.IS_RESOLVED &&
-        favoriteArticles.articles.map((post) => {
-          return (
-            <List
-              key={nanoid()}
-              title={post.title}
-              avatar={post.author.image}
-              description={post.description}
-              author={post.author.username}
-              createdAt={post.createdAt}
-              tagList={post.tagList}
-              slug={post.slug}
-              favorited={post.favorited}
-              favoritesCount={post.favoritesCount}
-              note={post.note}
-            />
-          );
-        })}
+        favoriteArticles.articles.map((post) => (
+          <List
+            key={nanoid()}
+            title={post.title}
+            avatar={post.author.image}
+            description={post.description}
+            author={post.author.username}
+            createdAt={post.createdAt}
+            tagList={post.tagList}
+            slug={post.slug}
+            favorited={post.favorited}
+            favoritesCount={post.favoritesCount}
+            note={post.note}
+          />
+        ))}
     </div>
   );
 }

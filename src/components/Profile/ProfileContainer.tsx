@@ -1,12 +1,13 @@
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import { Tabs } from '../Tabs/Tabs';
 import { ITabs } from 'interfaces';
 import { Profile } from './Profile';
 import { Navbar } from '../Article/Navbar';
 import { Sidebar } from './Sidebar';
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { getUserProfile } from '../../store/profile/profileThunk';
+import { getUserProfile } from 'store/profile/profileThunk';
 
 const tabs: ITabs[] = [
   {

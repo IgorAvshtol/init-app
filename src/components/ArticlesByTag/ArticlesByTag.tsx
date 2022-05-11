@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { Tabs } from '../Tabs/Tabs';
 import { ITabs } from 'interfaces';
 import { Navbar } from '../Article/Navbar';
 import { Sidebar } from './Sidebar';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { Articles } from './Articles';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getArticlesByTag } from '../../store/articles/articlesThunk';
+import { getArticlesByTag } from 'store/articles/articlesThunk';
 import { Title } from './Title';
 
 const tabs: ITabs[] = [

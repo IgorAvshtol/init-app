@@ -1,5 +1,5 @@
 import bookmark from 'image/bookmark.png';
-import { useAppSelector } from '../../store/store';
+import { useAppSelector } from 'store/store';
 
 interface IHeader {
   title: string;
