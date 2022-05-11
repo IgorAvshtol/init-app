@@ -8,6 +8,9 @@ export function MyPosts() {
 
   return (
     <div className="w-full flex flex-col items-center">
+      {currentUserArticles.length === 0 && (
+        <span className="mt-12">You don&apos;t have any posts yet.</span>
+      )}
       {currentUserArticles.map((post) => (
         <Post
           key={nanoid()}
