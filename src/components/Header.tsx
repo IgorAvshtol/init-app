@@ -1,15 +1,25 @@
-import logo from 'image/logo.png';
+import { Link } from 'react-router-dom';
 
-import { useAuth } from 'hooks/useProvideAuth';
+import logo from 'image/logo.png';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { isSignInModalOpen, isSignUpModalOpen } from '../store/auth/authSlice';
 
 interface IHeader {
-  onSignInBtnClick: () => void;
-  onSignUpBtnClick: () => void;
   purpose: boolean;
 }
 
-export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader) {
-  const { user } = useAuth();
+export function Header({ purpose }: IHeader) {
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
+
+  const onSignInBtnClick = () => {
+    dispatch(isSignInModalOpen());
+  };
+
+  const onSignUpBtnClick = () => {
+    dispatch(isSignUpModalOpen());
+  };
+
   return (
     <header
       className={
@@ -22,9 +32,9 @@ export function Header({ onSignInBtnClick, onSignUpBtnClick, purpose }: IHeader)
     >
       <div className="w-3/4 mt-2 flex-col justify-between items-center xl:w-3/5 lg:w-5/6 md:w-5/6 sm:w-5/6 z-10">
         <div className="w-full flex justify-between items-center relative">
-          <a href="/" className="w-8">
+          <Link to="/" className="w-8">
             <img src={logo} alt="main-logo" />
-          </a>
+          </Link>
           <div className="w-36 flex justify-between items-center">
             <div className="w-full flex justify-between items-center">
               <button

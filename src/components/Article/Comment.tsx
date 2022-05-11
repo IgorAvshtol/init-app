@@ -1,29 +1,28 @@
 import { formatDistance } from 'date-fns';
-import { AxiosResponse } from 'axios';
 import { useState } from 'react';
 
 import { IAuthor } from 'interfaces';
 import { EditMenu } from './EditMenu';
-import { useAuth } from 'hooks/useProvideAuth';
+import { useAppSelector } from 'store/store';
 
 interface ICommentProps {
   createdAt: string;
   body: string;
   author: IAuthor;
   id: number;
-  deleteComment: (url: string) => Promise<AxiosResponse | string>;
 }
 
 export function Comment({ author, createdAt, body, id }: ICommentProps) {
-  const { user } = useAuth();
-  const currentUser = user?.user.username;
+  const { user } = useAppSelector((state) => state.auth);
   const [editMenuIsOpen, setEditMenuIsOpen] = useState<boolean>(false);
   const correctDate = formatDistance(new Date(createdAt), new Date(), {
     addSuffix: true,
   });
+
   const onEditButtonHandler = () => {
     setEditMenuIsOpen(true);
   };
+
   return (
     <div className="mt-4 flex-col relative">
       <div className="w-full flex justify-between">
@@ -34,7 +33,7 @@ export function Comment({ author, createdAt, body, id }: ICommentProps) {
             <p className="text-sm text-zinc-400">{correctDate}</p>
           </div>
         </div>
-        {currentUser === author.username && (
+        {user?.username === author?.username && (
           <>
             <button className="font-normal" onClick={onEditButtonHandler}>
               ···

@@ -1,16 +1,14 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from 'hooks/useProvideAuth';
+import { getUserFromLocalStorage } from 'services/localStorage/localStorage';
 
 type PropsType = {
   children: JSX.Element;
 };
 
 export function PrivateRoute({ children }: PropsType) {
-  const { user } = useAuth();
-
-  if (!user?.user.username) {
+  const currentUser = getUserFromLocalStorage();
+  if (!currentUser) {
     return <Navigate to="/" />;
   }
-
   return children;
 }

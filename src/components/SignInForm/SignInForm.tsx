@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FieldError, useForm } from 'react-hook-form';
+
 import spinner from 'image/spinner.gif';
-
-import { useAuth } from 'hooks/useProvideAuth';
-
 import { Input } from '../Input/Input';
-
-interface ISignInForm {
-  onSignIn: () => void;
-}
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { login } from 'store/auth/authThunk';
+import { TypeLoadingStatus } from 'interfaces';
 
 export interface ISignInData {
   email: string;
@@ -20,22 +17,18 @@ export interface IErrorData {
   password?: FieldError | undefined;
 }
 
-export function SignInForm({ onSignIn }: ISignInForm) {
-  const { user, signin, loading } = useAuth();
-  useEffect(() => {
-    if (user) {
-      onSignIn();
-    }
-  }, [user, onSignIn]);
+export function SignInForm() {
+  const dispatch = useAppDispatch();
+  const { loading } = useAppSelector((state) => state.auth);
   const onSubmitHandler = (data: ISignInData) => {
-    signin(data);
+    dispatch(login(data));
   };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignInData>({ defaultValues: { email: '', password: '' } });
-  const login = (data: ISignInData) => onSubmitHandler(data);
+  const onSubmit = (data: ISignInData) => onSubmitHandler(data);
   const handleError = (data: IErrorData) => {
     console.log(data);
   };
@@ -43,7 +36,7 @@ export function SignInForm({ onSignIn }: ISignInForm) {
   return (
     <form
       className="flex flex-col justify-between items-center"
-      onSubmit={handleSubmit(login, handleError)}
+      onSubmit={handleSubmit(onSubmit, handleError)}
     >
       <div className="flex flex-col justify-center items-center">
         <Input
@@ -64,13 +57,10 @@ export function SignInForm({ onSignIn }: ISignInForm) {
           errors={errors?.password?.message ?? null}
         />
       </div>
-      {loading ? (
+      {loading === TypeLoadingStatus.IS_PENDING ? (
         <img src={spinner} alt="spinner" />
       ) : (
-        <button
-          disabled={loading}
-          className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        >
+        <button className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">
           Submit
         </button>
       )}

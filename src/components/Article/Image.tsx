@@ -6,12 +6,15 @@ import lens from 'image/lens.webp';
 export function Image() {
   const initRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+
   const zoomOut = () => {
     setIsOpen(false);
   };
+
   const zoomIn = () => {
     setIsOpen(true);
   };
+
   return (
     <>
       <div className="inset-0 mt-4 flex items-center justify-center">

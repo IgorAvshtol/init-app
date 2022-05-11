@@ -1,17 +1,17 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
 
 import { SignInForm } from './SignInForm';
-import { ProvideAuth } from 'hooks/useProvideAuth';
+import { store } from 'store/store';
 
 describe('SignInForm test', () => {
-  const mock = jest.fn();
   it('email is required', async () => {
     render(
-      <ProvideAuth>
-        <SignInForm onSignIn={mock} />{' '}
-      </ProvideAuth>
+      <Provider store={store}>
+        <SignInForm />
+      </Provider>
     );
     const emailField = screen.getByRole('textbox', { name: /email/i });
 
@@ -32,9 +32,9 @@ describe('SignInForm test', () => {
   });
   it('password is required', async () => {
     render(
-      <ProvideAuth>
-        <SignInForm onSignIn={mock} />{' '}
-      </ProvideAuth>
+      <Provider store={store}>
+        <SignInForm />
+      </Provider>
     );
     const passwordField = screen.getByText(/password/i);
 

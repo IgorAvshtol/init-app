@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FieldError, useForm } from 'react-hook-form';
-
-import { useAuth } from 'hooks/useProvideAuth';
 
 import { Input } from '../Input/Input';
 import spinner from 'image/spinner.gif';
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { registration } from 'store/auth/authThunk';
+import { TypeLoadingStatus } from 'interfaces';
 
 export interface ISignUpData {
   name: string;
@@ -12,40 +13,30 @@ export interface ISignUpData {
   password: string;
 }
 
-interface ISignUpForm {
-  onSignUp: () => void;
-}
-
 export interface IErrorData {
   email?: FieldError | undefined;
   password?: FieldError | undefined;
 }
 
-export function SignUpForm({ onSignUp }: ISignUpForm) {
-  const { user, signup, loading } = useAuth();
-  useEffect(() => {
-    if (user) {
-      onSignUp();
-    }
-  }, [user, onSignUp]);
-
+export function SignUpForm() {
+  const dispatch = useAppDispatch();
+  const { loading } = useAppSelector((state) => state.auth);
   const onSubmitHandler = (data: ISignUpData) => {
-    signup(data);
+    dispatch(registration(data));
   };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignUpData>({ defaultValues: { name: '', email: '', password: '' } });
-  const registration = (data: ISignUpData) => onSubmitHandler(data);
+  const onSubmit = (data: ISignUpData) => onSubmitHandler(data);
   const handleError = (data: IErrorData) => {
     console.log(data);
   };
   return (
     <form
       className="flex flex-col justify-between items-center"
-      onSubmit={handleSubmit(registration, handleError)}
+      onSubmit={handleSubmit(onSubmit, handleError)}
     >
       <div className="flex flex-col justify-center items-center">
         <Input
@@ -75,13 +66,10 @@ export function SignUpForm({ onSignUp }: ISignUpForm) {
           errors={errors?.password?.message ?? null}
         />
       </div>
-      {loading ? (
+      {loading === TypeLoadingStatus.IS_PENDING ? (
         <img src={spinner} alt="spinner" />
       ) : (
-        <button
-          disabled={loading}
-          className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        >
+        <button className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">
           Submit
         </button>
       )}

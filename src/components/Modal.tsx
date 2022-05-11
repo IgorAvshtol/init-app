@@ -1,23 +1,26 @@
-import { Fragment, useRef } from 'react';
-
+import React, { Fragment, ReactNode, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { useAuth } from 'hooks/useProvideAuth';
+
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { entryIsSuccess, isSignInModalOpen, isSignUpModalOpen } from 'store/auth/authSlice';
 
 interface IModal {
-  onClose: () => void;
-  isOpen: boolean;
-  children: JSX.Element;
+  children: ReactNode;
 }
 
-export function Modal({ isOpen, onClose, children }: IModal) {
-  const { error, setError } = useAuth();
+export function Modal({ children }: IModal) {
+  const { error, signInModalOpen, signUpModalOpen } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const initRef = useRef(null);
+
   const onCloseModal = () => {
-    onClose();
-    setError('');
+    signInModalOpen && dispatch(isSignInModalOpen());
+    signUpModalOpen && dispatch(isSignUpModalOpen());
+    dispatch(entryIsSuccess());
   };
+
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={signInModalOpen ? signInModalOpen : signUpModalOpen} as={Fragment}>
       <Dialog
         initialFocus={initRef}
         as="div"

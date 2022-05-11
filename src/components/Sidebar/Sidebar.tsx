@@ -1,47 +1,24 @@
-import { nanoid } from 'nanoid';
-
-import spinner from 'image/spinner.gif';
-
-import { Tag } from './Tag';
-import { Link } from './Link';
-import { ITags, TypeLoadingStatus } from 'interfaces';
-import { useTags } from 'hooks/useTags';
-
-export const links = [
-  { id: 1, name: 'Help' },
-  { id: 2, name: 'Status' },
-  { id: 3, name: 'Writers' },
-  { id: 4, name: 'Blog' },
-  { id: 5, name: 'Careers' },
-  { id: 6, name: 'Privacy' },
-  { id: 7, name: 'Terms' },
-  { id: 8, name: 'About' },
-  { id: 9, name: 'Knowable' },
-];
+import { useAppSelector } from 'store/store';
+import { Tags } from '../Tags/Tags';
+import { Links } from '../Links/Links';
 
 export function Sidebar() {
-  const { data, isLoading, isError } = useTags<ITags>('/tags');
+  const { user } = useAppSelector((state) => state.auth);
+
   return (
-    <div className="xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-4 sm:mt-4 sm:w-full sm:static w-full flex flex-col">
+    <div
+      className={
+        !user
+          ? 'static w-full flex flex-col xl:w-1/5 xl:sticky xl:top-[55px] xl:mt-6 lg:w-1/5 lg:sticky lg:h-full lg:top-[55px] lg:mt-6 md:w-full md:static sm:w-full sm:static'
+          : 'xl:right-[5%] lg:right-[2%] xl:w-1/5 lg:w-1/5 lg:fixed md:w-full md:static md:mt-6 sm:mt-4 sm:w-full sm:static w-full flex flex-col'
+      }
+    >
       <p className="text-xs font-bold">DISCOVER MORE OF WHAT MATTERS TO YOU</p>
       <div className="w-full pt-4 flex flex-wrap justify-start">
-        {isError && isLoading === TypeLoadingStatus.IS_REJECTED ? (
-          <div className="w-full flex justify-center items-center">
-            <p className="text-sm">Sorry, tag field is not available now!</p>
-          </div>
-        ) : isLoading === TypeLoadingStatus.IS_PENDING ? (
-          <div className="w-full h-full flex justify-center items-center">
-            <img src={spinner} width={20} height={20} alt="spinner" />
-          </div>
-        ) : (
-          isLoading === TypeLoadingStatus.IS_RESOLVED &&
-          data?.tags.map((tag) => <Tag key={nanoid()} tag={tag} />)
-        )}
-        <hr className="w-full mt-2 mb-2" />
+        <Tags />
+        <hr className={user ? 'w-full mt-2 mb-2 xl:w-5/6' : 'w-full mt-2 mb-2'} />
         <div className="lg:flex lg:flex-wrap md:hidden sm:hidden hidden">
-          {links.map((link) => (
-            <Link key={link.id} link={link.name} />
-          ))}
+          <Links />
         </div>
       </div>
     </div>

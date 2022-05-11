@@ -1,15 +1,14 @@
 import { FieldValues, useFieldArray, useForm } from 'react-hook-form';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Input } from '../../Input/Input';
 import { Header } from './Header';
-import { useArticles } from 'hooks/useArticles';
-import { IArticle } from 'interfaces';
 import { BodyField } from './BodyField';
-
-interface IAddArticle {
-  article: INewArticleData;
-}
+import { useAppDispatch, useAppSelector } from 'store/store';
+import { addArticle, updateArticle } from 'store/articles/articlesThunk';
+import { DeleteButton } from './DeleteButton';
+import { Popup } from './Popup';
 
 type INewArticleData = FieldValues & {
   title: string;
@@ -19,18 +18,32 @@ type INewArticleData = FieldValues & {
 };
 
 export function Form() {
-  const { addArticle } = useArticles<IArticle>();
-
-  const onSubmitButtonHandler = async (data: INewArticleData) => {
-    await addArticle<IAddArticle>(`articles`, { article: data });
+  const { slug } = useParams<string>();
+  const dispatch = useAppDispatch();
+  const { currentArticle } = useAppSelector((state) => state.articles);
+  const onSubmitButtonHandler = (data: INewArticleData) => {
+    if (slug) {
+      dispatch(updateArticle({ slug, ...data }));
+    } else {
+      dispatch(addArticle(data));
+    }
   };
   const {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<INewArticleData>({ mode: 'all' });
-  const registration = (data: INewArticleData) => onSubmitButtonHandler(data);
+  } = useForm<INewArticleData>({
+    mode: 'all',
+    defaultValues: {
+      title: slug && currentArticle?.title,
+      description: slug && currentArticle?.description,
+      body: slug && currentArticle?.body,
+      tagList: slug ? currentArticle?.tagList : [],
+    },
+  });
+  const submit = (data: INewArticleData) => onSubmitButtonHandler(data);
   const { fields, append, remove } = useFieldArray<INewArticleData>({
     control,
     name: 'tagList',
@@ -45,11 +58,9 @@ export function Form() {
   };
 
   return (
-    <form
-      className="flex flex-col justify-center items-center"
-      onSubmit={handleSubmit(registration)}
-    >
+    <form className="flex flex-col justify-center items-center" onSubmit={handleSubmit(submit)}>
       <Header />
+      <Popup />
       <div className="relative w-2/3 mt-6 flex flex-col">
         <Input
           placeholder="Title..."
@@ -69,6 +80,7 @@ export function Form() {
         />
         <BodyField
           {...register('body', { required: 'Body is required' })}
+          reset={() => reset({ body: '' })}
           errors={errors?.body?.message ?? null}
         />
         {fields.map((field, index) => (
@@ -94,8 +106,9 @@ export function Form() {
         </div>
       </div>
       <button className="mt-5 bg-emerald-300 hover:bg-gray-100 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-        Submit
+        {slug ? 'Update' : 'Submit'}
       </button>
+      {slug && <DeleteButton />}
     </form>
   );
 }
