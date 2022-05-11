@@ -1,13 +1,13 @@
 import { nanoid } from 'nanoid';
 import { format } from 'date-fns';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import add from 'image/add.svg';
 import edit from 'image/edit.png';
 import like from 'image/like.png';
 import dislike from 'image/dislike.png';
 import { useAppDispatch, useAppSelector } from 'store/store';
-import { hasDislike, hasLike } from '../../store/articles/articlesThunk';
+import { hasDislike, hasLike } from 'store/articles/articlesThunk';
 
 interface IArticleHeader {
   slug: string;
@@ -31,6 +31,7 @@ export function Header({
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
   const correctDate = format(new Date(createdAt), 'MMMd');
+
   const onLikeButtonClick = () => {
     if (favorited) {
       dispatch(hasDislike(slug));
@@ -38,6 +39,7 @@ export function Header({
       dispatch(hasLike(slug));
     }
   };
+
   return (
     <div className="w-full flex justify-between items-start xl:items-center lg:items-center md:items-center">
       <div className="w-2/3 flex items-start">
@@ -46,20 +48,22 @@ export function Header({
           <p className="font-medium text-lg">{author}</p>
           <div className="w-full flex xl:pt-2 lg:pt-2 md:pt-2">
             <span className="text-sm xl:text-base lg:text-base md:text-base">{correctDate}</span>
-            <span className="pl-1">·</span>
-            <div className="w-full flex flex-wrap text-zinc-400">
-              {tagList.map((tag) => {
-                return (
-                  <a
-                    href="/"
-                    key={nanoid()}
-                    className="mb-1 ml-1 px-2 bg-zinc-200 te text-sm text-center rounded-full border-black flex justify-center xl:text-base lg:text-base md:text-base sm:text-sm"
-                  >
-                    {tag}
-                  </a>
-                );
-              })}
-            </div>
+            {tagList.length > 0 && (
+              <>
+                <span className="pl-1">·</span>
+                <div className="w-full flex flex-wrap text-zinc-400">
+                  {tagList.map((tag) => (
+                    <Link
+                      to="/"
+                      key={nanoid()}
+                      className="mb-1 ml-1 px-2 bg-zinc-200 te text-sm text-center rounded-full border-black flex justify-center xl:text-base lg:text-base md:text-base sm:text-sm"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -76,13 +80,13 @@ export function Header({
             <button>
               <img className="w-6 pt-2" src={add} alt="add-to-favourite" />
             </button>
-            <NavLink to={`/update-${slug}`}>
+            <Link to={`/update-${slug}`}>
               <img
                 className="w-6 pt-2 xl:ml-2 lg:ml-2 md:ml-2 sm:ml-1"
                 src={edit}
                 alt="edit-this-article"
               />
-            </NavLink>
+            </Link>
           </div>
         )}
       </div>

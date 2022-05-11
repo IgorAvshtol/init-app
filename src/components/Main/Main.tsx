@@ -10,6 +10,7 @@ import { ListsContainer } from '../Lists/ListsContainer';
 
 export function Main() {
   const { user } = useAppSelector((state) => state.auth);
+
   return (
     <main className="flex-col justify-between">
       {!user ? (

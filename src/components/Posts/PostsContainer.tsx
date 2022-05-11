@@ -22,6 +22,7 @@ const tabs: ITabs[] = [
 export function PostsContainer() {
   const { loading } = useAppSelector((state) => state.articles);
   const { selectedTab } = useAppSelector((state) => state.tabs);
+
   return (
     <div className="w-full flex flex-col items-center xl:w-2/3 lg:w-3/4 md:w-full sm:w-full">
       <Tabs tabs={tabs} selectedTab={selectedTab} />

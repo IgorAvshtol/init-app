@@ -13,9 +13,11 @@ interface ITabs {
 
 export function Tabs({ tabs, selectedTab }: ITabs) {
   const dispatch = useAppDispatch();
+
   const onTabClickHandler = (index: number) => {
     dispatch(changeTab(index));
   };
+
   return (
     <>
       <div className="mt-4 relative w-full">

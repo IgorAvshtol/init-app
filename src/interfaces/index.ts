@@ -8,6 +8,7 @@ export interface IArticle {
   updatedAt: string;
   favorited: boolean;
   favoritesCount: number;
+  note?: string;
   author: IAuthor;
 }
 
@@ -45,7 +46,7 @@ export interface IAuthState {
 }
 
 export interface IProfileState {
-  profile: IAuthor | null;
+  profile: IAuthor;
   loading: TypeLoadingStatus;
 }
 
@@ -96,6 +97,7 @@ export interface IUpdateArticle {
 export interface IArticlesState {
   articles: IArticle[];
   currentUserArticles: IArticle[];
+  articlesByTag: IArticle[];
   favoriteArticles: IGetArticles;
   currentArticle: IArticle | null;
   articlesCount: number;
@@ -126,6 +128,7 @@ export interface ICommentsState {
 
 export interface ITagsState {
   tags: string[];
+  selectedTag: string;
   loading: TypeLoadingStatus;
   error: string;
 }
@@ -137,6 +140,15 @@ export interface ITabsState {
 export interface ITabs {
   label: string;
   index: number;
+}
+
+export type IUpdateUserData = {
+  [key: string]: string | File;
+};
+
+export interface IAddNote {
+  slug: string;
+  noteText: string;
 }
 
 export enum TypeLoadingStatus {
